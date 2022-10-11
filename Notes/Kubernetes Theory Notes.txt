@@ -20,6 +20,7 @@ Due to the support for a bunch of hypervisors it can be used on all of the major
 + Very user friendly for starters
 + Includes built in dashboard
 + Most common distribution used in online examples and guides
++ Minikube is better recommended for network work - https://www.digihunch.com/2021/09/single-node-kubernetes-cluster-minikube/
 - Takes the longest to set up clusters and launch
 - Longer install process
 
@@ -28,6 +29,7 @@ KinD:
 
 + Faster than minikube
 + Better cli features if you know what you are doing
++ Way easier to install than minikube
 - Not that many examples and guides on it 
 - No Dashboard limited to command line
 
@@ -35,4 +37,4 @@ K3s:
 "K3s is a minified version of Kubernetes"
 It occupies less space and potentially runs best as all legacy and redundant stuff has been removed. However it is probs the most complicated one to use.
 Requires additional external container set up. Lots of boilerplates files created over your workspace, hard to keep a clean setup.
-Not sure if it is a good idea to use this.
+Not a good idea to use this.
