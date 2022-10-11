@@ -1,0 +1,38 @@
+A Kubernetes cluster is a collection of physical/virtual machines (nodes) that run containerized applications. 
+A cluster is made up of 1 parent node that manages the cluster, and multiple worker nodes (pods) that run the actual application instances inside Kubernetes.
+
+A pod represents a single running process that encapsulates a container (or many closely coupled containers). 
+Pods can be replicated to scale applications and handle more traffic. From the perspective of a cluster, a set of replicated pods is still one application instance. 
+
+A pod (or replicated pods) is managed by a controller. Controllers handle replication, self-healing, rollout of updates, and general management of pods.
+Service objects define a set of rules by which a pod (or set of replicated pods) can be accessed.
+
+
+Kubernetes Distributions
+-----------------------------------------------
+https://shipit.dev/posts/minikube-vs-kind-vs-k3s.html
+There are many different ways to use Kubernetes, Kubernetes In Docker (KinD), minikube and k3s.
+
+Minikube:
+"Minikube is a Kubernetes SIGs project. It takes the approach of spawning a VM that is essentially a single node K8s cluster. 
+Due to the support for a bunch of hypervisors it can be used on all of the major operating systems. This also allows you to create multiple instances in parallel."
+
++ Very user friendly for starters
++ Includes built in dashboard
++ Most common distribution used in online examples and guides
+- Takes the longest to set up clusters and launch
+- Longer install process
+
+KinD:
+"Kind is another Kubernetes SIGs project but is quite different compared to minikube. As the name suggests it moves the cluster into Docker containers. This leads to a significantly faster startup speed compared to spawning VM."
+
++ Faster than minikube
++ Better cli features if you know what you are doing
+- Not that many examples and guides on it 
+- No Dashboard limited to command line
+
+K3s:
+"K3s is a minified version of Kubernetes"
+It occupies less space and potentially runs best as all legacy and redundant stuff has been removed. However it is probs the most complicated one to use.
+Requires additional external container set up. Lots of boilerplates files created over your workspace, hard to keep a clean setup.
+Not sure if it is a good idea to use this.

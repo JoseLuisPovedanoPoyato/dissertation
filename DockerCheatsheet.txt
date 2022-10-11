@@ -1,11 +1,22 @@
-Docker cheatsheet:
+LAUNCH ON DOCKER CONTAINER
+------------------------------------------------------
 docker stop $CONTAINER
 docker rm $CONTAINER
 docker rmi $IMAGE_NAME:IMAGE_VERSION
 docker build -t $IMAGE_NAME:IMAGE_VERSION .
 docker run -p $INTERNAL_PORT:$EXTERNAL_PORT --name $IMAGE_NAME $IMAGE_NAME:IMAGE_VERSION
 
-To Launch Receiver
+To Launch Sender on Docker
+-----------------------------
+cd .\MicroServiceSender\
+docker stop MicroSender
+docker rm MicroSender
+docker rmi microsender:1.0
+docker build -t microsender:1.0 .
+docker run -p 5000:5000 --name MicroSender microsender:1.0
+
+
+To Launch Receiver on Docker
 -----------------------------
 cd .\MicroServiceReceiver\
 docker stop MicroReceiver
@@ -14,11 +25,22 @@ docker rmi microreceiver:1.0
 docker build -t microreceiver:1.0 .
 docker run -p 8000:8000 --name MicroReceiver microreceiver:1.0
 
-To Launch Sender
------------------------------
-cd .\MicroServiceSender\
-docker stop MicroSender
-docker rm MicroSender
-docker rmi microsender:1.0
-docker build -t microsender:1.0 .
-docker run -p 5000:5000 --name MicroSender microsender:1.0
+
+
+LAUNCH ON KUBERNETES CLUSTER
+----------------------------------------------
+kubectl create -f $MANIFEST.yml
+kubectl describe pods/$POD_NAME
+
+kubectl get pods
+kubectl get pods/$POD_NAME
+kubectl describe pods/$POD_NAME
+kubectl get services
+
+To Launch receiver on kubernetes
+----------------------------------------------
+cd .\MicroServiceReceiver\
+kubectl delete pods/micro-receiver
+kubectl delete services/micro-receiver-service
+kubectl create -f kube_manifest.yml
+kubectl describe pods/micro-receiver
