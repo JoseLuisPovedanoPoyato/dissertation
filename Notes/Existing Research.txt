@@ -1,0 +1,49 @@
+Benchmark by team at kinvolk (2019) - https://kinvolk.io/blog/2019/05/performance-benchmark-analysis-of-istio-and-linkerd/ 
+--------------------------------------------
+Kinvolk created a benchmark tool for users to compare Linkerd and Istio.
+
+This tool sets up a cluster with 5 workers.
+4 of the nodes host an application node.
+The final node holds a load generator, which will send HTTP requests to the other services to interact with them.
+
+They chose a specific app to run the service mesh on and compare, they chose "Emojivoto", an app developed by Linkerd but that works fine without a service mesh
+Emojivoto is composed of 3 services
+	- web-svc -> Load Balancer
+	- emoji-svc -> Back-end Service
+	- voting-svc -> Back-end Service
+Currently I don't understand Kubernetes well enough to know if each of this would go to one Worker Node, and there is a spare node OR if multiple go to one Node.
+(Diagram a bit below makes it seem like every entire application (3 services + Back-end) get deployed to one Node, and that they test with 4 app deployments)
+
+Given that a service mesh is composed of multiple applications, the benchmark lets you configure how many times you want to deploy the app above and will spread requests over its urls to test it.
+
+They run their data centers of a public cloud provider (Packet), therefore they cannot choose the machine they run on, their proximity to each other, their physical connections
+They rerun experiment twice to offset bad quality hardware, and simultaneously run it on multiple clusters.
+They reuse the clusters for each service mesh so they use the same hardware.
+
+They benchmarked "bare", "istio stock" (Default istio off the rack), "istio tuned (Removed some performance blockers Istio has to reduce their usage)" and "Linkerd"
+
+They deployed 30 apps of Emojivoto -> 90 Microservices -> 22 Microservices per application node
+
+They try tried to pile up the requests to simulate a user stampede, by running the benchmark for 30 minutes.
+They are interested in performance on the worst case scenarios so focused on 99.5 percentile of results.
+This is because worst case when WebApp depends on multiple different requests to other MicroServices we are bottlenecked to slowest request.
+
+They run 2 benchmarks, 500rps over 30 mins and 600rps over 30 mins
+
+Linkerd performed better than Istio, consumed less resources and had lower latency.
+
+
+
+Benchmark by intern at Elastisys (2020) - https://elastisys.com/benchmarking-istio-linkerd-erik-dahlberg-master-thesis/
+------------------------------------------------------
+Similar benchmark to the above, Erik included a DB and a web UI in benchmark so more similar to real usage, simulated requests from 5 to 40 users, run for 5/10/15/.../40 seconds, sending 5rps -> 25 ... 200rps
+Solely compared Istio and Linkerd. Results match previous Emojivoto research and checked the same metrics: Request Latency, Cluster CPU usage and Cluster Memory Usage
+
+
+
+CloudCover starts building on kinvolk work (2021) - https://cldcvr.com/news-and-media/blog/benchmarking-istio-consul-and-linkerd/
+------------------------------------------------------------------
+CloudCover has a service to help you pick a Service Mesh
+To do so they started building on Kinvolks tool, and added support for Consul as well
+
+Their benchmark separates the data plane and the control plane and shows resource consumption for each one 
