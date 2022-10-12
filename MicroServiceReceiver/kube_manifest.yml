@@ -19,8 +19,10 @@ metadata:
   labels:
     service: micro-receiver-service
 spec:
+  type: NodePort
   selector:
     app: micro-receiver
   ports:
   - port: 8000
     targetPort: 8000
+    nodePort: 30200

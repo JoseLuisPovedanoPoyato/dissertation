@@ -27,20 +27,57 @@ docker run -p 8000:8000 --name MicroReceiver microreceiver:1.0
 
 
 
-LAUNCH ON KUBERNETES CLUSTER
+KUBERNETES CLUSTER COMMANDS
 ----------------------------------------------
 kubectl create -f $MANIFEST.yml
-kubectl describe pods/$POD_NAME
+kubectl describe pods/$POD_NAME 
 
 kubectl get pods
 kubectl get pods/$POD_NAME
 kubectl describe pods/$POD_NAME
 kubectl get services
 
-To Launch receiver on kubernetes
+//Opens pod in bash
+kubectl exec -it $POD_NAME bash 
+// Above is deprecated, Doc recommends
+kubectl exec --stdin --tty micro-receiver -- /bin/bash
+
+RECEIVER COMMANDS
 ----------------------------------------------
 cd .\MicroServiceReceiver\
+
+// Launch pod and service
 kubectl delete pods/micro-receiver
 kubectl delete services/micro-receiver-service
 kubectl create -f kube_manifest.yml
-kubectl describe pods/micro-receiver
+
+//Get node port and IP data
+kubectl get services // 192.168.65.4
+kubectl get nodes -o wide //Should be set in manifest to 30200
+
+//SSH into pod and install curl
+kubectl exec --stdin --tty micro-receiver -- /bin/bash
+apt-get install curl -y
+
+// Calls localhost and local port - works
+curl localhost:8000/home
+
+SENDER COMMANDS
+----------------------------------------------
+cd .\MicroServiceSender\
+
+// Launch pod and service
+kubectl delete pods/micro-sender
+kubectl delete services/micro-sender-service
+kubectl create -f kube_manifest.yml
+
+//Get node port and IP data
+kubectl get services
+kubectl get nodes -o wide //Should be set in manifest to 30100
+
+//SSH into pod and install curl
+kubectl exec --stdin --tty micro-sender -- /bin/bash
+apt-get install curl -y
+
+// Calls localhost and local port - works
+curl localhost:5000/home
