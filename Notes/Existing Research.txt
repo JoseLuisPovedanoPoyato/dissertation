@@ -37,7 +37,9 @@ Linkerd performed better than Istio, consumed less resources and had lower laten
 Benchmark by intern at Elastisys (2020) - https://elastisys.com/benchmarking-istio-linkerd-erik-dahlberg-master-thesis/
 ------------------------------------------------------
 Similar benchmark to the above, Erik included a DB and a web UI in benchmark so more similar to real usage, simulated requests from 5 to 40 users, run for 5/10/15/.../40 seconds, sending 5rps -> 25 ... 200rps
-Solely compared Istio and Linkerd. Results match previous Emojivoto research and checked the same metrics: Request Latency, Cluster CPU usage and Cluster Memory Usage
+Solely compared Istio and Linkerd. Results match previous Emojivoto research and checked the same metrics: Request Latency, CPU usage and Memory Usage.
+He found a bottleneck in Linkerd's CPU usage when dealing with 40 users, in those cases Istio would outperform Istio.
+He thinks there might be a feature in Linkerd limiting its max CPU usage.
 
 
 
