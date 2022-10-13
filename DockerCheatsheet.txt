@@ -42,42 +42,54 @@ kubectl exec -it $POD_NAME bash
 // Above is deprecated, Doc recommends
 kubectl exec --stdin --tty micro-receiver -- /bin/bash
 
+// Port forward to localhost
+kubectl port-forward $POD_NAME $TARGET_PORT:$FORWARDED_PORT //For some reason only works if $TARGET_PORT = $FORWARDED_PORT
+
+
 RECEIVER COMMANDS
 ----------------------------------------------
 cd .\MicroServiceReceiver\
 
 // Launch pod and service
+kubectl delete deployments/micro-receiver-deployment
 kubectl delete pods/micro-receiver
 kubectl delete services/micro-receiver-service
 kubectl create -f kube_manifest.yml
 
 //Get node port and IP data
-kubectl get services // 192.168.65.4
-kubectl get nodes -o wide //Should be set in manifest to 30200
+kubectl describe service micro-receiver-service
+// e.g. $IP_ADDRESS = 10.110.5.139
+// $PORT = 80
 
-//SSH into pod and install curl
-kubectl exec --stdin --tty micro-receiver -- /bin/bash
-apt-get install curl -y
+//SSH into pod
+kubectl get pods
+kubectl exec --stdin --tty micro-receiver-deployment$POD_NUMBER -- /bin/bash
 
-// Calls localhost and local port - works
+// Calls localhost and local port - works / Also works without service being established
 curl localhost:8000/home
+// Calls service through cluster IP, this should work for any deployment in cluster
+curl $IP_ADDRESS:$PORT
 
 SENDER COMMANDS
 ----------------------------------------------
 cd .\MicroServiceSender\
 
 // Launch pod and service
+kubectl delete deployments/micro-sender-deployment
 kubectl delete pods/micro-sender
 kubectl delete services/micro-sender-service
 kubectl create -f kube_manifest.yml
 
-//Get node port and IP data
-kubectl get services
-kubectl get nodes -o wide //Should be set in manifest to 30100
+/Get node port and IP data
+kubectl describe service micro-receiver-service
+// e.g. $IP_ADDRESS = 10.110.5.139
+// $PORT = 80
 
-//SSH into pod and install curl
-kubectl exec --stdin --tty micro-sender -- /bin/bash
-apt-get install curl -y
+//SSH into pod
+kubectl get pods
+kubectl exec --stdin --tty micro-sender-deployment$POD_NUMBER -- /bin/bash
 
-// Calls localhost and local port - works
-curl localhost:5000/home
+// Calls localhost and local port - works / Also works without service being established
+curl localhost:8000/home
+// Calls service through cluster IP, this should work for any deployment in cluster
+curl $IP_ADDRESS:$PORT
