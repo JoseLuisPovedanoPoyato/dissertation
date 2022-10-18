@@ -42,5 +42,32 @@
 * * 0.5 hours * Start working on a new microservice to communicate with existing one
 
 ### 06 Oct 2022
-* * 1.5 hours * Created 2 microservices that communicate when running locally, does not work in Docker
-* * 0.5 hours * Created Github for dissertation, added all data so far 
+* * 1.5 hours * Created 2 microservices that communicate when running locally, do not communicate in Docker
+* * 0.5 hours * Created Github for dissertation, added all data so far
+* * 0.5 hours * 2nd Meeting with Supervisor
+
+### 07 Oct 2022
+* * 0.5 hours * Investigation: For Docker containers to communicate they must be in the same Network, time to set up Kubernetes Cluster
+* * 0.5 hours * Created kubernetes container and pod, cannot access services from localhost though
+* * 0.5 hours * Created kubernetes service for receiver, still cannot access service from localhost
+* * 0.5 hours * Research whether port is not being exposed or something else is failing, api can be seen running on container's logs
+
+### 11 Oct 2022
+* * 1 hour * Expanded Notes from book and checked credited sources + found interesting book in library about deploying Istio service 
+* * 0.5 hours * Updated Kubernetes notes, considering changing kubernetes distribution
+
+### 12 Oct 2022
+* * 0.5 hour * Expanded kubernetes notes
+* * 1.5 hour * Implemented NodePort service type, receiver and sender deploy to kubernetes cluster, can access them from inside their respective pods but can´t communicate externally or with each other
+* * 2 hours * Researched current existing benchmarks to compare SMTs
+
+### 13 Oct 2022
+* * 2.5 hours * Solved problem with Clusters, implemented services, they now can contact each other as long as they know each other's IP and Port Number
+* * 0.5 hours * 3rd Meeting with supervisor 
+
+### 17 Oct 2022
+* * 0.5 hour * Selected Objectives for dissertation
+
+### 18 Oct 2022
+* * 1 hour * Researched paper that implemented etcd on bare kubernetes and basic Istio, had very good explanation diagrams on Istio SMTs architecture vs bare
+* * 0.5 hour * Basic microservice counter api to enable multiple deployments of same api and create loop of comms between them
