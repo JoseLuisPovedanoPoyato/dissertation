@@ -48,4 +48,16 @@ CloudCover starts building on kinvolk work (2021) - https://cldcvr.com/news-and-
 CloudCover has a service to help you pick a Service Mesh
 To do so they started building on Kinvolks tool, and added support for Consul as well
 
-Their benchmark separates the data plane and the control plane and shows resource consumption for each one 
+Their benchmark separates the data plane and the control plane and shows resource consumption for each one
+
+Impact of etcd deployment on Kubernetes, Istio, and application performance (2020) - https://onlinelibrary.wiley.com/doi/full/10.1002/spe.2885
+----------------------------------------------------------------------------
+etcd is an open source distributed key-value store, this study investigated its effects on a normal kubernetes cluster and an kubernetes cluster that relies
+on the Istio SMT. While etcd is not relevant to our work, they have some very good detailed diagrams explaining the difference between a bare cluster and
+one that uses Istio. They also explain limitating factors of Kubernetes that could lead to random errors and info to take into consideration when setting up the cluster's resources.
+
+- Pods can go down any moment, kubernetes has a probe service to ensure the new pod IP is known, however it is possible that pod goes down and we try to access it before re-probbing.
+- Kubernetes lets you limit the amount of RAM and CPU used by containers in Pods. 
+- Violating the memory limitation by allocating more results in immediate termination by the Linux Out-Of-Memory (OOM) Killer process. Violating the CPU limit is impossible because the cgroup functionality in the kernel limits the amount of CPU time a process gets scheduled for.
+- When memory violations occur, corrective actions such as restarting the container must follow.
+- If we want to test latency efficiency when dealing with limited resources we can limit CPU/RAM, if we want to test them unlimited and see who needs more we might not want to do this
