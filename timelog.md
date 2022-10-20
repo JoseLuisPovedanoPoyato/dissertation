@@ -72,7 +72,9 @@
 * * 1 hour * Researched paper that implemented etcd on bare kubernetes and basic Istio, had very good explanation diagrams on Istio SMTs architecture vs bare
 * * 0.5 hour * Basic microservice counter api to enable multiple deployments of same api and create loop of comms between them
 
-## 19 Oct
+## 19 Oct 2022
 * * 1.5 hours * Installed Postman, finished and debugged microcounter api, it works locally
 * * 1 hour * Researched kubernetes bare DNS - https://dev.to/narasimha1997/communication-between-microservices-in-a-kubernetes-cluster-1n41
+
+## 20 Oct 2022
 * * 1 hour * Services communicate via DNS inside kubernetes in docker distribution. This works fine and sender -> receiver works
