@@ -1,0 +1,8 @@
+2nd meeting with Supervisor
+Updates: More detail in timelog.md, have one microservice that acts as receiver working on sender microservice. Can deploy microservice to Docker, not sure if I will need to adapt stuff for them to communicate.
+Did some theoretical research of each tech, found a book with some detail
+
+Notes: 
+On theoretical Side: Book with detailed comparison is mostly from documentation so comparison is not great. Keep researching them and reading up on the SMTs
+On Practical Side: Focus on evolving to functioning Docker to communicating Kubernetes, once that happens we have base to start adding SMTs
+Further on if my machine can't run the software, I will be provided access to remote web services

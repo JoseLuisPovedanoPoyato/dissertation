@@ -7,7 +7,7 @@ import requests
 app = Flask(__name__)
 api = Api(app)
 
-RECEIVE_ENDPOINT = "http://127.0.0.1:8000/receive_data"
+RECEIVE_ENDPOINT = "http://micro-receiver-service/receive_data"
 
 
 # A List of Dicts to send from 1 micro to another

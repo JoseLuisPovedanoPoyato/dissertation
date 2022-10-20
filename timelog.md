@@ -74,3 +74,5 @@
 
 ## 19 Oct
 * * 1.5 hours * Installed Postman, finished and debugged microcounter api, it works locally
+* * 1 hour * Researched kubernetes bare DNS - https://dev.to/narasimha1997/communication-between-microservices-in-a-kubernetes-cluster-1n41
+* * 1 hour * Services communicate via DNS inside kubernetes in docker distribution. This works fine and sender -> receiver works
