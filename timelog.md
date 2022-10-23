@@ -78,3 +78,6 @@
 
 ## 20 Oct 2022
 * * 1 hour * Services communicate via DNS inside kubernetes in docker distribution. This works fine and sender -> receiver works
+
+## 23 Oct 2022
+* * 1.5 hours * Created Architecture displaying how previous benchmarks worked, made proposing of my own and highlighted differences
