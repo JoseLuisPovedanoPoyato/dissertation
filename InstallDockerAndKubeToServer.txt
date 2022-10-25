@@ -1,0 +1,20 @@
+Installed content to Server:
+
+// Getting git
+sudo apt install git
+
+// Getting Docker
+sudo apt install docker.io
+// Start and check docker works
+	sudo systemctl start docker
+	sudo systemctl status docker
+
+// Getting kubectl
+sudo apt install curl
+mkdir kubernetes
+cd kubernetes
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+
+// When creating the docker images for the first time, pip, pipenv and venv are automatically installed

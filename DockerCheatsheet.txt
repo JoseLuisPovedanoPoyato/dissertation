@@ -1,4 +1,20 @@
-LAUNCH ON DOCKER CONTAINER
+INSTALL DOCKER AND KUBERNETES
+-----------------------------------------
+Follow this to complete docker setup
+https://www.letscloud.io/community/how-to-install-kubernetesk8s-and-docker-on-ubuntu-2004
+Follow this to complete Kubernetes set up
+https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+
+
+ACTIVATE DOCKER IN LINUX
+------------------------------------------
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo systemctl status docker
+
+
+
+TO LAUNCH SERVICE ON DOCKER CONTAINER
 ------------------------------------------------------
 docker stop $CONTAINER
 docker rm $CONTAINER
@@ -6,7 +22,7 @@ docker rmi $IMAGE_NAME:IMAGE_VERSION
 docker build -t $IMAGE_NAME:IMAGE_VERSION .
 docker run -p $INTERNAL_PORT:$EXTERNAL_PORT --name $IMAGE_NAME $IMAGE_NAME:IMAGE_VERSION
 
-To Launch Sender on Docker
+E.G To Launch Sender on Docker
 -----------------------------
 cd .\MicroServiceSender\
 docker stop MicroSender
@@ -24,6 +40,7 @@ docker rm MicroReceiver
 docker rmi microreceiver:1.0
 docker build -t microreceiver:1.0 .
 docker run -p 8000:8000 --name MicroReceiver microreceiver:1.0
+
 
 
 

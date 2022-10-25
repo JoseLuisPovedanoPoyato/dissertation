@@ -81,3 +81,12 @@
 
 ## 23 Oct 2022
 * * 1.5 hours * Created Architecture displaying how previous benchmarks worked, made proposing of my own and highlighted differences
+* * 0.5 hours * Installing Istio -> Does not work on Windows with WSL2
+* * 1 hour * Installed Ubuntu into WSL and set it up -> Kubernetes in Docker does not work
+
+## 24 Oct 2022
+* * 0.5 hour * 4th Meeting with superisor
+* * 1 hour * Install Docker and Kube into ubuntu local version on wsl try and get them to work -> Docker not starting without running on main machine, WSL is secondary machine, cannot access main
+
+## 25 Oct 2022
+* * 1 hour * Logged onto Yehia's Server, installed docker and kubernetes and cloned project, docker works, kubectl gives errors -> Might need to set up kubernetes contexts
