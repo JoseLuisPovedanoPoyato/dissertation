@@ -17,6 +17,7 @@ spec:
       containers:
       - name: micro-receiver
         image: microreceiver:1.0
+        imagePullPolicy: Never
         ports:
         - containerPort: 8000
 ---

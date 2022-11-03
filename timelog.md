@@ -90,3 +90,7 @@
 
 ## 25 Oct 2022
 * * 1 hour * Logged onto Yehia's Server, installed docker and kubernetes and cloned project, docker works, kubectl gives errors -> Might need to set up kubernetes contexts
+
+## 28 Oct 2022
+* * 1 hour * Kubernetes distribution was not creating config for kubectl so kubectl did not know what kubernetes cluster to communicate with, manually created config
+* * 0.5 hours * Kubernetes now creates deployments in cluster, however, pod is failing to pull image from docker -> Probably need to configure permissions?

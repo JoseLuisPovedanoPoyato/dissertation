@@ -9,12 +9,27 @@ sudo apt install docker.io
 	sudo systemctl start docker
 	sudo systemctl status docker
 
-// Getting kubectl
-sudo apt install curl
-mkdir kubernetes
-cd kubernetes
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+// Getting kubectl - This is the command line tool that lets us interact with the kubernetes cluster
+	sudo apt install curl
+	mkdir kubernetes
+	cd kubernetes
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+	sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+// Getting an actual kubernetes distribution installed, to set up the clusters - Going to go with kind
+	curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
+	chmod +x ./kind
+	sudo mv ./kind /usr/local/bin/kind
+
+// Create the cluster, this is where kubectl will deploy our images to
+	sudo kind create cluster
+
+// This will create a context for kubernetes. It should automatically be added to your user's profile at $HOME/.kube/config
+// Unfortunately this does not always happen. If that's the case copy the kubeconfig into the $HOME/.kube/config
+// You might have to create the .kube directory too
+	sudo kind get kubeconfig
+	nano $HOME/.kube/config
 
 
-// When creating the docker images for the first time, pip, pipenv and venv are automatically installed
+// Now you should be ready to deploy to the cluster.
+// Pls note that when creating the docker images for the first time, pip, pipenv and venv are automatically installed
