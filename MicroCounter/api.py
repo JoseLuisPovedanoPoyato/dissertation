@@ -6,9 +6,8 @@ import requests
 app = Flask(__name__)
 api = Api(app)
 
-# MICRO_COUNTER_URL = "http://micro-receiver-service-{deployment_num}"
-# MICRO_COUNTER_URL = "http://micro-receiver-service-"
-MICRO_COUNTER_URL = "http://127.0.0.1:5000"
+MICRO_COUNTER_URL = "http://micro-counter-service"
+# MICRO_COUNTER_URL = "http://127.0.0.1:5000"
 COUNT_URL = "/count"
 
 @app.route('/home', methods=['POST', 'GET'])
@@ -29,7 +28,7 @@ def count():
         return str(max_count)
     else:
         data = {'count' : count, 'max_count' : max_count}
-        next_url = figure_out_next_url(count)
+        next_url = get_url()
         resp = requests.post(url = next_url, json = data)
         return resp.content
 
@@ -42,7 +41,9 @@ def count():
 # Create next URL
 def figure_out_next_url(counter):
     # Adapt this to number of deployments
-    # return MICRO_COUNTER_URL + '-' + str(counter + 1) + COUNT_URL
+    return MICRO_COUNTER_URL + '-' + str(counter + 1) + COUNT_URL
+
+def get_url():
     return MICRO_COUNTER_URL + COUNT_URL
 
 

@@ -1,7 +1,12 @@
 Installed content to Server:
+// Updating apt get
+	sudo apt-get update
 
 // Getting git
-sudo apt install git
+	sudo apt install git
+
+// Getting apache a
+	sudo apt-get install -y apache2-utils
 
 // Getting Docker
 sudo apt install docker.io
@@ -29,6 +34,10 @@ sudo apt install docker.io
 // You might have to create the .kube directory too
 	sudo kind get kubeconfig
 	nano $HOME/.kube/config
+
+// You can change contexts using
+	sudo kubectl config get-contexts
+	sudo kubectl config use-context <context_name>
 
 
 // Now you should be ready to deploy to the cluster.

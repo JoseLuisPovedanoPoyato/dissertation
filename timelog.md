@@ -133,6 +133,11 @@ It was my birthday
 ## 24 November 2022
 * * 0.5 hours * 8th Meeting with supervisor
 
-## 30 December 2022
+## 30 November 2022
 * * 0.5 hours * Kept working on replicas, docker is failing locally
 * * 1 hour * Tried to debug local version of docker, not working, moving on to build on Server because I do not want to waste more time on this
+
+## 1 December 2022
+* * 0.5 hours * Image builds in docker on server
+* * 0.5 hours * Image deploys to kubernetes with multiple replica pods and services
+* * 1.0 hours * Learned how kubernetes load balancing works from service to replicas, they will ping the same replica until that one is full then move to the next one
