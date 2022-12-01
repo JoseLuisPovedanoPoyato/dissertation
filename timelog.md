@@ -94,3 +94,45 @@
 ## 28 Oct 2022
 * * 1 hour * Kubernetes distribution was not creating config for kubectl so kubectl did not know what kubernetes cluster to communicate with, manually created config
 * * 0.5 hours * Kubernetes now creates deployments in cluster, however, pod is failing to pull image from docker -> Probably need to configure permissions?
+
+## 30 Oct 2022
+* * 0.5 hours * Updated objectives
+
+## 03 November 2022 
+* * 0.5 hours * Kubernetes was trying to pull image from online repo instead of sourcing it locally
+* * 0.5 hours * kubernetes image was not being loaded automatically into pod when built unlike windows
+* * 0.5 hours * Kubernetes image load was failing because kubernetes did not have permissions to interact with docker
+* * 0 hours * Server now works like it did on windows distribution -> Onto Istio
+* * 0.5 hours * 5th Meeting with supervisor
+
+## 05 November 2022
+* * 0.5 hours * Investigated potential limitations from previous benchmarks
+* * 1 hour * Worked on experiment proposal, planned features to distinguish ourselves from previous benchmarks
+ 
+## 06 November 2022
+It was my birthday
+
+## 08 November 2022
+* * 1 hour * Created experiment proposal, with architecture and proposed technologies
+
+## 10 November 2022
+* * 1.5 hours * Installed Istio control plane for default version (Could not use Demo because Istio team reached out and complained to other benchmark about them using demo as it has limited capabilities)
+* * 0.5 hours * 6th Meeting with supervisor
+
+## 17 November 2022
+* * 0.5 hours * Looked at Apache AB and checked it works for our objectives
+* * 0.5 hours * 7th Meeting with supervisor - Had lots of uni work from other courses this week and did not have any progress
+
+## 19 November 2022
+* * 0.5 hour * Instead of getting sender and receiver working for every SMT and then implement experiment, get experiment working on base kubernetes (less total work, though harder to start)
+* * 0.5 hour * Started looking into pods replicas and investigating how services would work.
+
+## 23 November
+* * 1 hour * Finished project dissertation report draft - Submitted to Yehia for feedback
+
+## 24 November 2022
+* * 0.5 hours * 8th Meeting with supervisor
+
+## 30 December 2022
+* * 0.5 hours * Kept working on replicas, docker is failing locally
+* * 1 hour * Tried to debug local version of docker, not working, moving on to build on Server because I do not want to waste more time on this

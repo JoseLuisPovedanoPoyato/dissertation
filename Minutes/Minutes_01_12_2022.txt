@@ -1,0 +1,12 @@
+3rd meeting with Supervisor
+Updates: More detail in timelog.md, Micro services communicate locally and in docker. Can deploy them to kubernetes but don't understand services, so not sure how to communicate with them. Managed to get some stuff working through IPs, but need actual DNS as IPs dynamically change.
+Found existing benchmarks, there's 3 of them. Each has different areas of research we did not cover so can use that.
+
+Notes: 
+Good idea to read up on existing research can explore same tech with different objectives to produce a different paper, as this will change our methods
+Start to think about dissertation objectives, what does my paper aim for? 
+Get kubernetes services communicating through dns services -> If it works we have our bare app state to compare as lower level
+Once bare level achieved start working on adding first SMT to project.
+Read up on SMTs architecture? Most papers mention how features change too fast...
+
+Meeting delayed to next week's monday.

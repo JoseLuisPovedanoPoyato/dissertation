@@ -6,6 +6,8 @@ import requests
 app = Flask(__name__)
 api = Api(app)
 
+# MICRO_COUNTER_URL = "http://micro-receiver-service-{deployment_num}"
+# MICRO_COUNTER_URL = "http://micro-receiver-service-"
 MICRO_COUNTER_URL = "http://127.0.0.1:5000"
 COUNT_URL = "/count"
 
@@ -39,8 +41,8 @@ def count():
 
 # Create next URL
 def figure_out_next_url(counter):
-    # Currently not necessary as I've not figured out dns yet
-    # return MICRO_COUNTER_URL + '_' + str(counter + 1) + COUNT_URL
+    # Adapt this to number of deployments
+    # return MICRO_COUNTER_URL + '-' + str(counter + 1) + COUNT_URL
     return MICRO_COUNTER_URL + COUNT_URL
 
 

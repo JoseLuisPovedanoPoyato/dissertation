@@ -29,16 +29,18 @@ docker stop MicroSender
 docker rm MicroSender
 docker rmi microsender:1.0
 docker build -t microsender:1.0 .
+sudo kind load docker-image microsender:1.0
 docker run -p 5000:5000 --name MicroSender microsender:1.0
 
 
-To Launch Receiver on Docker
+To Launch Receiver on Docker and add image to Kubernetes images
 -----------------------------
 cd .\MicroServiceReceiver\
 docker stop MicroReceiver
 docker rm MicroReceiver
 docker rmi microreceiver:1.0
 docker build -t microreceiver:1.0 .
+sudo kind load docker-image microreceiver:1.0
 docker run -p 8000:8000 --name MicroReceiver microreceiver:1.0
 
 
