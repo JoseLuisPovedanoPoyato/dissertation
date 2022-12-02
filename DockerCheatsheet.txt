@@ -12,6 +12,11 @@ sudo systemctl enable docker
 sudo systemctl start docker
 sudo systemctl status docker
 
+TO BUILD DOCKER IMAGE AND MAKE IT AVAILABLE IN KUBE
+------------------------------------------------------
+docker rmi $IMAGE_NAME:IMAGE_VERSION
+docker build -t $IMAGE_NAME:IMAGE_VERSION .
+kind load docker-image $IMAGE_NAME:IMAGE_VERSION
 
 
 TO LAUNCH SERVICE ON DOCKER CONTAINER
@@ -29,7 +34,6 @@ docker stop MicroSender
 docker rm MicroSender
 docker rmi microsender:1.0
 docker build -t microsender:1.0 .
-sudo kind load docker-image microsender:1.0
 docker run -p 5000:5000 --name MicroSender microsender:1.0
 
 
@@ -59,7 +63,7 @@ kubectl get services
 //Opens pod in bash
 kubectl exec -it $POD_NAME bash 
 // Above is deprecated, Doc recommends
-kubectl exec --stdin --tty micro-receiver -- /bin/bash
+kubectl exec --stdin --tty $CONTAINER -- /bin/bash
 
 // Port forward to localhost
 kubectl port-forward $POD_NAME $TARGET_PORT:$FORWARDED_PORT //For some reason only works if $TARGET_PORT = $FORWARDED_PORT
