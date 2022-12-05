@@ -69,50 +69,38 @@ kubectl exec --stdin --tty $CONTAINER -- /bin/bash
 kubectl port-forward $POD_NAME $TARGET_PORT:$FORWARDED_PORT //For some reason only works if $TARGET_PORT = $FORWARDED_PORT
 
 
-RECEIVER COMMANDS
+SEND DATA REQUESTS
+-------------------------------------------
+// SSH into pod
+kubectl exec --stdin --tty $CONTAINER -- /bin/bash
+
+// Send GET request
+curl $SERVICE-URL
+curl http://micro-counter-service/home
+
+// Send Post Request
+apt update / apt-get vim / vim request.txt - {"count" : 0, "max_count" : 2000} 
+
+curl -X POST -H "Content-Type: application/json" -d @request.txt http://micro-counter-service/count
+ab -p request.txt -T application/json -c 1 -n 10 -v 4 http://micro-counter-service/count
+
+
+MICROCOUNTER COMMANDS
 ----------------------------------------------
-cd .\MicroServiceReceiver\
+cd .\MicroCounterService\
 
 // Launch pod and service
-kubectl delete deployments/micro-receiver-deployment
-kubectl delete pods/micro-receiver
-kubectl delete services/micro-receiver-service
+kubectl delete deployments/micro-counter-deployment
+kubectl delete services/micro-counter-service
 kubectl create -f kube_manifest.yml
-
-//Get node port and IP data
-kubectl describe service micro-receiver-service
-// e.g. $IP_ADDRESS = 10.110.5.139
-// $PORT = 80
+kubectl get pods
 
 //SSH into pod
-kubectl get pods
 kubectl exec --stdin --tty micro-receiver-deployment$POD_NUMBER -- /bin/bash
 
-// Calls localhost and local port - works / Also works without service being established
-curl localhost:8000/home
-// Calls service through cluster IP, this should work for any deployment in cluster
-curl $IP_ADDRESS:$PORT
+// Send Post Request
+apt update / apt-get vim / vim request.txt - {"count" : 0, "max_count" : 2000} 
 
-SENDER COMMANDS
-----------------------------------------------
-cd .\MicroServiceSender\
+curl -X POST -H "Content-Type: application/json" -d @request.txt http://micro-counter-service/count
+ab -p request.txt -T application/json -c 1 -n 10 -v 4 http://micro-counter-service/count
 
-// Launch pod and service
-kubectl delete deployments/micro-sender-deployment
-kubectl delete pods/micro-sender
-kubectl delete services/micro-sender-service
-kubectl create -f kube_manifest.yml
-
-/Get node port and IP data
-kubectl describe service micro-receiver-service
-// e.g. $IP_ADDRESS = 10.110.5.139
-// $PORT = 80
-
-//SSH into pod
-kubectl get pods
-kubectl exec --stdin --tty micro-sender-deployment$POD_NUMBER -- /bin/bash
-
-// Calls localhost and local port - works / Also works without service being established
-curl localhost:8000/home
-// Calls service through cluster IP, this should work for any deployment in cluster
-curl $IP_ADDRESS:$PORT

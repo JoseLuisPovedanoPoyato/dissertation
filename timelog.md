@@ -137,7 +137,16 @@ It was my birthday
 * * 0.5 hours * Kept working on replicas, docker is failing locally
 * * 1 hour * Tried to debug local version of docker, not working, moving on to build on Server because I do not want to waste more time on this
 
-## 1 December 2022
+## 01 December 2022
 * * 0.5 hours * Image builds in docker on server
 * * 0.5 hours * Image deploys to kubernetes with multiple replica pods and services
-* * 1.0 hours * Learned how kubernetes load balancing works from service to replicas, they will ping the same replica until that one is full then move to the next one
+* * 1 hour * Learned how kubernetes load balancing works from service to replicas, they will ping the same replica until that one is full then move to the next one
+
+## 02 December 2022
+* * 1 hour * MicroCounter works on server - Need to test with apache ab to check loop
+* * 0.5 hours * Image deploys to kubernetes with multiple replica pods and services
+
+## 05 December 2022
+* * 1.5 hours * Apache ab tested on kube pod, microcounter works and times requests 
+		- To investigate: Ensure all pods are pinged and not just 1
+* * 1.5 hours * Started automatising ab into its own pod that will send requests from list of requests and record them into file
