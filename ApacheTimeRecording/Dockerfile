@@ -11,6 +11,5 @@ ENV PROJECT_DIR /Dissertation/FlaskMicroApi
 WORKDIR ${PROJECT_DIR}
 COPY . .
 
-RUN pip3 install pipenv
 
-CMD ["pipenv", "run", "python", "run_requests.py"]
+CMD ["python3", "run_requests.py"]
