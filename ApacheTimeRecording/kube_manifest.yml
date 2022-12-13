@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: request-generator
+  labels:
+    app: request-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: request-generator
+  template:
+    metadata:
+      labels:
+        app: request-generator
+    spec:
+      containers:
+      - name: request-generator
+        image: requestgenerator:1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
