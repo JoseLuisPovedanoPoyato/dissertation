@@ -26,28 +26,8 @@ docker rm $CONTAINER
 docker rmi $IMAGE_NAME:IMAGE_VERSION
 docker build -t $IMAGE_NAME:IMAGE_VERSION .
 docker run -p $INTERNAL_PORT:$EXTERNAL_PORT --name $IMAGE_NAME $IMAGE_NAME:IMAGE_VERSION
-
-E.G To Launch Sender on Docker
------------------------------
-cd .\MicroServiceSender\
-docker stop MicroSender
-docker rm MicroSender
-docker rmi microsender:1.0
-docker build -t microsender:1.0 .
-docker run -p 5000:5000 --name MicroSender microsender:1.0
-
-
-To Launch Receiver on Docker and add image to Kubernetes images
------------------------------
-cd .\MicroServiceReceiver\
-docker stop MicroReceiver
-docker rm MicroReceiver
-docker rmi microreceiver:1.0
-docker build -t microreceiver:1.0 .
+	- docker run -p 8000:8000 --name MicroReceiver microreceiver:1.0
 sudo kind load docker-image microreceiver:1.0
-docker run -p 8000:8000 --name MicroReceiver microreceiver:1.0
-
-
 
 
 KUBERNETES CLUSTER COMMANDS
@@ -89,14 +69,33 @@ MICROCOUNTER COMMANDS
 ----------------------------------------------
 cd .\MicroCounterService\
 
-// Launch pod and service
+sudo docker stop MicroCounter
+sudo docker rm MicroCounter
+sudo docker rmi microcounter:1.0
+sudo docker build -t microcounter:1.0 .
+sudo kind load docker-image microcounter:1.0
+
 kubectl delete deployments/micro-counter-deployment
 kubectl delete services/micro-counter-service
-kubectl create -f kube_manifest.yml
+sudo kubectl create -f kube_manifest.yml
 kubectl get pods
 
 //SSH into pod
-kubectl exec --stdin --tty micro-receiver-deployment$POD_NUMBER -- /bin/bash
+kubectl exec --stdin --tty micro-counter-deployment$POD_NUMBER -- /bin/bash
+
+
+REQUEST LOAD GENERATOR COMMANDS
+------------------------------------------
+sudo docker rmi requestgenerator:1.0
+sudo docker build -t requestgenerator:1.0 .
+sudo kind load docker-image requestgenerator:1.0
+
+kubectl delete deployments/request-generator
+sudo kubectl create -f kube_manifest.yml
+kubectl get pods
+
+//SSH into pod
+kubectl exec --stdin --tty request-generator$POD_NUMBER -- /bin/bash
 
 // Send Post Request
 apt update / apt-get vim / vim request.txt - {"count" : 0, "max_count" : 2000} 

@@ -1,7 +1,8 @@
 FROM ubuntu 
+RUN apt-get update && apt-get upgrade -y
 RUN apt update 
-RUN apt install –y apache2 
-RUN apt install –y apache2-utils 
+RUN apt-get install apache2 -y
+RUN apt-get install apache2-utils -y
 RUN apt clean 
 
 FROM python:3.10
