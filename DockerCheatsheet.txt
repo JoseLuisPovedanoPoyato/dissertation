@@ -26,7 +26,8 @@ docker rm $CONTAINER
 docker rmi $IMAGE_NAME:IMAGE_VERSION
 docker build -t $IMAGE_NAME:IMAGE_VERSION .
 docker run -p $INTERNAL_PORT:$EXTERNAL_PORT --name $IMAGE_NAME $IMAGE_NAME:IMAGE_VERSION
-	- docker run -p 8000:8000 --name MicroReceiver microreceiver:1.0
+	- docker run -p 8000:8000 --name MicroCounter microcounter:1.0
+	- docker run -p 8000:8000 --name RequestGenerator requestgenerator:1.0
 sudo kind load docker-image microreceiver:1.0
 
 
