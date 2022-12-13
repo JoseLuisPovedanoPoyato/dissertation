@@ -6,5 +6,11 @@ RUN apt-get install apache2-utils -y
 RUN apt clean 
 
 FROM python:3.10
+
+ENV PROJECT_DIR /Dissertation/FlaskMicroApi
+WORKDIR ${PROJECT_DIR}
+COPY . .
+
 RUN pip3 install pipenv
+
 CMD ["pipenv", "run", "python", "run_requests.py"]
