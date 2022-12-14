@@ -23,6 +23,7 @@ def count():
         # Could not get data from request
         pass 
     count, max_count = data.get('count', 0), data.get('max_count', 1)
+    print("I was pinged with count {count}")
     count = count + 1
     if count == max_count:
         return str(max_count)

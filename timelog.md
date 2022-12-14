@@ -145,8 +145,19 @@ It was my birthday
 ## 02 December 2022
 * * 1 hour * MicroCounter works on server - Need to test with apache ab to check loop
 * * 0.5 hours * Image deploys to kubernetes with multiple replica pods and services
+* * 0.5 hours * 9th meeting with Yehia
 
 ## 05 December 2022
 * * 1.5 hours * Apache ab tested on kube pod, microcounter works and times requests 
 		- To investigate: Ensure all pods are pinged and not just 1
 * * 1.5 hours * Started automatising ab into its own pod that will send requests from list of requests and record them into file
+
+## 08 December 2022
+* * 0.5 hours * 10th Meeting with Yehia
+
+## 13 December 2022
+* * 1 hour * Created sample requests, created python script that iterates over them, runs ab from command line and extracts data
+	- Still need to choose what of this data I want to record 
+* * 2.5 hours * Debugged python script so it worked on docker and it deploys to kubernetes 
+* * 0.5 hours * Updated project status with Yehia's Feedback
+* * *
