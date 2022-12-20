@@ -28,4 +28,4 @@ metadata:
   name: prometheus-service
 spec:
   type: ExternalName
-  externalName: monitoring.prometheus-service.svc.cluster.local
+  externalName: prometheus-service.monitoring.svc.cluster.local
