@@ -18,6 +18,16 @@ spec:
 
 ---
 apiVersion: v1
+kind: Service
+metadata:
+  name: micro-counter-service
+  namespace: monitoring
+spec:
+  type: ExternalName
+  externalName: micro-counter-service.default.svc.cluster.local
+
+---
+apiVersion: v1
 kind: Pod
 metadata:
   name: test-shell
