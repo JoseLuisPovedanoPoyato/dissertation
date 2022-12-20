@@ -1,12 +1,16 @@
-3rd meeting with Supervisor
-Updates: More detail in timelog.md, Micro services communicate locally and in docker. Can deploy them to kubernetes but don't understand services, so not sure how to communicate with them. Managed to get some stuff working through IPs, but need actual DNS as IPs dynamically change.
-Found existing benchmarks, there's 3 of them. Each has different areas of research we did not cover so can use that.
+9th meeting with Supervisor
+
+Updates: Deployed microcounter to bare kubernetes and it works, Deployment scales up and down with replicas, Researched how different SMTs load balance
+
+Question: 
+Should I let the SMTs load balance? Or should I dictate the path through which requests flow?
+	- e.g. Kubernetes uses the same pod until its usage reaches capacity then moves to a diff one
+	- e.g. Linkerd starts distributing requests over diff pods when usage hits 20%
+	
+	- I think its best to let the SMTs load balance as not doing this means we would only be testing the proxies
+		- An SMT could have a better proxy, but another one could make up for it with smarter load balancing
 
 Notes: 
-Good idea to read up on existing research can explore same tech with different objectives to produce a different paper, as this will change our methods
-Start to think about dissertation objectives, what does my paper aim for? 
-Get kubernetes services communicating through dns services -> If it works we have our bare app state to compare as lower level
-Once bare level achieved start working on adding first SMT to project.
-Read up on SMTs architecture? Most papers mention how features change too fast...
-
-Meeting delayed to next week's monday.
+Start working on measuring latency from requests using apache ab.
+Project Status Report due soon, update with Yehia's feedback from email.
+Exams are next week, so might not get much done.

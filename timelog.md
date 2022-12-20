@@ -160,4 +160,17 @@ It was my birthday
 	- Still need to choose what of this data I want to record 
 * * 2.5 hours * Debugged python script so it worked on docker and it deploys to kubernetes 
 * * 0.5 hours * Updated project status with Yehia's Feedback
-* * *
+
+## 14 December 2022
+* * 0.5 hours * 11th meeting with Yehia -> Will meet again after Christmas
+
+## 16 December 2022
+* * 0.5 hours * Finishing touches to Status Report and submitted it
+
+## 17 December 2022
+* * 1 hour * Researched Prometheus, worked on ClusterRoles and ClusterRoleBinding to monitoring namespace
+	- Prometheus is more complicated than expected
+
+## 20 December 2022
+* * 1 hour * Kept trying to set up Prometheus -> Lots of stuff I don't understand
+* * 0.5 hour * Instead found pre-made Prometheus template -> Deploying that -> Adapt to match what I need

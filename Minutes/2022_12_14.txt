@@ -1,12 +1,10 @@
-10th meeting with Supervisor
-Updates: Apache ab works! I can measure request time when submitting a request to a specific service
+11th meeting with Supervisor
+Updates: Load generation has been automated with apache ab, now a pod will use apache ab to send a specific number of requests.
 
 Notes: 
-- Automate apache ab load generation
-	- Create some example requests
-	- Select data I want to keep from the requests
-	- Store results of each load
-- After that -> Prometheus! 
-	- We are not only interested on the latency difference between SMTs, we also want to know the resource usage between each one
+- Consider what data I want to store from the apache ab requests
+	- Currently the times per requests, but other data could also be interesting
+- Start implementing Prometheus
+	- We need to record the resource usage of each pod
 - After that -> Implement the SMTs
 	- Linkerd seems easier to implement than Istio, instead of trying to get Istio working again, this time start with linkerd, might help you understand what Istio is doing and why
