@@ -1,7 +1,7 @@
 - Downloaded copy of prometheus
 
 \\ Created monitoring namespace
-kubectl -f apply namespace monitoring.yml
+kubectl apply -f monitoring.yml
 
 - To configure prometheus we need:
 	1. Give permission to allow Prometheus to access all pods and nodes.

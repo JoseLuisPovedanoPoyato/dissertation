@@ -173,4 +173,11 @@ It was my birthday
 
 ## 20 December 2022
 * * 1 hour * Kept trying to set up Prometheus -> Lots of stuff I don't understand
-* * 0.5 hour * Instead found pre-made Prometheus template -> Deploying that -> Adapt to match what I need
+* * 1.5 hours * Instead found pre-made Prometheus template -> Deploying that -> Adapt to match what I need
+	- Problem1: Cannot SSH into container to access logs
+		- Potential WorkAround: Deploy other service to same namespace and ping it from there
+	- Problem2: Not sure how metrics are defined to be store, or how to query them
+		WorkAround: Look into rules and prometheus.yaml (Yehia said metrics can be sent to a separate pod)
+* * 0.5 hours * Test ExternalName in DNS for monitoring namespace from default namespace
+
+## 
