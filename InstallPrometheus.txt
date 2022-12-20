@@ -21,6 +21,9 @@ kubectl create -f config-map.yaml
 \\ Deploy prometheus to the cluster
 kubectl create  -f prometheus-deployment.yaml
 
+\\ Deploy Service so we can access Prometheus
+kubectl create -f prometheus-service.yaml --namespace=monitoring
+
 
 \\ All together to copy paste
 
@@ -28,6 +31,7 @@ kubectl -f apply namespace monitoring.yml
 kubectl create -f clusterRole.yaml
 kubectl create -f config-map.yaml
 kubectl create  -f prometheus-deployment.yaml
+kubectl create -f prometheus-service.yaml --namespace=monitoring
  
 
 
