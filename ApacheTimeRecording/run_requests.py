@@ -37,7 +37,8 @@ def send_requests(smt = "kubernetes"):
                     for i in range(len(result)):
                         print(result[i])
 
-                max_count = json.load(req_path)['max_count']
+                with open(req_path, "r") as file:
+                    max_count = json.load(file)['max_count']
                 results[smt][concurrency][num][max_count] = [result]
 
     print(results)

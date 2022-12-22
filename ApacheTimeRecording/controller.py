@@ -27,7 +27,9 @@ def send_requests():
     except:
         old_results = {}
     tot_results = {key: value for (key, value) in (old_results.items() + new_results.items())}
-    json.dump(tot_results, 'benchmark_latency_results.json')
+
+    with open('benchmark_latency_results.json', "w") as file:
+        json.dump(tot_results, file)
     return tot_results
 
 
