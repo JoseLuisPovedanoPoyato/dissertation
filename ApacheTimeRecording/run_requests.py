@@ -15,7 +15,10 @@ def send_requests(smt = "kubernetes"):
     requests = get_requests()
 
     # Format {'SMT': {'ConcurrentRequests' : {'NumOfRequests' : {'NumOfMicroServices' : ["Array containing values we want"] } } } }
-    results = {}
+    results = {smt : {}}
+    for concurrency in CONCURRENT_REQUESTS:
+        for num in NUM_OF_REQUESTS:
+            results[smt][concurrency] = {num : {}}
 
     # Get SMT (Idea: We have a flask app that receives it once everything is ready, sets it as an env variable and calls this)
     if smt is None:
@@ -39,7 +42,7 @@ def send_requests(smt = "kubernetes"):
 
                 with open(req_path, "r") as file:
                     max_count = json.load(file)['max_count']
-                results[smt][concurrency][num][max_count] = [result]
+                results[smt][concurrency][num][max_count] = result
 
     print(results)
     return results
