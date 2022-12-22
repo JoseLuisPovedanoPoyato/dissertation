@@ -27,7 +27,7 @@ def send_requests():
     results = {}
     for concurrency in CONCURRENT_REQUESTS:
         results[concurrency] = {}
-        for num in NUM_OF_REQUESTS:
+        for num in NUM_OF_REQUESTS[concurrency]:
             results[concurrency][num] = {}
 
     # Read request data and execute them
