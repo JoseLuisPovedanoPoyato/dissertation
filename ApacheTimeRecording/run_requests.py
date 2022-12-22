@@ -11,18 +11,15 @@ def get_requests():
     requests = [str(f) for f in list(file_path.glob('**/*.json'))]
     return requests
 
-def send_requests(smt = "kubernetes"):
+def send_requests():
     requests = get_requests()
 
     # Format {'SMT': {'ConcurrentRequests' : {'NumOfRequests' : {'NumOfMicroServices' : ["Array containing values we want"] } } } }
-    results = {smt : {}}
+    results = {}
     for concurrency in CONCURRENT_REQUESTS:
+        results[concurrency] = {}
         for num in NUM_OF_REQUESTS:
-            results[smt][concurrency] = {num : {}}
-
-    # Get SMT (Idea: We have a flask app that receives it once everything is ready, sets it as an env variable and calls this)
-    if smt is None:
-        smt = "kubernetes"
+            results[concurrency][num] = {}
 
     # Read request data and execute them
     for concurrency in CONCURRENT_REQUESTS:
@@ -42,7 +39,7 @@ def send_requests(smt = "kubernetes"):
 
                 with open(req_path, "r") as file:
                     max_count = json.load(file)['max_count']
-                results[smt][concurrency][num][max_count] = result
+                results[concurrency][num][max_count] = result
 
     print(results)
     return results
