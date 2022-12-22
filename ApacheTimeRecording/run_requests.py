@@ -35,7 +35,7 @@ def send_requests(smt = "kubernetes"):
 
                 if len(result)>0:
                     for i in range(len(result)):
-                        print(result.group(i))
+                        print(result[i])
 
                 max_count = json.load(req_path)['max_count']
                 results[smt][concurrency][num][max_count] = [result]
