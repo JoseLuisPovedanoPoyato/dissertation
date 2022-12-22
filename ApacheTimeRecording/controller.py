@@ -7,14 +7,13 @@ import json
 app = Flask(__name__)
 api = Api(app)
 
-smt = 'kubernetes'
-
 @app.route('/home', methods=['POST', 'GET'])
 def home():
     return "I am the controller, \n I tell the request generator when to start sending requests \n Collect latency metrics from apache and resource metrics from Prometheus."
 
 @app.route('/send_requests', methods=['POST', 'GET'])
 def send_requests():
+    smt = 'kubernetes'
     data = {}
     try:
         data = request.get_json()
