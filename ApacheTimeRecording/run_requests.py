@@ -3,8 +3,16 @@ from pathlib import Path
 import re
 import json
 
-CONCURRENT_REQUESTS=[1, 10, 100, 1000, 10000]
-NUM_OF_REQUESTS=[value * 10 for value in CONCURRENT_REQUESTS]
+# We simulate 1, 5, 10, 100 and 1000 users sending simultaneous requests
+CONCURRENT_REQUESTS=[1, 5, 10, 100, 1000]
+
+# Each user will try to send 1, 2, 4, 8 and 16 requests each
+APACHE_CONC_NUM_COMBINATIONS = 0 
+NUM_OF_REQUESTS = {}
+for conc in CONCURRENT_REQUESTS:
+    NUM_OF_REQUESTS[conc]=[conc, conc * 2, conc * 4, conc * 8, conc * 16]
+    APACHE_CONC_NUM_COMBINATIONS += 5
+
 
 def get_requests():
     file_path = Path.cwd()
@@ -13,6 +21,7 @@ def get_requests():
 
 def send_requests():
     requests = get_requests()
+    max_value = APACHE_CONC_NUM_COMBINATIONS * len(requests)
 
     # Format {'SMT': {'ConcurrentRequests' : {'NumOfRequests' : {'NumOfMicroServices' : ["Array containing values we want"] } } } }
     results = {}
@@ -23,9 +32,8 @@ def send_requests():
 
     # Read request data and execute them
     count = 0
-    max_value = len(CONCURRENT_REQUESTS) * len(NUM_OF_REQUESTS) * len(requests)
     for concurrency in CONCURRENT_REQUESTS:
-        for num in NUM_OF_REQUESTS:
+        for num in NUM_OF_REQUESTS[concurrency]:
             for i in range(len(requests)):
                 count += 1
                 print(f"SENDING REQUEST:     {count}/{max_value}")
