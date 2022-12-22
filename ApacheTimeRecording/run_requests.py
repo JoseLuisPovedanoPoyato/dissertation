@@ -11,7 +11,7 @@ def get_requests():
     requests = [str(f) for f in list(file_path.glob('**/*.json'))]
     return requests
 
-def send_requests(smt):
+def send_requests(smt = "kubernetes"):
     requests = get_requests()
 
     # Format {'SMT': {'ConcurrentRequests' : {'NumOfRequests' : {'NumOfMicroServices' : ["Array containing values we want"] } } } }
@@ -26,7 +26,7 @@ def send_requests(smt):
         for num in NUM_OF_REQUESTS:
             for i in range(len(requests)):
                 req_path = requests[i]
-                process = subprocess.run(['ab', '-p', req_path, '-T', 'application/json', '-c', concurrency, '-n', num, '-v', '1', 'http://micro-counter-service/count'], capture_output=True, text=True)
+                process = subprocess.run(['ab', '-p', req_path, '-T', 'application/json', '-c', str(concurrency), '-n', str(num), '-v', '1', 'http://micro-counter-service/count'], capture_output=True, text=True)
                 logs = process.stdout
                 print(logs)
 
