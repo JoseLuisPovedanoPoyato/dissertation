@@ -22,9 +22,13 @@ def send_requests():
             results[concurrency][num] = {}
 
     # Read request data and execute them
+    count = 0
+    max_value = len(CONCURRENT_REQUESTS) * len(NUM_OF_REQUESTS) * len(requests)
     for concurrency in CONCURRENT_REQUESTS:
         for num in NUM_OF_REQUESTS:
             for i in range(len(requests)):
+                count += 1
+                print(f"SENDING REQUEST:     {count}/{max_value}")
                 req_path = requests[i]
                 process = subprocess.run(['ab', '-p', req_path, '-T', 'application/json', '-c', str(concurrency), '-n', str(num), '-v', '1', 'http://micro-counter-service/count'], capture_output=True, text=True)
                 logs = process.stdout
