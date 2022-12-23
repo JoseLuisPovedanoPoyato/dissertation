@@ -38,9 +38,12 @@ def send_requests():
                 count += 1
                 print(f"SENDING REQUEST:     {count}/{max_value}")
                 req_path = requests[i]
-                process = subprocess.run(['ab', '-p', req_path, '-T', 'application/json', '-c', str(concurrency), '-n', str(num), '-v', '1', 'http://micro-counter-service/count'], capture_output=True, text=True)
+                process = subprocess.run(['ab', '-p', req_path, '-T', 'application/json', '-c', str(concurrency), '-n', str(num), '-v', '1', '-s', '60', 'http://micro-counter-service/count'], capture_output=True, text=True)
                 logs = process.stdout
+                errors = process.stderr
                 print(logs)
+                if errors:
+                    print(errors)
 
                 result = re.findall('Time per request:(.*)\n', logs)
                 print(result)

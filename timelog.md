@@ -187,3 +187,8 @@ It was my birthday
  
 ## 21 December 2022
 * * 1.5 hour * Created controller to store timelog values over multiple different uploads of SMTs
+
+## 22 December 2022
+* * 3 hours * Controller works, will run multiple version of apache ab with different concurrencies, number of requests and num of microservices
+	- To Do: Increase apache ab timeout
+	- To Do: Read logs from stderror as well to facilitate future debugging
