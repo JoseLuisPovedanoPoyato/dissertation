@@ -1,1 +1,462 @@
-{"kubernetes": {"1": {"1": {"100": ["       466.299 [ms] (mean)", "       466.299 [ms] (mean, across all concurrent requests)"], "1000": ["       5169.543 [ms] (mean)", "       5169.543 [ms] (mean, across all concurrent requests)"], "50": ["       297.177 [ms] (mean)", "       297.177 [ms] (mean, across all concurrent requests)"], "500": ["       2150.631 [ms] (mean)", "       2150.631 [ms] (mean, across all concurrent requests)"], "10": ["       58.714 [ms] (mean)", "       58.714 [ms] (mean, across all concurrent requests)"]}, "2": {"100": ["       551.867 [ms] (mean)", "       551.867 [ms] (mean, across all concurrent requests)"], "1000": ["       5007.543 [ms] (mean)", "       5007.543 [ms] (mean, across all concurrent requests)"], "50": ["       297.154 [ms] (mean)", "       297.154 [ms] (mean, across all concurrent requests)"], "500": ["       2711.413 [ms] (mean)", "       2711.413 [ms] (mean, across all concurrent requests)"], "10": ["       55.549 [ms] (mean)", "       55.549 [ms] (mean, across all concurrent requests)"]}, "4": {"100": ["       480.625 [ms] (mean)", "       480.625 [ms] (mean, across all concurrent requests)"], "1000": ["       4964.291 [ms] (mean)", "       4964.291 [ms] (mean, across all concurrent requests)"], "50": ["       208.887 [ms] (mean)", "       208.887 [ms] (mean, across all concurrent requests)"], "500": ["       2646.571 [ms] (mean)", "       2646.571 [ms] (mean, across all concurrent requests)"], "10": ["       49.496 [ms] (mean)", "       49.496 [ms] (mean, across all concurrent requests)"]}, "8": {"100": ["       509.601 [ms] (mean)", "       509.601 [ms] (mean, across all concurrent requests)"], "1000": ["       5085.512 [ms] (mean)", "       5085.512 [ms] (mean, across all concurrent requests)"], "50": ["       299.216 [ms] (mean)", "       299.216 [ms] (mean, across all concurrent requests)"], "500": ["       2591.865 [ms] (mean)", "       2591.865 [ms] (mean, across all concurrent requests)"], "10": ["       43.781 [ms] (mean)", "       43.781 [ms] (mean, across all concurrent requests)"]}, "16": {"100": ["       523.923 [ms] (mean)", "       523.923 [ms] (mean, across all concurrent requests)"], "1000": ["       5057.232 [ms] (mean)", "       5057.232 [ms] (mean, across all concurrent requests)"], "50": ["       251.309 [ms] (mean)", "       251.309 [ms] (mean, across all concurrent requests)"], "500": ["       2585.758 [ms] (mean)", "       2585.758 [ms] (mean, across all concurrent requests)"], "10": ["       38.029 [ms] (mean)", "       38.029 [ms] (mean, across all concurrent requests)"]}}, "5": {"5": {"100": ["       888.869 [ms] (mean)", "       177.774 [ms] (mean, across all concurrent requests)"], "1000": ["       10502.612 [ms] (mean)", "       2100.522 [ms] (mean, across all concurrent requests)"], "50": ["       637.539 [ms] (mean)", "       127.508 [ms] (mean, across all concurrent requests)"], "500": ["       4499.342 [ms] (mean)", "       899.868 [ms] (mean, across all concurrent requests)"], "10": ["       61.257 [ms] (mean)", "       12.251 [ms] (mean, across all concurrent requests)"]}, "10": {"100": ["       722.819 [ms] (mean)", "       144.564 [ms] (mean, across all concurrent requests)"], "1000": ["       6743.774 [ms] (mean)", "       1348.755 [ms] (mean, across all concurrent requests)"], "50": ["       467.548 [ms] (mean)", "       93.510 [ms] (mean, across all concurrent requests)"], "500": ["       3405.268 [ms] (mean)", "       681.053 [ms] (mean, across all concurrent requests)"], "10": ["       141.344 [ms] (mean)", "       28.269 [ms] (mean, across all concurrent requests)"]}, "20": {"100": ["       474.648 [ms] (mean)", "       94.930 [ms] (mean, across all concurrent requests)"], "1000": ["       5632.885 [ms] (mean)", "       1126.577 [ms] (mean, across all concurrent requests)"], "50": ["       302.603 [ms] (mean)", "       60.521 [ms] (mean, across all concurrent requests)"], "500": ["       2737.393 [ms] (mean)", "       547.479 [ms] (mean, across all concurrent requests)"], "10": ["       137.715 [ms] (mean)", "       27.543 [ms] (mean, across all concurrent requests)"]}, "40": {"100": ["       492.053 [ms] (mean)", "       98.411 [ms] (mean, across all concurrent requests)"], "1000": ["       5224.479 [ms] (mean)", "       1044.896 [ms] (mean, across all concurrent requests)"], "50": ["       262.904 [ms] (mean)", "       52.581 [ms] (mean, across all concurrent requests)"], "500": ["       2497.730 [ms] (mean)", "       499.546 [ms] (mean, across all concurrent requests)"], "10": ["       42.754 [ms] (mean)", "       8.551 [ms] (mean, across all concurrent requests)"]}, "80": {"100": ["       460.220 [ms] (mean)", "       92.044 [ms] (mean, across all concurrent requests)"], "1000": ["       5029.254 [ms] (mean)", "       1005.851 [ms] (mean, across all concurrent requests)"], "50": ["       238.568 [ms] (mean)", "       47.713 [ms] (mean, across all concurrent requests)"], "500": ["       2420.801 [ms] (mean)", "       484.160 [ms] (mean, across all concurrent requests)"], "10": ["       65.501 [ms] (mean)", "       13.100 [ms] (mean, across all concurrent requests)"]}}, "10": {"10": {"100": ["       1325.825 [ms] (mean)", "       132.583 [ms] (mean, across all concurrent requests)"], "1000": ["       12100.571 [ms] (mean)", "       1210.057 [ms] (mean, across all concurrent requests)"], "50": ["       650.953 [ms] (mean)", "       65.095 [ms] (mean, across all concurrent requests)"], "500": ["       6595.899 [ms] (mean)", "       659.590 [ms] (mean, across all concurrent requests)"], "10": ["       94.706 [ms] (mean)", "       9.471 [ms] (mean, across all concurrent requests)"]}, "20": {"100": ["       1054.015 [ms] (mean)", "       105.401 [ms] (mean, across all concurrent requests)"], "1000": ["       10313.520 [ms] (mean)", "       1031.352 [ms] (mean, across all concurrent requests)"], "50": ["       534.615 [ms] (mean)", "       53.461 [ms] (mean, across all concurrent requests)"], "500": ["       5343.247 [ms] (mean)", "       534.325 [ms] (mean, across all concurrent requests)"], "10": ["       93.776 [ms] (mean)", "       9.378 [ms] (mean, across all concurrent requests)"]}, "40": {"100": ["       885.363 [ms] (mean)", "       88.536 [ms] (mean, across all concurrent requests)"], "1000": ["       9730.639 [ms] (mean)", "       973.064 [ms] (mean, across all concurrent requests)"], "50": ["       453.157 [ms] (mean)", "       45.316 [ms] (mean, across all concurrent requests)"], "500": ["       4785.924 [ms] (mean)", "       478.592 [ms] (mean, across all concurrent requests)"], "10": ["       80.174 [ms] (mean)", "       8.017 [ms] (mean, across all concurrent requests)"]}, "80": {"100": ["       844.131 [ms] (mean)", "       84.413 [ms] (mean, across all concurrent requests)"], "1000": ["       9801.277 [ms] (mean)", "       980.128 [ms] (mean, across all concurrent requests)"], "50": ["       439.678 [ms] (mean)", "       43.968 [ms] (mean, across all concurrent requests)"], "500": ["       4514.044 [ms] (mean)", "       451.404 [ms] (mean, across all concurrent requests)"], "10": ["       130.319 [ms] (mean)", "       13.032 [ms] (mean, across all concurrent requests)"]}, "160": {"100": ["       820.814 [ms] (mean)", "       82.081 [ms] (mean, across all concurrent requests)"], "1000": ["       9918.540 [ms] (mean)", "       991.854 [ms] (mean, across all concurrent requests)"], "50": ["       404.133 [ms] (mean)", "       40.413 [ms] (mean, across all concurrent requests)"], "500": ["       4569.162 [ms] (mean)", "       456.916 [ms] (mean, across all concurrent requests)"], "10": ["       87.234 [ms] (mean)", "       8.723 [ms] (mean, across all concurrent requests)"]}}, "100": {"100": {"100": ["       7682.406 [ms] (mean)", "       76.824 [ms] (mean, across all concurrent requests)"], "1000": [], "50": ["       15354.382 [ms] (mean)", "       153.544 [ms] (mean, across all concurrent requests)"], "500": [], "10": ["       2092.893 [ms] (mean)", "       20.929 [ms] (mean, across all concurrent requests)"]}, "200": {"100": ["       13739.313 [ms] (mean)", "       137.393 [ms] (mean, across all concurrent requests)"], "1000": [], "50": ["       14329.722 [ms] (mean)", "       143.297 [ms] (mean, across all concurrent requests)"], "500": ["       42636.135 [ms] (mean)", "       426.361 [ms] (mean, across all concurrent requests)"], "10": ["       899.240 [ms] (mean)", "       8.992 [ms] (mean, across all concurrent requests)"]}, "400": {"100": ["       9027.535 [ms] (mean)", "       90.275 [ms] (mean, across all concurrent requests)"], "1000": [], "50": ["       11281.299 [ms] (mean)", "       112.813 [ms] (mean, across all concurrent requests)"], "500": [], "10": ["       2321.744 [ms] (mean)", "       23.217 [ms] (mean, across all concurrent requests)"]}, "800": {"100": ["       12532.288 [ms] (mean)", "       125.323 [ms] (mean, across all concurrent requests)"], "1000": [], "50": ["       9999.197 [ms] (mean)", "       99.992 [ms] (mean, across all concurrent requests)"], "500": [], "10": ["       2350.530 [ms] (mean)", "       23.505 [ms] (mean, across all concurrent requests)"]}, "1600": {"100": ["       9891.659 [ms] (mean)", "       98.917 [ms] (mean, across all concurrent requests)"], "1000": [], "50": ["       8379.760 [ms] (mean)", "       83.798 [ms] (mean, across all concurrent requests)"], "500": [], "10": ["1586.691 [ms] (mean)", "15.867 [ms] (mean, across all concurrent requests)"]}}, "1000": {"1000": {"100": [], "1000": [], "50": [], "500": [], "10": []}, "2000": {"100": [], "1000": [], "50": [], "500": [], "10": []}, "4000": {"100": [], "1000": [], "50": [], "500": [], "10": []}, "8000": {"100": [], "1000": [], "50": [], "500": [], "10": []}, "16000": {"100": [], "1000": [], "50": [], "500": [], "10": []}}}}
+{
+    "kubernetes": {
+      "1": {
+        "1": {
+          "10": [
+            "58.714 [ms] (mean)",
+            "58.714 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "297.177 [ms] (mean)",
+            "297.177 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "466.299 [ms] (mean)",
+            "466.299 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "2150.631 [ms] (mean)",
+            "2150.631 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "5169.543 [ms] (mean)",
+            "5169.543 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "2": {
+          "10": [
+            "55.549 [ms] (mean)",
+            "55.549 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "297.154 [ms] (mean)",
+            "297.154 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "551.867 [ms] (mean)",
+            "551.867 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "2711.413 [ms] (mean)",
+            "2711.413 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "5007.543 [ms] (mean)",
+            "5007.543 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "4": {
+          "10": [
+            "49.496 [ms] (mean)",
+            "49.496 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "208.887 [ms] (mean)",
+            "208.887 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "480.625 [ms] (mean)",
+            "480.625 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "2646.571 [ms] (mean)",
+            "2646.571 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "4964.291 [ms] (mean)",
+            "4964.291 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "8": {
+          "10": [
+            "43.781 [ms] (mean)",
+            "43.781 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "299.216 [ms] (mean)",
+            "299.216 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "509.601 [ms] (mean)",
+            "509.601 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "2591.865 [ms] (mean)",
+            "2591.865 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "5085.512 [ms] (mean)",
+            "5085.512 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "16": {
+          "10": [
+            "38.029 [ms] (mean)",
+            "38.029 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "251.309 [ms] (mean)",
+            "251.309 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "523.923 [ms] (mean)",
+            "523.923 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "2585.758 [ms] (mean)",
+            "2585.758 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "5057.232 [ms] (mean)",
+            "5057.232 [ms] (mean, across all concurrent requests)"
+          ]
+        }
+      },
+      "5": {
+        "5": {
+          "10": [
+            "61.257 [ms] (mean)",
+            "12.251 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "637.539 [ms] (mean)",
+            "127.508 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "888.869 [ms] (mean)",
+            "177.774 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "4499.342 [ms] (mean)",
+            "899.868 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "10502.612 [ms] (mean)",
+            "2100.522 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "10": {
+          "10": [
+            "141.344 [ms] (mean)",
+            "28.269 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "467.548 [ms] (mean)",
+            "93.510 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "722.819 [ms] (mean)",
+            "144.564 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "3405.268 [ms] (mean)",
+            "681.053 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "6743.774 [ms] (mean)",
+            "1348.755 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "20": {
+          "10": [
+            "137.715 [ms] (mean)",
+            "27.543 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "302.603 [ms] (mean)",
+            "60.521 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "474.648 [ms] (mean)",
+            "94.930 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "2737.393 [ms] (mean)",
+            "547.479 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "5632.885 [ms] (mean)",
+            "1126.577 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "40": {
+          "10": [
+            "42.754 [ms] (mean)",
+            "8.551 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "262.904 [ms] (mean)",
+            "52.581 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "492.053 [ms] (mean)",
+            "98.411 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "2497.730 [ms] (mean)",
+            "499.546 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "5224.479 [ms] (mean)",
+            "1044.896 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "80": {
+          "10": [
+            "65.501 [ms] (mean)",
+            "13.100 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "238.568 [ms] (mean)",
+            "47.713 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "460.220 [ms] (mean)",
+            "92.044 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "2420.801 [ms] (mean)",
+            "484.160 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "5029.254 [ms] (mean)",
+            "1005.851 [ms] (mean, across all concurrent requests)"
+          ]
+        }
+      },
+      "10": {
+        "10": {
+          "10": [
+            "94.706 [ms] (mean)",
+            "9.471 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "650.953 [ms] (mean)",
+            "65.095 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "1325.825 [ms] (mean)",
+            "132.583 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "6595.899 [ms] (mean)",
+            "659.590 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "12100.571 [ms] (mean)",
+            "1210.057 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "20": {
+          "10": [
+            "93.776 [ms] (mean)",
+            "9.378 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "534.615 [ms] (mean)",
+            "53.461 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "1054.015 [ms] (mean)",
+            "105.401 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "5343.247 [ms] (mean)",
+            "534.325 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "10313.520 [ms] (mean)",
+            "1031.352 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "40": {
+          "10": [
+            "80.174 [ms] (mean)",
+            "8.017 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "453.157 [ms] (mean)",
+            "45.316 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "885.363 [ms] (mean)",
+            "88.536 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "4785.924 [ms] (mean)",
+            "478.592 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "9730.639 [ms] (mean)",
+            "973.064 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "80": {
+          "10": [
+            "130.319 [ms] (mean)",
+            "13.032 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "439.678 [ms] (mean)",
+            "43.968 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "844.131 [ms] (mean)",
+            "84.413 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "4514.044 [ms] (mean)",
+            "451.404 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "9801.277 [ms] (mean)",
+            "980.128 [ms] (mean, across all concurrent requests)"
+          ]
+        },
+        "160": {
+          "10": [
+            "87.234 [ms] (mean)",
+            "8.723 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "404.133 [ms] (mean)",
+            "40.413 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "820.814 [ms] (mean)",
+            "82.081 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "4569.162 [ms] (mean)",
+            "456.916 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": [
+            "9918.540 [ms] (mean)",
+            "991.854 [ms] (mean, across all concurrent requests)"
+          ]
+        }
+      },
+      "100": {
+        "100": {
+          "10": [
+            "2092.893 [ms] (mean)",
+            "20.929 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "15354.382 [ms] (mean)",
+            "153.544 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "7682.406 [ms] (mean)",
+            "76.824 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [],
+          "1000": []
+        },
+        "200": {
+          "10": [
+            "899.240 [ms] (mean)",
+            "8.992 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "14329.722 [ms] (mean)",
+            "143.297 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "13739.313 [ms] (mean)",
+            "137.393 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [
+            "42636.135 [ms] (mean)",
+            "426.361 [ms] (mean, across all concurrent requests)"
+          ],
+          "1000": []
+        },
+        "400": {
+          "10": [
+            "2321.744 [ms] (mean)",
+            "23.217 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "11281.299 [ms] (mean)",
+            "112.813 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "9027.535 [ms] (mean)",
+            "90.275 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [],
+          "1000": []
+        },
+        "800": {
+          "10": [
+            "2350.530 [ms] (mean)",
+            "23.505 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "9999.197 [ms] (mean)",
+            "99.992 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "12532.288 [ms] (mean)",
+            "125.323 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [],
+          "1000": []
+        },
+        "1600": {
+          "10": [
+            "1586.691 [ms] (mean)",
+            "15.867 [ms] (mean, across all concurrent requests)"
+          ],
+          "50": [
+            "8379.760 [ms] (mean)",
+            "83.798 [ms] (mean, across all concurrent requests)"
+          ],
+          "100": [
+            "9891.659 [ms] (mean)",
+            "98.917 [ms] (mean, across all concurrent requests)"
+          ],
+          "500": [],
+          "1000": []
+        }
+      },
+      "1000": {
+        "1000": {
+          "10": [],
+          "50": [],
+          "100": [],
+          "500": [],
+          "1000": []
+        },
+        "2000": {
+          "10": [],
+          "50": [],
+          "100": [],
+          "500": [],
+          "1000": []
+        },
+        "4000": {
+          "10": [],
+          "50": [],
+          "100": [],
+          "500": [],
+          "1000": []
+        },
+        "8000": {
+          "10": [],
+          "50": [],
+          "100": [],
+          "500": [],
+          "1000": []
+        },
+        "16000": {
+          "10": [],
+          "50": [],
+          "100": [],
+          "500": [],
+          "1000": []
+        }
+      }
+    }
+  }

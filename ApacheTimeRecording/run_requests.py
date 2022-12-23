@@ -16,7 +16,7 @@ for conc in CONCURRENT_REQUESTS:
 
 def get_requests():
     file_path = Path.cwd()
-    requests = [str(f) for f in list(file_path.glob('**/*.json'))]
+    requests = [str(f) for f in list(file_path.glob('**/request_*.json'))]
     return requests
 
 def send_requests():
