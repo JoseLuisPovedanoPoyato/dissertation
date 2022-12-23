@@ -50,6 +50,7 @@ def send_requests():
 
                 if len(result)>0:
                     for i in range(len(result)):
+                        result[i].strip()
                         print(result[i])
 
                 with open(req_path, "r") as file:

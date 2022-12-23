@@ -192,3 +192,6 @@ It was my birthday
 * * 3 hours * Controller works, will run multiple version of apache ab with different concurrencies, number of requests and num of microservices
 	- To Do: Increase apache ab timeout
 	- To Do: Read logs from stderror as well to facilitate future debugging
+	
+## 23 December 2022
+* * 0.5 hours * Increased timeout and output error logs
