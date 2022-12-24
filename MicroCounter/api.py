@@ -33,6 +33,7 @@ def count():
         next_url = get_url()
         resp = requests.post(url = next_url, json = data)
         while resp.status_code != 200:
+            app.logger.info(resp)
             app.logger.error(f"There was an error... Retrying request... Status Code = {resp.status_code}")
             resp = requests.post(url = next_url, json = data)
         return resp.content
@@ -55,4 +56,4 @@ def get_url():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=False)

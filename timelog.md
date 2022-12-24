@@ -199,3 +199,12 @@ It was my birthday
 	- Problem1: Takes 2 hours to run everything
 	- Probelm2: Results are not what we expected them to be (I think app is overloaded so a lot of requests timeout, return 500 and we don't try again)
 	- Problem3: Some of the microcounter-service/count requests time out which could make certain systems average faster values than what they should get
+
+
+## 24 December 2022
+* * 0.5 hours * Shortened requests for testing, added system to retry if request status is not 200
+	- Problem: Higher concurrency is still faster, not sure why
+* * 1 hour * Researched Flask -> Flask by default uses threads for every request
+	- 1 Flask thread might not benefit from the all the extra resources (RAM/CPU), however extra threads might, this would explain why time per request is lower when using concurrent apps
+		- I.E. 1 request executes in 50ms, 10 requests execute in 250ms -> Time per request is 50ms vs 25ms
+* * 0.5 hour * Set Flask to single threading, running over night to check if theory is correct and time per request is now similar through all requests
