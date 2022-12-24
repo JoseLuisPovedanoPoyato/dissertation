@@ -23,7 +23,7 @@ def count():
         # Could not get data from request
         pass 
     count, max_count = data.get('count', 0), data.get('max_count', 1)
-    print("I was pinged with count {count}")
+    print(f"I was pinged with count {count}")
     count = count + 1
     if count == max_count:
         return str(max_count)
@@ -31,10 +31,11 @@ def count():
         data = {'count' : count, 'max_count' : max_count}
         next_url = get_url()
         resp = requests.post(url = next_url, json = data)
-        if resp.status_code == 200:
-            return resp.content
-        else:
-            return resp
+        while resp.status_code != 200:
+            print("There was an error, retrying request")
+            resp = requests.post(url = next_url, json = data)
+        return resp.content
+            
 
 # Need to figure out a way to figure out all other deployments urls (These are variable)
     # E.G. Request includes current number and max count? 

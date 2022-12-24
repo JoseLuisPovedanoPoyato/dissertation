@@ -102,8 +102,10 @@ kubectl exec --stdin --tty request-generator$POD_NUMBER -- /bin/bash
 apt update / apt-get vim / vim request.txt - {"count" : 0, "max_count" : 2000} 
 
 curl -X POST -H "Content-Type: application/json" -d @request.txt http://micro-counter-service/count
-ab -p request.txt -T application/json -c 1 -n 10 -v 4 http://micro-counter-service/count
+ab -p request_1.json -T application/json -c 1 -n 10 -v 4 http://micro-counter-service/count
 
 curl http://localhost:5000/send_requests
+
+- 19:21 (72s) -  
 
 
