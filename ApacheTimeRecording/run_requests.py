@@ -4,7 +4,7 @@ import re
 import json
 
 # We simulate 1, 5, 10, 100 and 1000 users sending simultaneous requests
-CONCURRENT_REQUESTS=[1, 5, 10, 100, 1000]
+CONCURRENT_REQUESTS=[1000]
 
 # Each user will try to send 1, 2, 4, 8 and 16 requests each
 APACHE_CONC_NUM_COMBINATIONS = 0 
@@ -50,8 +50,8 @@ def send_requests():
 
                 if len(result)>0:
                     for i in range(len(result)):
-                        result[i].strip()
                         print(result[i])
+                        result[i] = result[i].strip()
 
                 with open(req_path, "r") as file:
                     max_count = json.load(file)['max_count']

@@ -195,3 +195,7 @@ It was my birthday
 	
 ## 23 December 2022
 * * 0.5 hours * Increased timeout and output error logs
+* * 0.5 hours * All requests are send and they are recorded
+	- Problem1: Takes 2 hours to run everything
+	- Probelm2: Results are not what we expected them to be (I think app is overloaded so a lot of requests timeout, return 500 and we don't try again)
+	- Problem3: Some of the microcounter-service/count requests time out which could make certain systems average faster values than what they should get

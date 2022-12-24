@@ -19,15 +19,16 @@ def send_requests():
         data = request.get_json()
     except:
         pass 
-    
     smt = data.get('smt', smt)
     new_results = run_requests.send_requests()
-
     try:
         tot_results = json.load('benchmark_latency_results.json')
     except:
         tot_results = {}
+        print("No previous data found")
+    
     tot_results[smt] = new_results
+    print(tot_results)
 
     with open('benchmark_latency_results.json', "w") as file:
         json.dump(tot_results, file)

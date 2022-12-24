@@ -31,7 +31,10 @@ def count():
         data = {'count' : count, 'max_count' : max_count}
         next_url = get_url()
         resp = requests.post(url = next_url, json = data)
-        return resp.content
+        if resp.status_code == 200:
+            return resp.content
+        else:
+            return resp
 
 # Need to figure out a way to figure out all other deployments urls (These are variable)
     # E.G. Request includes current number and max count? 
