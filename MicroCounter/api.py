@@ -1,5 +1,6 @@
+import logging
 from flask import Flask, request
-from flask_restful import Resource, Api, reqparse, abort, marshal, fields
+from flask_restful import Api
 import requests
 
 # Initialize Flask
@@ -20,10 +21,10 @@ def count():
     try:
         data = request.get_json()
     except:
-        # Could not get data from request
+        app.logger.error("Could not get data from request")
         pass 
     count, max_count = data.get('count', 0), data.get('max_count', 1)
-    print(f"I was pinged with count {count}")
+    app.logger.info(f"I was pinged with count {count}")
     count = count + 1
     if count == max_count:
         return str(max_count)
@@ -32,7 +33,7 @@ def count():
         next_url = get_url()
         resp = requests.post(url = next_url, json = data)
         while resp.status_code != 200:
-            print("There was an error, retrying request")
+            app.logger.error(f"There was an error... Retrying request... Status Code = {resp.status_code}")
             resp = requests.post(url = next_url, json = data)
         return resp.content
             
