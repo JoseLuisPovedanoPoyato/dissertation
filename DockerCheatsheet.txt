@@ -106,6 +106,8 @@ ab -p request_1.json -T application/json -c 1 -n 10 -v 4 http://micro-counter-se
 
 curl http://localhost:5000/send_requests
 
-- 19:21 (72s) -  
+- 19:21 (72s) -
+
+
 
 
