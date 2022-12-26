@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: micro-sender-deployment
+  name: micro-counter-deployment
   labels:
-    app: micro-sender
+    app: micro-counter
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: micro-sender
+      app: micro-counter
   template:
     metadata:
       labels:
-        app: micro-sender
+        app: micro-counter
     spec:
       containers:
-      - name: micro-sender
-        image: microsender:1.0
+      - name: micro-counter
+        image: microcounter:1.0
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
@@ -24,10 +24,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: micro-sender-service
+  name: micro-counter-service
 spec:
   selector:
-    app: micro-sender
+    app: micro-counter
   ports:
   - protocol: TCP
     port: 80
