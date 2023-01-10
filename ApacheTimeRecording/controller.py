@@ -17,9 +17,9 @@ def send_requests():
     data = {}
     try:
         data = request.get_json()
-        print(data)
     except:
-        pass 
+        pass
+    print(data)
     smt = data.get("smt", smt)
     new_results = run_requests.send_requests()
     try:
