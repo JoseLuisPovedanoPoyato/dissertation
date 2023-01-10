@@ -64,7 +64,7 @@ function delete_counter_bare() {
 
 function deploy_counter_linkerd() {
     echo "Generating MicroCounter manifest with linkerd injections..."
-    linkerd inject bare_counter_manifest.yml > linkerd_counter_manifest.yml
+    linkerd inject ${script_location}/../MicroCounter/bare_counter_manifest.yml > ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
     echo "Deploying a version of MicroCounter that uses the linkerd SMT..."
 	kubectl create -f ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
     grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 10
