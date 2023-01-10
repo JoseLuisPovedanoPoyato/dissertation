@@ -365,7 +365,7 @@ function execute_benchmarks(){
 	deploy_request_generator
     
 	# Bare Benchmark Section
-	# run_bare
+	run_bare
 
 	# Linkerd Benchmark Section
     install_linkerd_cluster
