@@ -1,0 +1,8 @@
+kubectl apply -f namespace monitoring.yml
+kubectl apply -f cluster-role.yaml
+kubectl apply -f service-account.yaml
+kubectl apply -f cluster-role-binding.yaml
+kubectl apply -f configmap.yaml
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+kubectl get all -n monitoring

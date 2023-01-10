@@ -38,3 +38,6 @@ They use Minikube while I have been relying on Kubernetes In Docker. Minikube is
 Perhaps adopting a less potent version might be better for realistic experiments as it is the most frequently used?
 
 
+
+https://dl.acm.org/doi/pdf/10.5555/3291291.3291339
+On the popularity of Service Meshes ACM is teaching workshop on how to use Istio

@@ -29,6 +29,8 @@ sudo apt install docker.io
 // Create the cluster, this is where kubectl will deploy our images to
 	sudo kind create cluster
 
+	// If this gets stucked on "Ensuring node image (kindest/node:${tag})" -> docker pull kindest/node:${tag} -> rerun command above
+
 // This will create a context for kubernetes. It should automatically be added to your user's profile at $HOME/.kube/config
 // Unfortunately this does not always happen. If that's the case copy the kubeconfig into the $HOME/.kube/config
 // You might have to create the .kube directory too

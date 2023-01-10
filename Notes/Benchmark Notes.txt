@@ -1,0 +1,9 @@
+L7proxy: This is a tool that was developed by Google to benchmark the performance of service meshes. It works by sending a large number of requests through the service mesh and measuring the throughput and latency of the requests.
+
+Linkerd: The Linkerd project provides a tool called "linkerd-bench" that can be used to benchmark the performance of Linkerd, a popular service mesh. It works by sending a large number of requests through the service mesh and measuring the throughput and latency of the requests.
+
+Istio: The Istio project provides a tool called "Fortio" that can be used to benchmark the performance of Istio, a popular service mesh. It works by sending a large number of requests through the service mesh and measuring the throughput and latency of the requests.
+
+Envoy: Envoy is a popular service mesh proxy that can be benchmarked using tools like Apache JMeter or Vegeta. These tools can be used to send a large number of requests through the service mesh and measure the throughput and latency of the requests.
+
+OpenTracing: OpenTracing is an open-source standard for distributed tracing, and it can be used to benchmark the performance of service meshes. By instrumenting the service mesh with OpenTracing, you can measure the time it takes for requests to pass through the service mesh and identify any bottlenecks or performance issues.

@@ -208,3 +208,51 @@ It was my birthday
 	- 1 Flask thread might not benefit from the all the extra resources (RAM/CPU), however extra threads might, this would explain why time per request is lower when using concurrent apps
 		- I.E. 1 request executes in 50ms, 10 requests execute in 250ms -> Time per request is 50ms vs 25ms
 * * 0.5 hour * Set Flask to single threading, running over night to check if theory is correct and time per request is now similar through all requests
+	- This is extremely slow, and single requests would take minutes
+	
+## 25 December 2022
+* * 0.5 hours * Resetted normal requests to test the application
+* * 0.5 hours * Removed single threading as app becomes extremely slow and times output
+
+## 26 December 2022
+* * 1.5 hour * Working on automating the creation and deletion of pods to switch SMTs in and out
+* * 0 hours * Having errors connecting to glasgow uni vpn and SSHing into servers, could not pull automation changes in...
+
+## 28 December 2022
+* * 1 hour * Started implementing the linkerd SMTs
+
+## 30 December 2022
+* * 0.5 hours * Kept implementing Linkerd smt until it does not execute locally because of windows compatibility problems
+* * 1 hour * Trying to solve localy compatibility problems (Failed does not work)
+* * 0.5 hours * Automating Linkerd commands (Due to Server problems haven't managed to run them yet)
+
+## 02 January 2023
+* * 1.5 hours * Tried to solve problems with WSL and Docker (Not working)
+* * 1 hour * Automated Linkerd commands
+
+## 03 January 2023
+* * 2 hours * Tried to solve problems with WSL and Docker (Not working)
+* * 1 hour * Started writing dissertation -> Got template and read examples
+* * 0.5 hour * Started automating some consul commands
+
+## 04 January 2023
+* * 2.5 hours * Tried to use a remote server instead (Not working because paywall)
+* * 1 hour * Structured background segments and methodology
+
+## 05 January 2023
+* * 2.5 hours * Tried setting up VirtualBox with Ubuntu, Debian and Redhat
+	- Does not work -> Docker virtualization has broken VMs
+
+## 06 January 2023
+* * 1.5 hours * Wrote some of the dissertation background
+* * 1 hour * Wrote some of the dissertation methodology
+
+## 07 January 2023
+* * 2 hours * Tried to get a new Prometheus deployment working in Windows (Issues with WSL, kind and docker)
+
+## 09 January 2023
+* * X hours * Saved all my important stuff to another device and factory resetted my laptop to try and get Virtual Machines working
+
+## 10 January 2023
+* * 1 hour * Set up Ubuntu virtual machine in virtual box
+* * 2 hours * Setting up Docker, Kind and Kubectl in VM (Seems to be working)
