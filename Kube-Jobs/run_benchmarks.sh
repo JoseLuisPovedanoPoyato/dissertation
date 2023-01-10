@@ -15,7 +15,7 @@ function run_send_request_job() {
     echo "Finding request generator pod..."
 	local req_pod=$(kubectl get pod -l app=request-generator -o jsonpath="{.items[0].metadata.name}")
 	echo "Request pod is sending the request..."
-	kubectl exec req_pod curl "-X PUT http://localhost:5000/send_requests -H \"Content-Type: application/json\" -d '{\"smt\":\"$(smt)\"}' "
+	kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -d '{"smt": "$smt"}'
 	echo "... Bare Kubernetes Micro Counter has been deleted"
 }
 
@@ -52,7 +52,8 @@ function deploy_counter_bare() {
     echo "Deploying a version of MicroCounter without any SMTs..."
 	kubectl create -f ${script_location}/../MicroCounter/bare_counter_manifest.yml
     grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 10
-    grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
+    # This needs fixing doesn't work for services
+    # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
 	echo "... Bare Kubernetes Micro Counter is live"
 }
 
@@ -67,7 +68,8 @@ function deploy_counter_linkerd() {
     echo "Deploying a version of MicroCounter that uses the linkerd SMT..."
 	kubectl create -f ${script_location}/../SMTs/linkerd/linkerd_counter_manifest.yml
     grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 10
-    grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
+    # Won-t work for services
+    # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
 	echo "... Linkerd Kubernetes Micro Counter is live"
 }
 
@@ -77,6 +79,13 @@ function delete_counter_linkerd() {
 	kubectl delete services/micro-counter-service
 	echo "... Linkerd Kubernetes Micro Counter has been deleted"
 }
+
+function run_bare(){
+    deploy_counter_bare
+	run_send_request_job "kubernetes"
+	delete_counter_bare	
+}
+
 #--
 
 # Probs won't use this, not sure if it even works
@@ -353,18 +362,19 @@ function run_benchmarks() {
 }
 
 function execute_benchmarks(){
-	# Bare Benchmark Section
 	deploy_request_generator
-	deploy_counter_bare
-	run_send_request_job "kubernetes"
-	delete_counter_bare	
+    
+	# Bare Benchmark Section
+	# run_bare
+
 	# Linkerd Benchmark Section
-	install_linkerd
+    install_linkerd
 	deploy_counter_linkerd
 	run_send_request_job "linkerd"
 	delete_counter_linkerd
 	uninstall_linkerd
-	# Istio Benchmark Section
+	
+    # Istio Benchmark Section
 }
 # --
 

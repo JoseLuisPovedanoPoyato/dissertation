@@ -78,7 +78,7 @@ sudo kind load docker-image microcounter:1.0
 
 kubectl delete deployments/micro-counter-deployment
 kubectl delete services/micro-counter-service
-sudo kubectl create -f kube_manifest.yml
+sudo kubectl create -f bare_counter_manifest.yml
 kubectl get pods
 
 //SSH into pod
