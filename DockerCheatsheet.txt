@@ -92,7 +92,7 @@ sudo docker build -t requestgenerator:1.0 .
 sudo kind load docker-image requestgenerator:1.0
 
 kubectl delete deployments/request-generator
-sudo kubectl create -f kube_manifest.yml
+sudo kubectl create -f request_gen_manifest.yml
 kubectl get pods
 
 //SSH into pod
