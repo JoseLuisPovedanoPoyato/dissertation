@@ -17,9 +17,10 @@ def send_requests():
     data = {}
     try:
         data = request.get_json()
+        print(data)
     except:
         pass 
-    smt = data.get('smt', smt)
+    smt = data.get("smt", smt)
     new_results = run_requests.send_requests()
     try:
         tot_results = json.load('benchmark_latency_results.json')
