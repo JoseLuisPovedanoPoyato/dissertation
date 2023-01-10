@@ -20,16 +20,14 @@ function run_send_request_job() {
 }
 
 # Linkerd Installation Commands
-function install_linkerd() {
+function install_linkerd_cluster() {
 	linkerd check --pre
 	linkerd install --crds | kubectl apply -f -
-	linkerd install | kubectl apply -f -
+    linkerd install | kubectl apply -f -
 	linkerd check
-	cp ../../MicroCounter/bare_counter_manifest.yml ./linkerd_counter_manifest.yml
-	linkerd inject linkerd_counter_manifest.yml
 }
 
-function uninstall_linkerd() {
+function uninstall_linkerd_cluster() {
 	linkerd uninstall | kubectl delete -f -
 }
 
@@ -65,8 +63,10 @@ function delete_counter_bare() {
 }
 
 function deploy_counter_linkerd() {
+    echo "Generating MicroCounter manifest with linkerd injections..."
+    linkerd inject bare_counter_manifest.yml > linkerd_counter_manifest.yml
     echo "Deploying a version of MicroCounter that uses the linkerd SMT..."
-	kubectl create -f ${script_location}/../SMTs/linkerd/linkerd_counter_manifest.yml
+	kubectl create -f ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
     grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 10
     # Won-t work for services
     # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
@@ -368,11 +368,11 @@ function execute_benchmarks(){
 	# run_bare
 
 	# Linkerd Benchmark Section
-    install_linkerd
+    install_linkerd_cluster
 	deploy_counter_linkerd
 	run_send_request_job "linkerd"
 	delete_counter_linkerd
-	uninstall_linkerd
+	uninstall_linkerd_cluster
 	
     # Istio Benchmark Section
 }
