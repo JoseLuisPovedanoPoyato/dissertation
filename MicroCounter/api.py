@@ -32,10 +32,14 @@ def count():
         data = {'count' : count, 'max_count' : max_count}
         next_url = get_url()
         resp = requests.post(url = next_url, json = data)
-        while resp.status_code != 200:
+        attempts = 0
+        while resp.status_code != 200 and attempts < 10:
+            attempts = attempts + 1
             app.logger.info(resp)
             app.logger.error(f"There was an error... Retrying request... Status Code = {resp.status_code}")
             resp = requests.post(url = next_url, json = data)
+            if attempts >= 10:
+                print("Tried resubmitting request 10 times, moving on...")
         return resp.content
             
 

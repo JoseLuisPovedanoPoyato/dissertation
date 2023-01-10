@@ -4,7 +4,8 @@ import re
 import json
 
 # We simulate 1, 5, 10, 100 and 1000 users sending simultaneous requests
-CONCURRENT_REQUESTS=[1, 5, 10, 100, 1000]
+# CONCURRENT_REQUESTS=[1, 5, 10, 100, 1000]
+CONCURRENT_REQUESTS=[1, 5, 10]
 
 # Each user will try to send 1, 2, 4, 8 and 16 requests each
 APACHE_CONC_NUM_COMBINATIONS = 0 
