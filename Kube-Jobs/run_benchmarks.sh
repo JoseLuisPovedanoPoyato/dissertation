@@ -6,7 +6,7 @@ script_location="$(dirname "${BASH_SOURCE[0]}")"
 function deploy_request_generator(){
 	echo "Deploying the request generator..."
 	kubectl create -f ${script_location}/../ApacheTimeRecording/request_gen_manifest.yml
-    grace "kubectl get pods --all-namespaces | grep request-generator | grep -v Running" 10
+    grace "kubectl get pods --all-namespaces | grep request-generator | grep -v Running" 5
 	echo "... Request generator is live and running"
 }
 
@@ -15,8 +15,9 @@ function run_send_request_job() {
     echo "Finding request generator pod..."
 	local req_pod=$(kubectl get pod -l app=request-generator -o jsonpath="{.items[0].metadata.name}")
 	echo "Request pod is sending the request..."
-	kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -H "Content-Type: application/json" -d {"smt": $smt}
-	echo "... Bare Kubernetes Micro Counter has been deleted"
+    local data='{"smt":"'"$smt"'"}'
+    kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -H "Content-Type: application/json" -d "$data"
+    echo "... Bare Kubernetes Micro Counter has been deleted"
 }
 
 # Linkerd Installation Commands
@@ -49,7 +50,7 @@ function uninstall_consul() {
 function deploy_counter_bare() {
     echo "Deploying a version of MicroCounter without any SMTs..."
 	kubectl create -f ${script_location}/../MicroCounter/bare_counter_manifest.yml
-    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 10
+    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 5
     # This needs fixing doesn't work for services
     # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
 	echo "... Bare Kubernetes Micro Counter is live"
@@ -67,7 +68,7 @@ function deploy_counter_linkerd() {
     linkerd inject ${script_location}/../MicroCounter/bare_counter_manifest.yml > ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
     echo "Deploying a version of MicroCounter that uses the linkerd SMT..."
 	kubectl create -f ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
-    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 10
+    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 5
     # Won-t work for services
     # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
 	echo "... Linkerd Kubernetes Micro Counter is live"
