@@ -23,7 +23,8 @@ def send_requests():
     smt = data.get("smt", smt)
     new_results = run_requests.send_requests()
     try:
-        tot_results = json.load('benchmark_latency_results.json')
+        with open('benchmark_latency_results.json', "r") as file:
+            tot_results = json.load(file)
     except:
         tot_results = {}
         print("No previous data found")

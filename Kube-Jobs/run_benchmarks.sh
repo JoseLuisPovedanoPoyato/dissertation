@@ -24,8 +24,10 @@ function run_send_request_job() {
 function install_linkerd_cluster() {
 	linkerd check --pre
 	linkerd install --crds | kubectl apply -f -
+    sleep 5
     linkerd install | kubectl apply -f -
-	linkerd check
+	sleep 5
+    linkerd check
 }
 
 function uninstall_linkerd_cluster() {

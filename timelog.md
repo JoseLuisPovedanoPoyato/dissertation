@@ -262,3 +262,6 @@ It was my birthday
 	- Problem: Still need debug Prometheus
 	- Problem: Code is quite messy -> Try to make time for refactoring AFTER gathering results for writing diss
 	- Problem: Only 1 set of results stored into dict with results
+
+## 11 Jannuary 2023
+* * 0.5 hours *  Solving probelms found yesterday
