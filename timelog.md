@@ -256,3 +256,9 @@ It was my birthday
 ## 10 January 2023
 * * 1 hour * Set up Ubuntu virtual machine in virtual box
 * * 2 hours * Setting up Docker, Kind and Kubectl in VM (Seems to be working)
+- Yehia Restarted Server
+* * 5 hours * Automated script works -> We collect latency results for bare kubernetes and linkerd
+	- Problem: Linkerd install needs a wait period between installs before we try injecting linkerd into pods
+	- Problem: Still need debug Prometheus
+	- Problem: Code is quite messy -> Try to make time for refactoring AFTER gathering results for writing diss
+	- Problem: Only 1 set of results stored into dict with results
