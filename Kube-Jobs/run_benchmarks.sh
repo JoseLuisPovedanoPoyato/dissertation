@@ -15,7 +15,7 @@ function run_send_request_job() {
     echo "Finding request generator pod..."
 	local req_pod=$(kubectl get pod -l app=request-generator -o jsonpath="{.items[0].metadata.name}")
 	echo "Request pod is sending the request..."
-	kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -H "Content-Type: application/json" -d '{"smt": "$smt"}'
+	kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -H "Content-Type: application/json" -d {"smt": $smt}
 	echo "... Bare Kubernetes Micro Counter has been deleted"
 }
 
