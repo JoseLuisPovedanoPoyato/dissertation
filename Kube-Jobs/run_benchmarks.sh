@@ -20,7 +20,9 @@ function run_send_request_job() {
     echo "... Bare Kubernetes Micro Counter has been deleted"
 }
 
-# Linkerd Installation Commands
+
+# Install/Uninstall SMTs to/from cluster
+# Linkerd installation commands
 function install_linkerd_cluster() {
 	linkerd check --pre
 	linkerd install --crds | kubectl apply -f -
@@ -35,7 +37,7 @@ function uninstall_linkerd_cluster() {
 }
 
 # Consul Installation Commands
-function install_consul() {
+function install_consul_cluster() {
 	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 	sudo apt-get update && sudo apt-get install consul-k8s
@@ -44,24 +46,43 @@ function install_consul() {
 	consul-k8s status
 }
 
-function uninstall_consul() {
+function uninstall_consul_cluster() {
 	linkerd uninstall | kubectl delete -f -
 }
 
+# Istio Installation commands
+function install_istio_cluster(){
+    istioctl install --set profile=demo -y
+}
+
+function uninstall_istio_cluster() {
+	istioctl uninstall --purge
+}
+
 # MicroCounter Deployment Commands
-function deploy_counter_bare() {
-    echo "Deploying a version of MicroCounter without any SMTs..."
-	kubectl create -f ${script_location}/../MicroCounter/bare_counter_manifest.yml
+function deploy_counter(){
+    local manifest = $1
+    kubectl create -f $manifest
     grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 5
     # This needs fixing doesn't work for services
     # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
-	echo "... Bare Kubernetes Micro Counter is live"
+}
+
+function delete_counter(){
+	kubectl delete deployments/micro-counter-deployment
+	kubectl delete services/micro-counter-service
+}
+
+function deploy_counter_bare() {
+    echo "Deploying a version of MicroCounter without any SMTs..."
+    deploy_counter ${script_location}/../MicroCounter/bare_counter_manifest.yml
+    echo "... Micro Counter using bare Kubernetes is now live"
+	
 }
 
 function delete_counter_bare() {
-    echo "Deleting bare micro-counter-deployment"
-	kubectl delete deployments/micro-counter-deployment
-	kubectl delete services/micro-counter-service
+    echo "Deleting bare micro-counter-deployment..."
+    delete_counter
 	echo "... Bare Kubernetes Micro Counter has been deleted"
 }
 
@@ -69,26 +90,52 @@ function deploy_counter_linkerd() {
     echo "Generating MicroCounter manifest with linkerd injections..."
     linkerd inject ${script_location}/../MicroCounter/bare_counter_manifest.yml > ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
     echo "Deploying a version of MicroCounter that uses the linkerd SMT..."
-	kubectl create -f ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
-    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 5
-    # Won-t work for services
-    # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
-	echo "... Linkerd Kubernetes Micro Counter is live"
+	deploy_counter ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
+    echo "... Linkerd Injected Micro Counter is live"
 }
 
 function delete_counter_linkerd() {
     echo "Deleting linkerd micro-counter-deployment"
-	kubectl delete deployments/micro-counter-deployment
-	kubectl delete services/micro-counter-service
-	echo "... Linkerd Kubernetes Micro Counter has been deleted"
+	delete_counter
+	echo "... Linkerd Injected Micro Counter has been deleted"
 }
 
-function run_bare(){
+function deploy_counter_linkerd() {
+    echo "Setting automatic Istio proxy injections to newly deployed pods..."
+    kubectl label namespace default istio-injection=enabled
+    echo "Deploying the microcounter pods to an Istio injected cluster namespace..."
+	deploy_counter ${script_location}/../MicroCounter/bare_counter_manifest.yml
+    echo "... Istio Injected Micro Counter is live"
+}
+
+function delete_counter_istio() {
+    echo "Deleting istio micro-counter-deployment"
+	delete_counter
+	echo "... Istio Injected Micro Counter has been deleted"
+}
+
+# Execute a benchmark for each SMT
+function benchmark_bare_kubernetes(){
     deploy_counter_bare
 	run_send_request_job "kubernetes"
 	delete_counter_bare	
 }
 
+function benchmark_linkerd(){
+    install_linkerd_cluster
+	deploy_counter_linkerd
+	run_send_request_job "linkerd"
+	delete_counter_linkerd
+	uninstall_linkerd_cluster
+}
+
+function benchmark_istio(){
+    install_istio_cluster
+	deploy_counter_istio
+	run_send_request_job "linkerd"
+	delete_counter_istio
+	uninstall_istio_cluster
+}
 #--
 
 # Probs won't use this, not sure if it even works
@@ -138,28 +185,6 @@ function check_meshed() {
 }
 # --
 
-function install_counter() {
-    local mesh="$1"
-
-    echo "Installing Counter MicroService."
-
-    for num in $(seq 0 1 59); do
-        { 
-            kubectl create namespace emojivoto-$num
-            [ "$mesh" == "istio" ] && \
-                kubectl label namespace emojivoto-$num istio-injection=enabled
-
-            helm install emojivoto-$num --namespace emojivoto-$num \
-                             ${script_location}/../configs/emojivoto/
-         } &
-    done
-
-    wait
-
-    grace "kubectl get pods --all-namespaces | grep emojivoto | grep -v Running" 10
-}
-# --
-
 function restart_counter_pods() {
 
     for num in $(seq 0 1 59); do
@@ -174,21 +199,6 @@ function restart_counter_pods() {
     grace "kubectl get pods --all-namespaces | grep emojivoto | grep -v Running" 10
 }
 # --
-
-function delete_counter() {
-    echo "Deleting emojivoto."
-
-    for i in $(seq 0 1 59); do
-        { helm uninstall emojivoto-$i --namespace emojivoto-$i;
-          kubectl delete namespace emojivoto-$i --wait; } &
-    done
-
-    wait
-
-    grace "kubectl get namespaces | grep emojivoto"
-}
-# --
-
 function run() {
     echo "   Running '$@'"
     $@
@@ -367,18 +377,11 @@ function run_benchmarks() {
 function execute_benchmarks(){
 	deploy_request_generator
     
-	# Bare Benchmark Section
-	run_bare
-
-	# Linkerd Benchmark Section
-    install_linkerd_cluster
-	deploy_counter_linkerd
-	run_send_request_job "linkerd"
-	delete_counter_linkerd
-	uninstall_linkerd_cluster
-	
-    # Istio Benchmark Section
-}
+	# Run Benchmarks
+	benchmark_bare_kubernetes
+    benchmark_linkerd
+    benchmark_istio
+    }
 # --
 
 if [ "$(basename $0)" = "run_benchmarks.sh" ] ; then

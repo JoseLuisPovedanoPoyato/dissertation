@@ -6,7 +6,16 @@ function download_linkerd_cli(){
 }
 
 function remove_linkerd_cli(){
-    # Delete Linkerd's installation repo (Only do this if more space is needed)
+    # Delete Linkerd's CLI (Only do this if more space is needed)
+}
+
+function download_istio_cli(){
+	curl -L https://istio.io/downloadIstio | sh -
+	mv istio-1.15.3 $home/istio
+}
+
+function remove_istio_cli(){
+    # Delete Istio's CLI (Only do this if more space is needed)
 }
 
 # --

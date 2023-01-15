@@ -25,9 +25,11 @@ def send_requests():
     try:
         with open('benchmark_latency_results.json', "r") as file:
             tot_results = json.load(file)
-    except:
-        tot_results = {}
+    except Exception as e:
         print("No previous data found")
+        print(e)
+        tot_results = {}
+        
     
     tot_results[smt] = new_results
     print(tot_results)

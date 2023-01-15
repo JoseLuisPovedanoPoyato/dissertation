@@ -265,3 +265,9 @@ It was my birthday
 
 ## 11 Jannuary 2023
 * * 0.5 hours *  Solving probelms found yesterday
+
+## 13 January 2023
+* * 0.5 hours * Meeting with Supervisor -> Currently on track, focusing on getting the SMTs working then fixing prometheus
+
+## 14 January 2023
+* * 1 hours * Set up commands to run Istio benchmark, need to execute a complete batch to test it worked
