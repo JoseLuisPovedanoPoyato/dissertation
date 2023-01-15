@@ -61,7 +61,7 @@ function uninstall_istio_cluster() {
 
 # MicroCounter Deployment Commands
 function deploy_counter(){
-    local manifest = $1
+    local manifest=$1
     kubectl create -f $manifest
     grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 5
     # This needs fixing doesn't work for services
@@ -381,6 +381,8 @@ function execute_benchmarks(){
 	benchmark_bare_kubernetes
     benchmark_linkerd
     benchmark_istio
+
+    kubectl delete deployments/request-generator
     }
 # --
 
