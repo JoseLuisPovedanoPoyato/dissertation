@@ -100,7 +100,7 @@ function delete_counter_linkerd() {
 	echo "... Linkerd Injected Micro Counter has been deleted"
 }
 
-function deploy_counter_linkerd() {
+function deploy_counter_istio() {
     echo "Setting automatic Istio proxy injections to newly deployed pods..."
     kubectl label namespace default istio-injection=enabled
     echo "Deploying the microcounter pods to an Istio injected cluster namespace..."
@@ -132,7 +132,7 @@ function benchmark_linkerd(){
 function benchmark_istio(){
     install_istio_cluster
 	deploy_counter_istio
-	run_send_request_job "linkerd"
+	run_send_request_job "istio"
 	delete_counter_istio
 	uninstall_istio_cluster
 }
