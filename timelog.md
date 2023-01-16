@@ -271,3 +271,6 @@ It was my birthday
 
 ## 14 January 2023
 * * 1 hours * Set up commands to run Istio benchmark, need to execute a complete batch to test it worked
+
+## 15 January 2023
+* * 0.5 hours * Istio works, Debugging small errors and starting work on Consul

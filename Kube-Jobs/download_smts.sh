@@ -18,6 +18,11 @@ function remove_istio_cli(){
     # Delete Istio's CLI (Only do this if more space is needed)
 }
 
+function download_consul_cli(){
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+	sudo apt-get update && sudo apt-get install consul-k8s
+}
 # --
 
 if [ "$(basename $0)" = "download_smts.sh" ] ; then

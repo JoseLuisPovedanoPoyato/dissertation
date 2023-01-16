@@ -17,7 +17,6 @@ function run_send_request_job() {
 	echo "Request pod is sending the request..."
     local data='{"smt":"'"$smt"'"}'
     kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -H "Content-Type: application/json" -d "$data"
-    echo "... Bare Kubernetes Micro Counter has been deleted"
 }
 
 
@@ -26,9 +25,9 @@ function run_send_request_job() {
 function install_linkerd_cluster() {
 	linkerd check --pre
 	linkerd install --crds | kubectl apply -f -
-    sleep 5
+    sleep 10
     linkerd install | kubectl apply -f -
-	sleep 5
+	sleep 10
     linkerd check
 }
 
@@ -38,9 +37,6 @@ function uninstall_linkerd_cluster() {
 
 # Consul Installation Commands
 function install_consul_cluster() {
-	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-	sudo apt-get update && sudo apt-get install consul-k8s
 	consul-k8s version
 	consul-k8s install 
 	consul-k8s status
@@ -56,7 +52,7 @@ function install_istio_cluster(){
 }
 
 function uninstall_istio_cluster() {
-	istioctl uninstall --purge
+	yes Y | istioctl uninstall --purge
 }
 
 # MicroCounter Deployment Commands
@@ -97,6 +93,7 @@ function deploy_counter_linkerd() {
 function delete_counter_linkerd() {
     echo "Deleting linkerd micro-counter-deployment"
 	delete_counter
+    sleep 3
 	echo "... Linkerd Injected Micro Counter has been deleted"
 }
 
@@ -111,6 +108,7 @@ function deploy_counter_istio() {
 function delete_counter_istio() {
     echo "Deleting istio micro-counter-deployment"
 	delete_counter
+    sleep 3
 	echo "... Istio Injected Micro Counter has been deleted"
 }
 
@@ -379,10 +377,9 @@ function execute_benchmarks(){
     
 	# Run Benchmarks
 	benchmark_bare_kubernetes
-    benchmark_linkerd
     benchmark_istio
+    benchmark_linkerd
 
-    kubectl delete deployments/request-generator
     }
 # --
 
