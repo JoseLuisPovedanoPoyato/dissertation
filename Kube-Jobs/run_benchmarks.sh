@@ -43,7 +43,7 @@ function install_consul_cluster() {
 }
 
 function uninstall_consul_cluster() {
-	linkerd uninstall | kubectl delete -f -
+	consul-k8s uninstall -auto-approve=true -wipe-data=true
 }
 
 # Istio Installation commands
@@ -85,7 +85,7 @@ function delete_counter_bare() {
 function deploy_counter_linkerd() {
     echo "Generating MicroCounter manifest with linkerd injections..."
     linkerd inject ${script_location}/../MicroCounter/bare_counter_manifest.yml > ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
-    echo "Deploying a version of MicroCounter that uses the linkerd SMT..."
+    echo "Deploying MicroCounter using the linkerd injected manifest..."
 	deploy_counter ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
     echo "... Linkerd Injected Micro Counter is live"
 }
@@ -112,6 +112,19 @@ function delete_counter_istio() {
 	echo "... Istio Injected Micro Counter has been deleted"
 }
 
+function deploy_counter_consul() {
+    echo "Deploying MicroCounter using a consul injected manifest..."
+	deploy_counter ${script_location}/../MicroCounter/consul_counter_manifest.yml
+    echo "... Consul Injected Micro Counter is live"
+}
+
+function delete_counter_consul() {
+    echo "Deleting consul micro-counter-deployment"
+	delete_counter
+    sleep 3
+	echo "... Consul Injected Micro Counter has been deleted"
+}
+
 # Execute a benchmark for each SMT
 function benchmark_bare_kubernetes(){
     deploy_counter_bare
@@ -133,6 +146,14 @@ function benchmark_istio(){
 	run_send_request_job "istio"
 	delete_counter_istio
 	uninstall_istio_cluster
+}
+
+function benchmark_consul(){
+    install_consul_cluster
+	deploy_counter_consul
+	run_send_request_job "consul"
+	delete_counter_consul
+	uninstall_consul_cluster
 }
 #--
 
@@ -379,6 +400,7 @@ function execute_benchmarks(){
 	benchmark_bare_kubernetes
     benchmark_istio
     benchmark_linkerd
+    benchmark_consul
 
     }
 # --

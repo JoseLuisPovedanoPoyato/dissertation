@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-counter-deployment
+  labels:
+    app: micro-counter
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: micro-counter
+  template:
+    metadata:
+      labels:
+        app: micro-counter
+      annotations:
+        'consul.hashicorp.com/connect-inject': 'true'
+    spec:
+      containers:
+      - name: micro-counter
+        image: microcounter:1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-counter-service
+spec:
+  selector:
+    app: micro-counter
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
