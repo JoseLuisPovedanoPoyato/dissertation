@@ -10,7 +10,7 @@ CONCURRENT_USERS=[1, 5, 10]
 REQUESTS_PER_USER = [1, 2, 4, 8, 16]
 SERVICES_PER_REQ = [10, 50, 100, 500, 1000]
 
-REQUEST_GENERATOR_URL = "http://request-generator-service"
+REQUEST_GENERATOR_URL = "http://request-generator-service/generate_load"
 
 # Initialize Flask
 app = Flask(__name__)
