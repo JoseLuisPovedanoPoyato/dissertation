@@ -18,6 +18,6 @@ function create_docker_images(){
 }
 # --
 
-if [ "$(basename $0)" = "download_smts.sh" ] ; then
+if [ "$(basename $0)" = "create_docker_images.sh" ] ; then
 	create_docker_images
 fi
