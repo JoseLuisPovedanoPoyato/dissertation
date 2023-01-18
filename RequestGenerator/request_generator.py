@@ -43,7 +43,7 @@ def generate_load():
     service_files = []
     for i in range(len(services)):
         with open(f"service_files_{i}.json", "w") as f:
-            f.dump({"count" : 0, "max_count" : services[i]})
+            json.dump({"count" : 0, "max_count" : services[i]}, f)
             service_files.append(f"service_files_{i}.json")
     
     results = {}
