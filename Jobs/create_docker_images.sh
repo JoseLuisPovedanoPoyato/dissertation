@@ -2,13 +2,13 @@
 
 function create_request_generator(){
 	docker rmi requestgenerator:1.0
-	docker build . -t requestgenerator:1.0 -f ../RequestGenerator/Dockerfile
+	docker build ../RequestGenerator/ -t requestgenerator:1.0 -f ../RequestGenerator/Dockerfile
 	kind load docker-image requestgenerator:1.0
 }
 
 function create_benchmark_controller(){
 	docker rmi benchmarkcontroller:1.0
-	docker build . -t benchmarkcontroller:1.0 -f ../BenchmarkController/Dockerfile
+	docker build ../BenchmarkController/ -t benchmarkcontroller:1.0 -f ../BenchmarkController/Dockerfile
 	kind load docker-image benchmarkcontroller:1.0
 }
 
