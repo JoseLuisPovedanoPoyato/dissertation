@@ -4,6 +4,7 @@ function create_request_generator(){
 	docker rmi requestgenerator:1.0
 	docker build ../RequestGenerator/ -t requestgenerator:1.0 -f ../RequestGenerator/Dockerfile
 	kind load docker-image requestgenerator:1.0
+	kubectl delete deployments request-generator
 	kubectl create -f ../RequestGenerator/request_gen_manifest.yml
 }
 
