@@ -14,4 +14,4 @@ RUN pipenv install --deploy --ignore-pipfile
 
 EXPOSE 8000
 
-CMD ["pipenv", "run", "python", "api.py"]
+CMD ["pipenv", "run", "python", "controller.py"]
