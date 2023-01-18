@@ -1,6 +1,5 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
-import run_requests
 import json
 import re
 
