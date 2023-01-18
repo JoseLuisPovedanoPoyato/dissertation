@@ -6,9 +6,9 @@ import re
 def run_apache_request(data):
     process = subprocess.run(['ab', '-p', req_path, '-T', 'application/json', '-c', str(concurrency), '-n', str(num), '-v', '1', '-s', '90', 'http://micro-counter-service/count'], capture_output=True, text=True)
     logs, errors = process.stdout, process.stderr
-    print(logs)
+    print(logs, flush=true)
     if errors:
-        print(errors)
+        print(errors, flush=true)
     result = re.findall('Time per request:(.*)\n', logs)
     
     if len(result)>0:
