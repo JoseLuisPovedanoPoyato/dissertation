@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
 import json
 import re
+import subprocess
 
 def run_apache_request(user, request, file):
     process = subprocess.run(['ab', '-p', file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-v', '1', '-s', '120', 'http://micro-counter-service/count'], capture_output=True, text=True)
