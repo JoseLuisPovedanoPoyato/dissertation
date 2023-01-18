@@ -57,7 +57,7 @@ def send_requests():
     results[smt] = smt_results
     
     with open('benchmark_latency_results.json', "w") as file:
-        json.dump(tot_results, file)
+        json.dump(results, file)
         app.logger.info(f"The results have been written to the file 'benchmark_latency_results.json'")
     return results
 
