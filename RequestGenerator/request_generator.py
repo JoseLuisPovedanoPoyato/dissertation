@@ -3,8 +3,8 @@ from flask_restful import Resource, Api, reqparse, abort, marshal, fields
 import json
 import re
 
-def run_apache_request(data):
-    process = subprocess.run(['ab', '-p', req_path, '-T', 'application/json', '-c', str(concurrency), '-n', str(num), '-v', '1', '-s', '90', 'http://micro-counter-service/count'], capture_output=True, text=True)
+def run_apache_request(user, request, file):
+    process = subprocess.run(['ab', '-p', file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-v', '1', '-s', '120', 'http://micro-counter-service/count'], capture_output=True, text=True)
     logs, errors = process.stdout, process.stderr
     print(logs, flush=true)
     if errors:
