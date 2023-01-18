@@ -35,7 +35,7 @@ def send_requests():
     services = data.get("services", SERVICES_PER_REQ)
     
     load_gen_data = {"users" : users, "requests" : requests, "services" : services}
-    app.logger.info(f"Data to generate requests: \n\n Concurrent Users = {load_gen_data.get("users")} \n Requests per User = {load_gen_data.get("requests")} \n MicroServices Per Request = {load_gen_data.get("services")}")
+    app.logger.info(f"Data to generate requests: \n\n Concurrent Users = {load_gen_data.get('users')} \n Requests per User = {load_gen_data.get('requests')} \n MicroServices Per Request = {load_gen_data.get('services')}")
     
     # Execute load generator
     resp = requests.post(url = REQUEST_GENERATOR_URL, json = load_gen_data)
