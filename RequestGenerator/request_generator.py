@@ -31,10 +31,11 @@ def generate_load():
         data = request.get_json()
         app.logger.info(f"Provided data: {data}")
         users = data["users"]
-        requests = data.get["requests"]
-        services = data.get["services"]
+        requests = data["requests"]
+        services = data["services"]
     except:
         app.logger.error("Invalid data provided to load generator. Usage: \n\n data = {'users': '[Number of concurrent users pinging app]', 'requests': '[Number of requests each user should send]', 'services':'[Number of MicroServices we should simulate]'}")
+        app.logger.error(f"Provided data: {str(data)}")
         return "Invalid data provided to load generator. Usage: \n\n data = {'users': '[Number of concurrent users pinging app]', 'requests': '[Number of requests each user should send]', 'services':'[Number of MicroServices we should simulate]'}", 400
 
     # Creating service files for apache ab to use as part of the POST request. The other option is to echo the json in through command line (messier).
