@@ -4,6 +4,7 @@ function create_request_generator(){
 	docker rmi requestgenerator:1.0
 	docker build ../RequestGenerator/ -t requestgenerator:1.0 -f ../RequestGenerator/Dockerfile
 	kind load docker-image requestgenerator:1.0
+	kubectl create -f ../RequestGenerator/request_gen_manifest.yml
 }
 
 function create_benchmark_controller(){
@@ -14,7 +15,7 @@ function create_benchmark_controller(){
 
 function create_docker_images(){
 	create_request_generator
-	create_benchmark_controller
+	#create_benchmark_controller
 }
 # --
 
