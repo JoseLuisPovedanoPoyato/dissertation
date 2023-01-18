@@ -6,10 +6,10 @@ function create_request_generator(){
 	kind load docker-image requestgenerator:1.0
 }
 
-function create_request_generator(){
+function create_benchmark_controller(){
 	docker rmi benchmarkcontroller:1.0
 	docker build . -t benchmarkcontroller:1.0 -f ../BenchmarkController/Dockerfile
-	kind load docker-image requestgenerator:1.0
+	kind load docker-image benchmarkcontroller:1.0
 }
 
 function create_docker_images(){
