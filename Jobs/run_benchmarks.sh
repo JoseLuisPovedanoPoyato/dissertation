@@ -38,7 +38,7 @@ function uninstall_linkerd_cluster() {
 # Consul Installation Commands
 function install_consul_cluster() {
 	consul-k8s version
-	consul-k8s install 
+	yes Y | consul-k8s install 
 	consul-k8s status
 }
 

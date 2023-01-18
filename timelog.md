@@ -274,3 +274,14 @@ It was my birthday
 
 ## 15 January 2023
 * * 0.5 hours * Istio works, Debugging small errors and starting work on Consul
+
+## 16 January 2023
+* * 0.5 hours * Updated small errors, Linkerd and Istio now run continuously
+
+## 17 January 2023
+* * 1 hour * Tested Consul run -> Does not work, pod not injected with SMT cannot communicate with injected pod
+	-  Problem: Keeping results when changing SMTs
+
+## 18 January 2023
+* * 1 hour * Developed new architecture -> Show Yehia tomorrow
+* * 2 hours * Refactoring current code to see if new architecture works 
