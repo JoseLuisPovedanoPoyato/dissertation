@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
 import json
-import requests
+import requests as requests_module
 
 ### Default Values for unspecified benchmark runs ###
 # We simulate 1, 5, 10, (and maybe 100 and 1000) users sending simultaneous requests
@@ -18,7 +18,7 @@ api = Api(app)
 
 @app.route('/home', methods=['POST', 'GET'])
 def home():
-    return "I am the benchmark controller, \n I tell the load generator when to start sending requests, \n the format those requests should take, and collect its latency metrics for each service mesh."
+    return "I am the benchmark controller. I tell the load generator when to start sending requests, the format those requests should take, and collect its latency metrics for each service mesh.\n"
 
 @app.route('/send_requests', methods=['POST', 'GET'])
 def send_requests():
@@ -31,10 +31,10 @@ def send_requests():
         app.logger.error(f"Request Data could not be accessed, using default specification instead.")
     smt = data.get("smt", "kubernetes")
     users = data.get("users", CONCURRENT_USERS)
-    requests = data.get("requests", REQUESTS_PER_USER)
+    n_requests = data.get("requests", REQUESTS_PER_USER)
     services = data.get("services", SERVICES_PER_REQ)
     
-    load_gen_data = {"users" : users, "requests" : requests, "services" : services}
+    load_gen_data = {"users" : users, "requests" : n_requests, "services" : services}
     app.logger.info(f"Data to generate requests: \n\n Concurrent Users = {load_gen_data.get('users')} \n Requests per User = {load_gen_data.get('requests')} \n MicroServices Per Request = {load_gen_data.get('services')}")
     
     # Execute load generator

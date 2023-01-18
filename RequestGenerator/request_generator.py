@@ -22,7 +22,7 @@ api = Api(app)
 
 @app.route('/home', methods=['POST', 'GET'])
 def home():
-    return "I am the load generator. \n I use apache ab to send multiple requests to the micro-counter simulating a different number of concurrent users, requests per user, and micro-services to be pinged per request."
+    return "I am the load generator. I use apache ab to send multiple requests to the micro-counter simulating a different number of concurrent users, requests per user, and micro-services to be pinged per request. \n"
 
 @app.route('/generate_load', methods=['POST', 'GET'])
 def generate_load():
