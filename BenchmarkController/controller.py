@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
 import json
-import requests as requests_module
+import requests
 
 ### Default Values for unspecified benchmark runs ###
 # We simulate 1, 5, 10, (and maybe 100 and 1000) users sending simultaneous requests
