@@ -12,11 +12,13 @@ function create_benchmark_controller(){
 	docker rmi benchmarkcontroller:1.0
 	docker build ../BenchmarkController/ -t benchmarkcontroller:1.0 -f ../BenchmarkController/Dockerfile
 	kind load docker-image benchmarkcontroller:1.0
+	kubectl delete deployments benchmark-controller
+	kubectl create -f ../BenchmarkController/benchmark_controller_manifest.yml
 }
 
 function create_docker_images(){
 	create_request_generator
-	#create_benchmark_controller
+	create_benchmark_controller
 }
 # --
 

@@ -56,6 +56,7 @@ def send_requests():
         app.logger.warning(f"The benchmark has already been run for {smt}. This current execution has overwritten those results.")    
     results[smt] = smt_results
     
+    app.logger.info(f"Results: {str(results)}")
     with open('benchmark_latency_results.json', "w") as file:
         json.dump(results, file)
         app.logger.info(f"The results have been written to the file 'benchmark_latency_results.json'")
