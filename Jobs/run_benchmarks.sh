@@ -5,6 +5,20 @@ script_location="$(dirname "${BASH_SOURCE[0]}")"
 # Request Generator Commands
 function deploy_request_generator(){
 	echo "Deploying the request generator..."
+	kubectl create -f ${script_location}/../RequestGenerator/request_gen_manifest.yml
+    grace "kubectl get pods --all-namespaces | grep request-generator | grep -v Running" 5
+	echo "... Request generator is live and running"
+}
+
+function deploy_benchmark_controller(){
+	echo "Deploying the benchmark controller..."
+	kubectl create -f ${script_location}/../BenchmarkController/benchmark_controller_manifest.yml
+    grace "kubectl get pods --all-namespaces | grep benchmark-controller | grep -v Running" 5
+	echo "... Request generator is live and running"
+}
+
+function deploy_request_generator_old(){
+	echo "Deploying the request generator..."
 	kubectl create -f ${script_location}/../ApacheTimeRecording/request_gen_manifest.yml
     grace "kubectl get pods --all-namespaces | grep request-generator | grep -v Running" 5
 	echo "... Request generator is live and running"
@@ -12,9 +26,9 @@ function deploy_request_generator(){
 
 function run_send_request_job() {
 	local smt="$1"
-    echo "Finding request generator pod..."
-	local req_pod=$(kubectl get pod -l app=request-generator -o jsonpath="{.items[0].metadata.name}")
-	echo "Request pod is sending the request..."
+    echo "Finding benchmark controller pod..."
+	local req_pod=$(kubectl get pod -l app=benchmark-controller -o jsonpath="{.items[0].metadata.name}")
+	echo "Benchmark Controller is sending the request..."
     local data='{"smt":"'"$smt"'"}'
     kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -H "Content-Type: application/json" -d "$data"
 }
@@ -394,13 +408,15 @@ function run_benchmarks() {
 }
 
 function execute_benchmarks(){
-	deploy_request_generator
+	#deploy_request_generator_old
+    deploy_request_generator
+    deploy_benchmark_controller
     
 	# Run Benchmarks
 	benchmark_bare_kubernetes
-    benchmark_istio
-    benchmark_linkerd
-    benchmark_consul
+    #benchmark_istio
+    #benchmark_linkerd
+    #benchmark_consul
 
     }
 # --
