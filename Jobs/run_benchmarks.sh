@@ -10,6 +10,18 @@ function deploy_request_generator(){
 	echo "... Request generator is live and running"
 }
 
+function deploy_linkerd_request_generator(){ # Might not need this look into automaticly injecting linkerd
+	echo "Deploying the linkerd injected request generator..."
+	kubectl create -f ${script_location}/../RequestGenerator/request_gen_manifest.yml
+    grace "kubectl get pods --all-namespaces | grep request-generator | grep -v Running" 5
+	echo "... Request generator is live and running"
+}
+
+function delete_request_generator(){
+	echo "Deleting the request generator..."
+	kubectl delete deployments request-generator
+}
+
 function deploy_benchmark_controller(){
 	echo "Deploying the benchmark controller..."
 	kubectl create -f ${script_location}/../BenchmarkController/benchmark_controller_manifest.yml
@@ -37,12 +49,15 @@ function run_send_request_job() {
 # Install/Uninstall SMTs to/from cluster
 # Linkerd installation commands
 function install_linkerd_cluster() {
+    echo "Installing Linkerd to cluster..."
 	linkerd check --pre
 	linkerd install --crds | kubectl apply -f -
     sleep 10
     linkerd install | kubectl apply -f -
 	sleep 10
     linkerd check
+    echo "Setting automatic Linkerd injections to newly deployed pods to default namespace..."
+    kubectl annotate default "linkerd.io/inject=enabled"
 }
 
 function uninstall_linkerd_cluster() {
@@ -62,7 +77,10 @@ function uninstall_consul_cluster() {
 
 # Istio Installation commands
 function install_istio_cluster(){
+    echo "Installing Istio to cluster..."
     istioctl install --set profile=demo -y
+    echo "Setting automatic Istio proxy injections to newly deployed pods to default namespace..."
+    kubectl label namespace default istio-injection=enabled
 }
 
 function uninstall_istio_cluster() {
@@ -96,10 +114,16 @@ function delete_counter_bare() {
 	echo "... Bare Kubernetes Micro Counter has been deleted"
 }
 
-function deploy_counter_linkerd() {
+function deploy_counter_linkerd_old() {
     echo "Generating MicroCounter manifest with linkerd injections..."
     linkerd inject ${script_location}/../MicroCounter/bare_counter_manifest.yml > ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
     echo "Deploying MicroCounter using the linkerd injected manifest..."
+	deploy_counter ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
+    echo "... Linkerd Injected Micro Counter is live"
+}
+
+function deploy_counter_linkerd() {
+    echo "Deploying MicroCounter to a linkerd injected namespace..."
 	deploy_counter ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
     echo "... Linkerd Injected Micro Counter is live"
 }
@@ -112,9 +136,7 @@ function delete_counter_linkerd() {
 }
 
 function deploy_counter_istio() {
-    echo "Setting automatic Istio proxy injections to newly deployed pods..."
-    kubectl label namespace default istio-injection=enabled
-    echo "Deploying the microcounter pods to an Istio injected cluster namespace..."
+    echo "Deploying the microcounter pods to an Istio injected namespace..."
 	deploy_counter ${script_location}/../MicroCounter/bare_counter_manifest.yml
     echo "... Istio Injected Micro Counter is live"
 }
@@ -141,32 +163,40 @@ function delete_counter_consul() {
 
 # Execute a benchmark for each SMT
 function benchmark_bare_kubernetes(){
+    deploy_request_generator
     deploy_counter_bare
 	run_send_request_job "kubernetes"
 	delete_counter_bare	
+    delete_request_generator
 }
 
 function benchmark_linkerd(){
     install_linkerd_cluster
+    deploy_request_generator
 	deploy_counter_linkerd
 	run_send_request_job "linkerd"
 	delete_counter_linkerd
+    delete_request_generator
 	uninstall_linkerd_cluster
 }
 
 function benchmark_istio(){
     install_istio_cluster
+    deploy_request_generator
 	deploy_counter_istio
 	run_send_request_job "istio"
 	delete_counter_istio
+    delete_request_generator
 	uninstall_istio_cluster
 }
 
 function benchmark_consul(){
     install_consul_cluster
 	deploy_counter_consul
+    deploy_request_generator
 	run_send_request_job "consul"
 	delete_counter_consul
+    delete_request_generator
 	uninstall_consul_cluster
 }
 #--
@@ -414,8 +444,8 @@ function execute_benchmarks(){
     
 	# Run Benchmarks
 	benchmark_bare_kubernetes
-    #benchmark_istio
-    #benchmark_linkerd
+    benchmark_istio
+    benchmark_linkerd
     #benchmark_consul
 
     }

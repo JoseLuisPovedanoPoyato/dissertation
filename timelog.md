@@ -279,9 +279,28 @@ It was my birthday
 * * 0.5 hours * Updated small errors, Linkerd and Istio now run continuously
 
 ## 17 January 2023
-* * 1 hour * Tested Consul run -> Does not work, pod not injected with SMT cannot communicate with injected pod
-	-  Problem: Keeping results when changing SMTs
+* * 1 hour * Tested Consul run -> Does not work -> Pods outside of Consul mesh cannot communicate with meshed pods
 
 ## 18 January 2023
-* * 1 hour * Developed new architecture -> Show Yehia tomorrow
-* * 2 hours * Refactoring current code to see if new architecture works 
+* * 0.5 hour * Researching how unmeshed pods communicate with meshed pods to solve Consul problem
+	- Research: SM is essentially a new network inside the cluster, Linkerd and Istio have mechanism for external pods to communicate with mesh, Consul doesn't 
+	- Solution_1: Add Ingress Controller so external pod can send request to internal
+		- Problem: Unfair comparison -> Additional controller runs for consul OR unnecessary controller runs for everyone else 
+	- Solution_2: Redeploy load generator for each SMT 
+		- Problem: We would lose the results stored in the pod when changing SMTs as would have to delete generator
+* * 0.5 hours * Re-assessed current architecure and found additional problem
+	- Problem: For all SMTs Load Generator requests have to break into mesh everytime, while bare kubernetes' don't -> Impediments fair comparison
+		- Solution: Need requests to be generated and timed already inside the mesh to enable a fair comparison 
+* * 1.5 hours * Developed new architecture to get around unfair comparison problem
+	- Split load generator into 2 micro-services -> Benchmark Controller (unmeshed) & Request Generator (meshed)
+* * 1 hours * Found solutions to Consul problem for new architecture but do not like them
+	- Benchmark Controller microservice can be replaced by a client-like app which runs locally -> Lots of work, still lots of stuff to do
+		- Would need to SSH in to run commands, find a way to extract results from cluster, potentially need to stay connected the whole time
+			- Could get around staying connected by having request-generator write results down instead of transmitting them, then request them
+	- Can have ingress run for consul as now it would only run for 1 request, compared to multiple before -> Unfair comparison
+* * 1.5 hours * Refactoring current code to develop new architecture
+* * 2 hours * Debugging new architecture and refactoring
+
+## 19 January 2023
+* * 0.5 hours * Updated automated bash script to test new arch with Istio and Linkerd (Worked last night on consul)
+* * 0.5 hours * Changed Linkerd to work with implicit Injection through namespace and not explicit injection through manifest (More similar to Consul and Istio)
