@@ -10,8 +10,9 @@ def run_apache_request(user, request, file):
     print(logs, flush=True)
     if errors:
         print(errors, flush=True)
-    result = re.findall('Time per request:(.*)\n', logs)
-    
+    result = list(re.findall('Time per request:(.*)\n', logs))
+    print(result, flush=True)
+
     if len(result)>0:
         for i in range(len(result)):
             result[i] = result[i].strip()
