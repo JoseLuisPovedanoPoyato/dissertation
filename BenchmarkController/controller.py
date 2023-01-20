@@ -1,7 +1,8 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
-import json
+from datetime import datetime
 import requests
+import pathlib
 
 ### Default Values for unspecified benchmark runs ###
 # We simulate 1, 5, 10, (and maybe 100 and 1000) users sending simultaneous requests
@@ -33,36 +34,26 @@ def send_requests():
     users = data.get("users", CONCURRENT_USERS)
     n_requests = data.get("requests", REQUESTS_PER_USER)
     services = data.get("services", SERVICES_PER_REQ)
+    file_name = f"{smt}_{datetime.now().strftime('%d_%m_%y_%H_%M_%S')}.zip"
+    print(file_name)
     
-    load_gen_data = {"users" : users, "requests" : n_requests, "services" : services}
+    load_gen_data = {"file_name" : file_name, "users" : users, "requests" : n_requests, "services" : services}
     app.logger.info(f"Data to generate requests: \n\n Concurrent Users = {load_gen_data.get('users')} \n Requests per User = {load_gen_data.get('requests')} \n MicroServices Per Request = {load_gen_data.get('services')}")
     
     # Execute load generator
     resp = requests.post(url = REQUEST_GENERATOR_URL, json = load_gen_data)
-    smt_results = resp.content
-    print(smt_results)
-    smt_results = json.loads(smt_results.decode('utf-8'))
-    print(smt_results)
     
     app.logger.info("Collected results from load generator, storing those results...")
+
+    # We now receive a zip file containing all the relevant data we want...
+    # Perhaps send a filename so generator knows what to call it instead of results?
+    results_dir = pathlib.Path(f'./results/').mkdir(parents=True, exist_ok=True)
+    file_zip = resp.files[f'{file_name}']
+    if file_zip:
+        file_zip.save(results_dir, 'file_name')
     
-    try:
-        with open('benchmark_latency_results.json', "r") as file:
-            results = json.load(file)
-    except Exception as e:
-        app.logger.info("No previous benchmark run was found...")
-        print(e)
-        results = {}
-    
-    if results.get(smt) != None:
-        app.logger.warning(f"The benchmark has already been run for {smt}. This current execution has overwritten those results.")    
-    results[smt] = smt_results
-    
-    app.logger.info(f"Results: {str(results)}")
-    with open('benchmark_latency_results.json', "w") as file:
-        json.dump(results, file)
-        app.logger.info(f"The results have been written to the file 'benchmark_latency_results.json'")
-    return results
+    app.logger.info(f"Results have been succesfully stored in file {'file_name'}")
+    return f"Results have been succesfully stored in file {'file_name'}"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -1,21 +1,17 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
 import json
-import re
+import shutil
 import subprocess
 
-def run_apache_request(user, request, file):
-    process = subprocess.run(['ab', '-p', file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-v', '1', '-s', '120', 'http://micro-counter-service/count'], capture_output=True, text=True)
+def run_apache_request(user, request, service, post_file, results_dir):
+    csv_file = f"{results_dir}/csv_{user}_{request}_{service}"
+    gnu_file = f"{results_dir}/gnu_{user}_{request}_{service}"
+    process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '120', 'http://micro-counter-service/count'], capture_output=True, text=True)
     logs, errors = process.stdout, process.stderr
     print(logs, flush=True)
     if errors:
         print(errors, flush=True)
-    result = list(re.findall('Time per request:(.*)\n', logs))
-    print(result, flush=True)
-
-    if len(result)>0:
-        for i in range(len(result)):
-            result[i] = result[i].strip()
     return result
 
 # Initialize Flask
@@ -35,8 +31,9 @@ def generate_load():
         users = data["users"]
         requests = data["requests"]
         services = data["services"]
+        zip_file_name = data["file_name"]
     except:
-        app.logger.error("Invalid data provided to load generator. Usage: \n\n data = {'users': '[Number of concurrent users pinging app]', 'requests': '[Number of requests each user should send]', 'services':'[Number of MicroServices we should simulate]'}")
+        app.logger.error("Invalid data provided to load generator. Usage: \n\n data = {'users': '[Number of concurrent users pinging app]', 'requests': '[Number of requests each user should send]', 'services':'[Number of MicroServices we should simulate]', 'file_name':'File to store results in'}")
         app.logger.error(f"Provided data: {str(data)}")
         return "Invalid data provided to load generator. Usage: \n\n data = {'users': '[Number of concurrent users pinging app]', 'requests': '[Number of requests each user should send]', 'services':'[Number of MicroServices we should simulate]'}", 400
 
@@ -48,22 +45,23 @@ def generate_load():
             json.dump({"count" : 0, "max_count" : services[i]}, f)
             service_files.append(f"service_files_{i}.json")
     
-    results = {}
+    results_dir = pathlib.Path(f'./results/').mkdir(parents=True, exist_ok=True)
     total_apache_execs = len(users) * len(requests) * len(services)
     count = 1
     for user in users:
-        results[user] = {}
         for req in requests:
-            results[user][req] = {}
             for i in range(len(services)):
                 app.logger.info(f"Executing apache ab load... ({count}/{total_apache_execs})")
-                results[user][req][services[i]] = run_apache_request(user, req, service_files[i])
-                count += 1
-    
+                run_apache_request(user, req, services[i], service_files[i], results_dir)
+                count += 1    
     app.logger.info("Collected latency for all of the apache ab requests...")
-    app.logger.info("Returning results to benchmark controller")
     
-    return results
+    app.logger.info("Storing results as a zip file...")
+    results = shutil.make_archive(zip_file_name, 'zip', results_dir)
+    app.logger.info(f"Created file {str(results)}...")
+
+    app.logger.info("Returning results to benchmark controller...")
+    return send_files(results)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

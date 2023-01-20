@@ -439,7 +439,6 @@ function run_benchmarks() {
 
 function execute_benchmarks(){
 	#deploy_request_generator_old
-    deploy_request_generator
     deploy_benchmark_controller
     
 	# Run Benchmarks

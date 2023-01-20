@@ -304,3 +304,7 @@ It was my birthday
 ## 19 January 2023
 * * 0.5 hours * Updated automated bash script to test new arch with Istio and Linkerd (Worked last night on consul)
 * * 0.5 hours * Changed Linkerd to work with implicit Injection through namespace and not explicit injection through manifest (More similar to Consul and Istio)
+* * 1 hour * Changed Linkerd to work with implicit Injection through namespace and not explicit injection through manifest (More similar to Consul and Istio)
+
+## 20 January 2023
+* * X hour * All data from apache ab is now stored into files and zipped
