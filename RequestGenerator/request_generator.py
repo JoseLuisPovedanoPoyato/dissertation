@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
 import json
 import shutil
+import pathlib
 import subprocess
 
 def run_apache_request(user, request, service, post_file, results_dir):
