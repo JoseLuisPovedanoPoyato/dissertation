@@ -7,7 +7,9 @@ import subprocess
 
 def run_apache_request(user, request, service, post_file, results_dir):
     csv_file = f"{results_dir}/csv_{user}_{request}_{service}"
+    app.logger.info(f"csv_file = {csv_file}")
     gnu_file = f"{results_dir}/gnu_{user}_{request}_{service}"
+    app.logger.info(f"gnu_file = {gnu_file}")
     process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '120', 'http://micro-counter-service/count'], capture_output=True, text=True)
     logs, errors = process.stdout, process.stderr
     print(logs, flush=True)
@@ -46,6 +48,7 @@ def generate_load():
             service_files.append(f"service_files_{i}.json")
     
     results_dir = pathlib.Path(f'./results/').mkdir(parents=True, exist_ok=True)
+    app.logger.info(results_dir)
     total_apache_execs = len(users) * len(requests) * len(services)
     count = 1
     for user in users:
