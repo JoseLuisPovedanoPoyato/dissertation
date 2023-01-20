@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, send_file
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
 import json
 import shutil
@@ -61,7 +61,7 @@ def generate_load():
     app.logger.info(f"Created file {str(results)}...")
 
     app.logger.info("Returning results to benchmark controller...")
-    return send_files(results)
+    return send_file(results)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -42,7 +42,8 @@ def send_requests():
     
     # Execute load generator
     resp = requests.post(url = REQUEST_GENERATOR_URL, json = load_gen_data)
-    print(resp)
+    print("Response:")
+    print(resp, flush=True)
     print(resp.content)
     
     app.logger.info("Collected results from load generator, storing those results...")
