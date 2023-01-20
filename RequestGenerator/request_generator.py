@@ -13,7 +13,6 @@ def run_apache_request(user, request, service, post_file, results_dir):
     print(logs, flush=True)
     if errors:
         print(errors, flush=True)
-    return result
 
 # Initialize Flask
 app = Flask(__name__)
