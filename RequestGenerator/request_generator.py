@@ -47,7 +47,8 @@ def generate_load():
             json.dump({"count" : 0, "max_count" : services[i]}, f)
             service_files.append(f"service_files_{i}.json")
     
-    results_dir = pathlib.Path(f'./results/').mkdir(parents=True, exist_ok=True)
+    results_dir = pathlib.Path(f'./results/')
+    results_dir.mkdir(parents=True, exist_ok=True)
     app.logger.info(results_dir)
     total_apache_execs = len(users) * len(requests) * len(services)
     count = 1
