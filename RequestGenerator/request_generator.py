@@ -33,9 +33,8 @@ def generate_load():
         users = data["users"]
         requests = data["requests"]
         services = data["services"]
-        zip_file_name = data["file_name"]
     except:
-        app.logger.error("Invalid data provided to load generator. Usage: \n\n data = {'users': '[Number of concurrent users pinging app]', 'requests': '[Number of requests each user should send]', 'services':'[Number of MicroServices we should simulate]', 'file_name':'File to store results in'}")
+        app.logger.error("Invalid data provided to load generator. Usage: \n\n data = {'users': '[Number of concurrent users pinging app]', 'requests': '[Number of requests each user should send]', 'services':'[Number of MicroServices we should simulate]'}")
         app.logger.error(f"Provided data: {str(data)}")
         return "Invalid data provided to load generator. Usage: \n\n data = {'users': '[Number of concurrent users pinging app]', 'requests': '[Number of requests each user should send]', 'services':'[Number of MicroServices we should simulate]'}", 400
 
@@ -61,7 +60,7 @@ def generate_load():
     app.logger.info("Collected latency for all of the apache ab requests...")
     
     app.logger.info("Storing results as a zip file...")
-    results = shutil.make_archive(zip_file_name, 'zip', results_dir)
+    results = shutil.make_archive("results.zip", 'zip', results_dir)
     app.logger.info(f"Created file {str(results)}...")
 
     app.logger.info("Returning results to benchmark controller...")

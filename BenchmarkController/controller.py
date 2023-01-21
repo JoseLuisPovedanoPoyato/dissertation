@@ -37,7 +37,7 @@ def send_requests():
     file_name = f"{smt}_{datetime.now().strftime('%d_%m_%y_%H_%M_%S')}.zip"
     print(file_name)
     
-    load_gen_data = {"file_name" : file_name, "users" : users, "requests" : n_requests, "services" : services}
+    load_gen_data = {"users" : users, "requests" : n_requests, "services" : services}
     app.logger.info(f"Data to generate requests: \n\n Concurrent Users = {load_gen_data.get('users')} \n Requests per User = {load_gen_data.get('requests')} \n MicroServices Per Request = {load_gen_data.get('services')}")
     
     # Execute load generator
@@ -52,9 +52,8 @@ def send_requests():
     # Perhaps send a filename so generator knows what to call it instead of results?
     results_dir = pathlib.Path(f'./results/').mkdir(parents=True, exist_ok=True)
     file_zip = resp.content
-    if file_zip:
-        file_zip.save(results_dir, file_name)
-    
+    with open(f"{results_dir}/{file_name}", 'wb') as f:
+        f.write(file_zip)    
     app.logger.info(f"Results have been succesfully stored in file {'file_name'}")
     return f"Results have been succesfully stored in file {'file_name'}"
 
