@@ -51,9 +51,9 @@ def send_requests():
     # We now receive a zip file containing all the relevant data we want...
     # Perhaps send a filename so generator knows what to call it instead of results?
     results_dir = pathlib.Path(f'./results/').mkdir(parents=True, exist_ok=True)
-    file_zip = resp.files[f'{file_name}']
+    file_zip = resp.content
     if file_zip:
-        file_zip.save(results_dir, 'file_name')
+        file_zip.save(results_dir, file_name)
     
     app.logger.info(f"Results have been succesfully stored in file {'file_name'}")
     return f"Results have been succesfully stored in file {'file_name'}"
