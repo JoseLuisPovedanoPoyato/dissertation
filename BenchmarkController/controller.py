@@ -50,7 +50,8 @@ def send_requests():
 
     # We now receive a zip file containing all the relevant data we want...
     # Perhaps send a filename so generator knows what to call it instead of results?
-    results_dir = pathlib.Path(f'./results/').mkdir(parents=True, exist_ok=True)
+    results_dir = pathlib.Path(f'./results/')
+    results_dir.mkdir(parents=True, exist_ok=True)
     file_zip = resp.content
     with open(f"{results_dir}/{file_name}", 'wb') as f:
         f.write(file_zip)    
