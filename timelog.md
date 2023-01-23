@@ -308,4 +308,13 @@ It was my birthday
 * * 0.5 hours * Tested new Prometheus attempt -> Fails, need NFS storage
 
 ## 20 January 2023
-* * X hour * All data from apache ab is now stored into files and zipped
+* * 3 hours * All data from apache ab is now stored into files and zipped
+
+## 21 January 2023
+* * 2 hour * Debugged apache ab data transfer and set up copy automatically + found diagram to help explain it
+
+## 22 January 2023
+* * 0.5 hours * NFS storage for Prometheus not working, trying new Prometheus guide
+
+## 23 January 2023
+* * X hours (0.5 so far) attempting new Prometheus deployment
