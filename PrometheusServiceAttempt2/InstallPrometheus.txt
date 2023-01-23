@@ -1,8 +1,13 @@
+# Create monitoring namespace
+# Create a service account for prometheus
+# Create a cluster role with permisions for the service account
+# Bind cluster role to service account
+
 kubectl apply -f monitoring.yml
-kubectl apply -f cluster-role.yaml
-kubectl apply -f service-account.yaml
+kubectl apply -f prometheus-service-account.yaml
+kubectl apply -f prometheus-cluster-role.yaml
 kubectl apply -f cluster-role-binding.yaml
-kubectl apply -f configmap.yaml
-kubectl apply -f deployment.yaml
-kubectl apply -f service.yaml
+kubectl apply -f prometheus-config-map.yaml
+kubectl apply -f prometheus-deployment.yaml
+kubectl apply -f prometheus-service.yaml
 kubectl get all -n monitoring

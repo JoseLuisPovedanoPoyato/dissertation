@@ -43,6 +43,7 @@ function run_send_request_job() {
 	echo "Benchmark Controller is sending the request..."
     local data='{"smt":"'"$smt"'"}'
     kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -H "Content-Type: application/json" -d "$data"
+    kubectl cp default/$req_pod:results/ results/
 }
 
 
