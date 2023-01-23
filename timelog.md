@@ -317,4 +317,4 @@ It was my birthday
 * * 0.5 hours * NFS storage for Prometheus not working, trying new Prometheus guide
 
 ## 23 January 2023
-* * X hours (0.5 so far) attempting new Prometheus deployment
+* * X hours (0.5 so far) * attempting new Prometheus deployment
