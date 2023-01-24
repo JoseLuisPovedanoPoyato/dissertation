@@ -2,6 +2,8 @@
 # Create a service account for prometheus
 # Create a cluster role with permisions for the service account
 # Bind cluster role to service account
+# Configure the scrapes that Prometheus will perform and some additional global settings
+# Deploy Prometheus and its service
 
 kubectl apply -f monitoring.yml
 kubectl apply -f prometheus-service-account.yaml
