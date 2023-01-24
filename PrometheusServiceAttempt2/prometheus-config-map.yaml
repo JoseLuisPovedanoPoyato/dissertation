@@ -7,8 +7,7 @@ data:
   prometheus.yml: |
     global:
       scrape_interval:     15s
-      external labels: 
-        monitor: 'cluster'
+      evaluation_interval: 5s
     scrape_configs:
     - job_name: 'prometheus'
       scrape_interval: 5s
