@@ -26,4 +26,4 @@ spec:
       - name: config-volume
         configMap:
           name: prometheus-config
-      serviceAccountName: monitor
+      serviceAccountName: prometheus
