@@ -306,6 +306,7 @@ It was my birthday
 * * 0.5 hours * Changed Linkerd to work with implicit Injection through namespace and not explicit injection through manifest (More similar to Consul and Istio)
 * * 1 hour * Changed Linkerd to work with implicit Injection through namespace and not explicit injection through manifest (More similar to Consul and Istio)
 * * 0.5 hours * Tested new Prometheus attempt -> Fails, need NFS storage
+* * 0.5 hours * Meeting with Yehia
 
 ## 20 January 2023
 * * 3 hours * All data from apache ab is now stored into files and zipped
@@ -317,4 +318,17 @@ It was my birthday
 * * 0.5 hours * NFS storage for Prometheus not working, trying new Prometheus guide
 
 ## 23 January 2023
-* * X hours (0.5 so far) * attempting new Prometheus deployment
+* * 1 hour * attempting new Prometheus deployment
+
+## 24 January 2023
+* * 0.5 hours * Prometheus deploys, however service does not work
+
+## 25 January 2023
+* * 0.5 hours * Prometheus service works, not sure how to collect metrics or check if pods are being monitored
+* * 0 hours * Collected results from complete run to show Yehia tomorrow
+
+## 26 January 2023
+* * 0.5 hours * Running a Consul run with everything meshed to compare to Consul with Ingress
+* * 1.0 hour * Prometheus is spamming all pods with a /metrics request every 15s and /metrics returns a 404
+	- Found out Prometheus scrapes metrics from pods doing that
+	- Found out cluster uses Role Based Access Control (RBAC), which was not configured properly in cluster-role to access /metrics

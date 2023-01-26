@@ -125,7 +125,7 @@ function deploy_counter_linkerd_old() {
 
 function deploy_counter_linkerd() {
     echo "Deploying MicroCounter to a linkerd injected namespace..."
-	deploy_counter ${script_location}/../MicroCounter/linkerd_counter_manifest.yml
+	deploy_counter ${script_location}/../MicroCounter/bare_counter_manifest.yml
     echo "... Linkerd Injected Micro Counter is live"
 }
 

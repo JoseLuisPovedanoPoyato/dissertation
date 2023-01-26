@@ -15,3 +15,7 @@ rules:
   resources:
   - ingresses
   verbs: ["get", "list", "watch"]
+- nonResourceURLs:
+    - "/metrics"
+  verbs:
+    - get
