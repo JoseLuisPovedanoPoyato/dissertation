@@ -48,7 +48,7 @@ spec:
           path: /
         name: root
 
-----
+---
 # node-exporter-service.yaml
 
 kind: Service
