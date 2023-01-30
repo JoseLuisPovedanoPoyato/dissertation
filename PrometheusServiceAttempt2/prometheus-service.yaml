@@ -24,5 +24,5 @@ spec:
   type: ExternalName
   externalName: prometheus.monitoring.svc.cluster.local
   ports:
-  - port: 9090
-  - targetPort: 9090
+    port: 9090
+    targetPort: 9090
