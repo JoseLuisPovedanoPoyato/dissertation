@@ -21,7 +21,7 @@ def run_apache_request(user, request, service, post_file, results_dir):
     cpu_file = f"{results_dir}/cpu_{user}_{request}_{service}"
     log_files(csv_file, gnu_file, memory_file, cpu_file)
     start = time.time()
-    process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '120', microcounter_url], capture_output=True, text=True)
+    process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '120', micro_counter_url], capture_output=True, text=True)
     gather_resource_metrics(start)
 
     logs, errors = process.stdout, process.stderr
