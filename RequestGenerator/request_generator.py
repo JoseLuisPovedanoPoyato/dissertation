@@ -1,24 +1,33 @@
 from flask import Flask, request, send_file
-from flask_restful import Resource, Api, reqparse, abort, marshal, fields
+from flask_restful import Api
+import requests as requests_lib
 import json
 import shutil
 import pathlib
 import subprocess
-
-def run_apache_request(user, request, service, post_file, results_dir):
-    csv_file = f"{results_dir}/csv_{user}_{request}_{service}"
-    app.logger.info(f"csv_file = {csv_file}")
-    gnu_file = f"{results_dir}/gnu_{user}_{request}_{service}"
-    app.logger.info(f"gnu_file = {gnu_file}")
-    process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '120', 'http://micro-counter-service/count'], capture_output=True, text=True)
-    logs, errors = process.stdout, process.stderr
-    print(logs, flush=True)
-    if errors:
-        print(errors, flush=True)
+import time
 
 # Initialize Flask
 app = Flask(__name__)
 api = Api(app)
+
+micro_counter_url = 'http://micro-counter-service/count'
+prometheus_query_url = 'http://prometheus/api/v1/query'
+
+def run_apache_request(user, request, service, post_file, results_dir):
+    csv_file = f"{results_dir}/csv_{user}_{request}_{service}"
+    gnu_file = f"{results_dir}/gnu_{user}_{request}_{service}"
+    memory_file = f"{results_dir}/memory_{user}_{request}_{service}"
+    cpu_file = f"{results_dir}/cpu_{user}_{request}_{service}"
+    log_files(csv_file, gnu_file, memory_file, cpu_file)
+    start = time.time()
+    process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '120', microcounter_url], capture_output=True, text=True)
+    gather_resource_metrics(start)
+
+    logs, errors = process.stdout, process.stderr
+    print(logs, flush=True)
+    if errors:
+        print(errors, flush=True)
 
 @app.route('/home', methods=['POST', 'GET'])
 def home():
@@ -65,6 +74,24 @@ def generate_load():
 
     app.logger.info("Returning results to benchmark controller...")
     return send_file(results)
+
+def gather_resource_metrics(start):
+    url_mem_tot = f'{prometheus_query_url}?query=node_memory_MemTotal_bytes[{1000 + time.time() - start}ms]'
+    url_mem_free = f'{prometheus_query_url}?query=node_memory_MemAvailable_bytes[{1000 + time.time() - start}ms]'
+    resp_mem_tot = requests_lib.get(url_mem_tot)
+    resp_mem_free = requests_lib.get(url_mem_free)
+    if resp_mem_tot.status == 200 and resp_mem_free.status == 200:
+        print(resp_mem_tot.content)
+        print(resp_mem_free.content)
+
+
+
+def log_files(csv_file, gnu_file, memory_file, cpu_file):
+    app.logger.info(f"csv_file = {csv_file}")
+    app.logger.info(f"gnu_file = {gnu_file}")
+    app.logger.info(f"memory_file = {memory_file}")
+    app.logger.info(f"cpu_file = {cpu_file}")
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
