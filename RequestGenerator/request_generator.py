@@ -80,6 +80,7 @@ def gather_resource_metrics(start):
     url_mem_free = f'{prometheus_query_url}?query=node_memory_MemAvailable_bytes[{1000 + time.time() - start}ms]'
     resp_mem_tot = requests_lib.get(url_mem_tot)
     resp_mem_free = requests_lib.get(url_mem_free)
+    print(url_mem_tot, flush=True)
     print(resp_mem_tot, flush=True)
     print(resp_mem_free, flush=True)
     if resp_mem_tot.status_code == 200 and resp_mem_free.status_code == 200:
