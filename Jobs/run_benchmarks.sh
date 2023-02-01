@@ -98,8 +98,9 @@ function deploy_counter(){
 }
 
 function delete_counter(){
-	kubectl delete deployments/micro-counter-deployment
+	kubectl delete deployments/micro-counter
 	kubectl delete services/micro-counter-service
+    kubectl delete -f ${script_location}/../MicroCounter/bare_counter_manifest.yml
 }
 
 function deploy_counter_bare() {
