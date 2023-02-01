@@ -77,7 +77,9 @@ def generate_load():
 
 def gather_resource_metrics(start):
     param_mem_tot = f"node_memory_MemTotal_bytes[{15000 + int(time.time() - start)}ms]"
+    print(param_mem_tot, flush = True)
     resp_mem_tot = requests_lib.get(prometheus_query_url, headers = {'query': param_mem_tot})
+
     
     param_mem_free = f"node_memory_MemTotal_bytes[{15000 + int(time.time() - start)}ms]"
     resp_mem_free = requests_lib.get(prometheus_query_url, headers = {'query': param_mem_free})
