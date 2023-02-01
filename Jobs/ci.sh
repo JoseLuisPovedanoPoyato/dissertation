@@ -8,7 +8,7 @@
 . create_docker_images.sh
 
 # Fetch the latest changes from repo
-git pull origin master
+git pull origin main
 
 # Check for changes to app code or docker files and update docker images
 # If MicroCounter DockerFiles or Python Files have changed
