@@ -107,7 +107,6 @@ function deploy_counter_bare() {
     echo "Deploying a version of MicroCounter without any SMTs..."
     deploy_counter ${script_location}/../MicroCounter/bare_counter_manifest.yml
     echo "... Micro Counter using bare Kubernetes is now live"
-	
 }
 
 function delete_counter_bare() {

@@ -88,6 +88,7 @@ def gather_resource_metrics(start):
         print(resp_mem_tot.content, flush = True)
         print(resp_mem_free.content, flush = True)
         print(type(resp_mem_free.content, flush = True))
+        print(type(resp_mem_tot.content, flush = True))
 
 
 
