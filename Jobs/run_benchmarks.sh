@@ -29,13 +29,6 @@ function deploy_benchmark_controller(){
 	echo "... Request generator is live and running"
 }
 
-function deploy_request_generator_old(){
-	echo "Deploying the request generator..."
-	kubectl create -f ${script_location}/../ApacheTimeRecording/request_gen_manifest.yml
-    grace "kubectl get pods --all-namespaces | grep request-generator | grep -v Running" 5
-	echo "... Request generator is live and running"
-}
-
 function run_send_request_job() {
 	local smt="$1"
     echo "Finding benchmark controller pod..."
@@ -65,17 +58,6 @@ function uninstall_linkerd_cluster() {
 	linkerd uninstall | kubectl delete -f -
 }
 
-# Consul Installation Commands
-function install_consul_cluster() {
-	consul-k8s version
-	yes Y | consul-k8s install 
-	consul-k8s status
-}
-
-function uninstall_consul_cluster() {
-	consul-k8s uninstall -auto-approve=true -wipe-data=true
-}
-
 # Istio Installation commands
 function install_istio_cluster(){
     echo "Installing Istio to cluster..."
@@ -88,7 +70,25 @@ function uninstall_istio_cluster() {
 	yes Y | istioctl uninstall --purge
 }
 
-# MicroCounter Deployment Commands
+# Consul Installation Commands
+function install_consul_cluster() {
+	consul-k8s version
+	yes Y | consul-k8s install 
+	consul-k8s status
+}
+
+function uninstall_consul_cluster() {
+	consul-k8s uninstall -auto-approve=true -wipe-data=true
+}
+
+function uninstall_all_smt(){
+    uninstall_consul_cluster
+    uninstall_istio_cluster
+    uninstall_linkerd_cluster
+    echo "System has no SMTs deployed"
+}
+
+## MicroCounter Deployment Commands
 function deploy_counter(){
     local manifest=$1
     kubectl create -f $manifest
@@ -439,7 +439,12 @@ function run_benchmarks() {
 }
 
 function execute_benchmarks(){
-	#deploy_request_generator_old
+    # Cleanse the system of all SMTs
+    uninstall_all_smt
+
+    # Ensure Prometheus is running
+
+    # Deploy Controller to store results
     deploy_benchmark_controller
     
 	# Run Benchmarks

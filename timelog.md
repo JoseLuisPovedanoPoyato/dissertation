@@ -332,3 +332,24 @@ It was my birthday
 * * 1.0 hour * Prometheus is spamming all pods with a /metrics request every 15s and /metrics returns a 404
 	- Found out Prometheus scrapes metrics from pods doing that
 	- Found out cluster uses Role Based Access Control (RBAC), which was not configured properly in cluster-role to access /metrics
+
+## 27 January 2023
+* * 0.5 hours * Updated Prometheus to access /metrics, still does not work
+* * 1 hours * Researched alternatives for metrics
+
+## 28 January 2023
+* * 1.0 hours * Tried to set up Prometheus with metrics-server -> Discontinued because metrics server is recommended for scalability not monitoring
+* * 1.5 hours * Researched more alternatives, like cadvisor -> Still not ideal
+
+## 29 January 2023
+* * 1.0 hours * There are multiple types of metrics, node based (node exporter), pod based (cadvisor/metrics-server), app running within pod based (metrics-server/internal metrics system per app)
+
+## 30 January 2023
+* * 0.5 hours * Met with Yehia, discussed how to represent data -> CDF graphs would be very useful, can group different SMTs for the same stats, or different stats comparison within the same SMTs
+* * 2.0 hours * Set up NodeExporter to extract cluster metrics 
+
+## 31 January 2023
+* * 1.5 hours * Updated request generator to start pulling metrics
+
+## 1 January
+* * 1.0 hour * Created quality of life updates and updated issue with git corruption in repo

@@ -1,38 +1,29 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: prometheus-service
+  name: prometheus
   namespace: monitoring
-  annotations:
-      prometheus.io/scrape: 'true'
-      prometheus.io/port:   '9090'
-  
 spec:
-  selector: 
-    app: prometheus-server
-  type: NodePort  
+  selector:
+    app: prometheus
   ports:
-    - port: 8080
-      targetPort: 9090 
-      nodePort: 30000
+  - name: promui
+    nodePort: 30900
+    protocol: TCP
+    port: 9090
+    targetPort: 9090
+  type: NodePort
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: micro-counter-service
-  namespace: monitoring
+  name: prometheus
+  namespace: default
 spec:
   type: ExternalName
-  externalName: micro-counter-service.default.svc.cluster.local
-
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-shell
-  namespace: monitoring
-spec:
-  containers:
-  - name: nginx
-    image: nginx
+  externalName: prometheus.monitoring.svc.cluster.local
+  ports:
+  - port: 9090
+    targetPort: 9090
+    protocol: TCP

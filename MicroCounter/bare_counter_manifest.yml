@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: micro-counter-deployment
+  name: micro-counter
   labels:
     app: micro-counter
 spec:
