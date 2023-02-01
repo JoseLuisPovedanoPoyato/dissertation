@@ -90,8 +90,8 @@ def gather_resource_metrics(start):
         mem_tot = resp_mem_tot.json()['data']['result'][0]['values']
         mem_free = resp_mem_free.json()['data']['result'][0]['values']
         print(mem_free)
-        print(mem_tot)
-        mem_used = [(tot[0], tot[1]-free[1]) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
+        print(mem_tot, flush=True)
+        mem_used = [(tot[0], float(tot[1])-float(free[1])) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
         print(mem_used)
 
 
