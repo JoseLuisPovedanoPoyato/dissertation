@@ -87,10 +87,11 @@ def gather_resource_metrics(start):
     print(resp_mem_tot, flush=True)
     print(resp_mem_free, flush=True)
     if resp_mem_tot.status_code == 200 and resp_mem_free.status_code == 200:
-        print(resp_mem_tot.content, flush = True)
-        print(resp_mem_free.content, flush = True)
-        print(type(resp_mem_free.content, flush = True))
-        print(type(resp_mem_tot.content, flush = True))
+        values_tot = resp_mem_tot.json()['data']['result'][0]['values']
+        values_free = resp_mem_free.json()['data']['result'][0]['values']
+        print(values_free)
+        print(values_tot)
+
 
 
 
