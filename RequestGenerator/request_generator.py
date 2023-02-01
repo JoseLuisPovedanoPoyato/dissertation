@@ -80,18 +80,19 @@ def gather_resource_metrics(start):
     print(param_mem_tot, flush = True)
     resp_mem_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_tot})
     
-    param_mem_free = f"node_memory_MemTotal_bytes" #[{15000 + int(time.time() - start)}ms]
+    param_mem_free = f"node_memory_MemTotal_bytes{15000 + int(time.time() - start)}ms]"
     print(param_mem_free, flush = True)
     resp_mem_free = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_free})
     
     print(resp_mem_tot, flush=True)
     print(resp_mem_free, flush=True)
     if resp_mem_tot.status_code == 200 and resp_mem_free.status_code == 200:
-        values_tot = resp_mem_tot.json()['data']['result'][0]['values']
-        values_free = resp_mem_free.json()['data']['result'][0]['values']
-        print(values_free)
-        print(values_tot)
-
+        mem_tot = resp_mem_tot.json()['data']['result'][0]['values']
+        mem_free = resp_mem_free.json()['data']['result'][0]['values']
+        print(mem_free)
+        print(mem_tot)
+        mem_used = [(tot[0], tot[1]-free[1]) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
+        print(mem_used)
 
 
 
