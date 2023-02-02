@@ -13,6 +13,7 @@ api = Api(app)
 
 micro_counter_url = 'http://micro-counter-service/count'
 prometheus_query_url = 'http://prometheus:9090/api/v1/query'
+prom_scrape = 1000
 
 def run_apache_request(user, request, service, post_file, results_dir):
     csv_file = f"{results_dir}/csv_{user}_{request}_{service}"
@@ -76,11 +77,11 @@ def generate_load():
     return send_file(results)
 
 def gather_resource_metrics(start):
-    param_mem_tot = f"node_memory_MemTotal_bytes[{15000 + int(time.time() - start)}ms]"
+    param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape + int(time.time() - start))}ms]"
     print(param_mem_tot, flush = True)
     resp_mem_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_tot})
     
-    param_mem_free = f"node_memory_MemFree_bytes[{15000 + int(time.time() - start)}ms]"
+    param_mem_free = f"node_memory_MemFree_bytes[{max(prom_scrape + int(time.time() - start))}ms]"
     print(param_mem_free, flush = True)
     resp_mem_free = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_free})
     
