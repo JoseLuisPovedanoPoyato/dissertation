@@ -77,25 +77,25 @@ def generate_load():
     return send_file(results)
 
 def gather_resource_metrics(start, memory_file, cpu_file):
+    #param_cpu_usage = f'rate(node_cpu_seconds_total[{max(prom_scrape, int(time.time() - start))}])'
+    #resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
+
     param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}ms]"
     resp_mem_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_tot})
     
     param_mem_free = f"node_memory_MemFree_bytes[{max(prom_scrape, int(time.time() - start))}ms]"
     resp_mem_free = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_free})
 
-    param_cpu_usage = f'1 - rate(node_cpu_seconds_total{{mode="idle"}}[{max(prom_scrape, int(time.time() - start))}])'
-    resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
-
 
     print(resp_mem_tot, flush=True)
     print(resp_mem_free, flush=True)
-    print(resp_cpu_usage, flush=True)
+    # print(resp_cpu_usage, flush=True)
     if resp_mem_tot.status_code == 200 and resp_mem_free.status_code == 200:
         mem_tot = resp_mem_tot.json()['data']['result'][0]['values']
         mem_free = resp_mem_free.json()['data']['result'][0]['values']
         print(resp_mem_free.json()['data']['result'])
-        cpu_usage = resp_cpu_usage.json()['data']['result'][0]
-        print(cpu_usage)
+        # cpu_usage = resp_cpu_usage.json()['data']['result'][0]
+        # print(cpu_usage)
         print(mem_free)
         print(mem_tot, flush=True)
         mem_used = [(tot[0], float(tot[1])-float(free[1])) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
