@@ -103,7 +103,7 @@ def gather_resource_metrics(start, memory_file, cpu_file):
 
         with open(memory_file, "w") as f:
             for metric in mem_used:
-                f.writelines(metric)
+                f.writelines(str(metric))
 
 
 
