@@ -23,7 +23,7 @@ spec:
             cpu: "250m"
           limits:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "400m"
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
