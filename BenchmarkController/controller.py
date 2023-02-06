@@ -9,7 +9,7 @@ import pathlib
 # Each user will try to send 1, 2, 4, 8 and 16 requests each
 CONCURRENT_USERS=[100, 500, 1000, 1500] # Increase the number of users
 REQUESTS_PER_USER = [1] #2, 4, 8, 16
-SERVICES_PER_REQ = [10, 100, 200, 300, 400, 500] #Scale down microservices
+SERVICES_PER_REQ = [10, 100, 200, 300, 400] #Scale down microservices
 
 REQUEST_GENERATOR_URL = "http://request-generator-service/generate_load"
 
