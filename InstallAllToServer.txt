@@ -36,6 +36,8 @@ sudo apt install docker.io
 // You might have to create the .kube directory too
 	sudo kind get kubeconfig
 	nano $HOME/.kube/config
+// The following pipelines the output into it automatically
+	kind get kubeconfig > $HOME/.kube/config
 
 // You can change contexts using
 	sudo kubectl config get-contexts
