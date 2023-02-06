@@ -5,7 +5,7 @@ metadata:
   labels:
     app: micro-counter
 spec:
-  replicas: 87
+  replicas: 97
   selector:
     matchLabels:
       app: micro-counter
@@ -19,11 +19,11 @@ spec:
         image: microcounter:1.0
         resources:
           requests:
-            memory: "248Mi"
-            cpu: "160m"
+            memory: "260Mi"
+            cpu: "140m"
           limits:
-            memory: "248Mi"
-            cpu: "160m"
+            memory: "260Mi"
+            cpu: "140m"
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
