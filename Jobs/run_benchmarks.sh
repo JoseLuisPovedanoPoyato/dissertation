@@ -167,8 +167,8 @@ function benchmark_bare_kubernetes(){
     deploy_request_generator
     deploy_counter_bare
 	run_send_request_job "kubernetes"
-	#delete_counter_bare	
-    #delete_request_generator
+	delete_counter_bare	
+    delete_request_generator
 }
 
 function benchmark_linkerd(){
