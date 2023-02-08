@@ -92,7 +92,7 @@ function uninstall_all_smt(){
 function deploy_counter(){
     local manifest=$1
     kubectl create -f $manifest
-    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 40
+    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 60
     # This needs fixing doesn't work for services
     # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
 }

@@ -18,6 +18,13 @@ spec:
       - name: request-generator
         image: requestgenerator:1.0
         imagePullPolicy: Never
+        resources:
+          requests:
+            memory: "350Mi"
+            cpu: "180m"
+          limits:
+            memory: "350Mi"
+            cpu: "180m"
         ports:
         - containerPort: 5000
 ---
