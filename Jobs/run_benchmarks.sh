@@ -443,6 +443,7 @@ function execute_benchmarks(){
     uninstall_all_smt
 
     # Ensure Prometheus is running
+    kubectl apply -f ../PrometheusService/
 
     # Deploy Controller to store results
     deploy_benchmark_controller
