@@ -450,8 +450,8 @@ function execute_benchmarks(){
     
 	# Run Benchmarks
 	benchmark_bare_kubernetes
-    #benchmark_istio
-    #benchmark_linkerd
+    benchmark_istio
+    benchmark_linkerd
     #benchmark_consul
 
     }
