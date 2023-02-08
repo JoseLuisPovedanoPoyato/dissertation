@@ -1,23 +1,19 @@
 Installed content to Server:
-// Updating apt get
+// Update the libraries, install the required software
 	sudo apt-get update
-
-// Getting git
 	sudo apt install git
+	sudo apt install docker.io
+	sudo apt install curl
 
-// Getting apache a
-	sudo apt-get install -y apache2-utils
-
-// Getting Docker
-sudo apt install docker.io
-// Start and check docker works
+// Check that docker works
 	sudo systemctl start docker
 	sudo systemctl status docker
 
-// Getting kubectl - This is the command line tool that lets us interact with the kubernetes cluster
-	sudo apt install curl
+// Install kubernetes and kubectl
 	mkdir kubernetes
 	cd kubernetes
+	 
+// Kubectl is the the command line tool we use to interact with the kubernetes cluster, it works with multiple kubernetes deployments
 	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 	sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
@@ -29,15 +25,12 @@ sudo apt install docker.io
 // Create the cluster, this is where kubectl will deploy our images to
 	sudo kind create cluster
 
-	// If this gets stucked on "Ensuring node image (kindest/node:${tag})" -> docker pull kindest/node:${tag} -> rerun command above
+	// If this gets stucked on "Ensuring node image (kindest/node:${tag})" 
+	docker pull kindest/node:${tag} -> rerun command above
 
-// This will create a context for kubernetes. It should automatically be added to your user's profile at $HOME/.kube/config
-// Unfortunately this does not always happen. If that's the case copy the kubeconfig into the $HOME/.kube/config
-// You might have to create the .kube directory too
-	sudo kind get kubeconfig
-	nano $HOME/.kube/config
-// The following pipelines the output into it automatically
-	kind get kubeconfig > $HOME/.kube/config
+	// Creating the cluster should also create a context for kubernetes. It should automatically be added to your user's profile at $HOME/.kube/config
+	// Unfortunately this does not always happen. If that's the case copy the kubeconfig into the $HOME/.kube/config (You might have to create the .kube directory too)
+	sudo kind get kubeconfig > $HOME/.kube/config
 
 // You can change contexts using
 	sudo kubectl config get-contexts
