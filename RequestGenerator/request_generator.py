@@ -98,7 +98,7 @@ def gather_resource_metrics(start, memory_file, cpu_file):
 
         with open(memory_file, "w") as f:
             for metric in mem_used:
-                f.writelines(str(metric))
+                f.writelines(f"{metric[0]},{metric[1]}\n")
 
     print(resp_cpu_usage, flush=True)
     if resp_cpu_usage.status_code == 200:
@@ -126,7 +126,7 @@ def gather_resource_metrics(start, memory_file, cpu_file):
 
         with open(cpu_file, "w") as f:
             for metric in cpu_percentage:
-                f.writelines(str(metric))
+                f.writelines(f"{metric[0]},{metric[1]}\n")
 
 def group_2d_list_by_repeated_first_element(list_2d):
     d = {x: 0 for x, _ in list_2d}
