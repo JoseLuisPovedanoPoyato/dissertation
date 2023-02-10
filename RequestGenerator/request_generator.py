@@ -80,8 +80,8 @@ def generate_load():
     return send_file(results)
 
 def gather_resource_metrics(start, memory_file, cpu_file):
-    #param_cpu_usage = f'rate(node_cpu_seconds_total[{max(prom_scrape, int(time.time() - start))}])'
-    #resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
+    param_cpu_usage = f'rate(node_cpu_seconds_total[{max(prom_scrape, int(time.time() - start))}])'
+    resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
 
     param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}s]"
     resp_mem_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_tot})
@@ -90,25 +90,49 @@ def gather_resource_metrics(start, memory_file, cpu_file):
     resp_mem_free = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_free})
 
 
-    print(resp_mem_tot, flush=True)
-    print(resp_mem_free, flush=True)
-    # print(resp_cpu_usage, flush=True)
     if resp_mem_tot.status_code == 200 and resp_mem_free.status_code == 200:
         mem_tot = resp_mem_tot.json()['data']['result'][0]['values']
         mem_free = resp_mem_free.json()['data']['result'][0]['values']
-        print(resp_mem_free.json()['data']['result'])
-        # cpu_usage = resp_cpu_usage.json()['data']['result'][0]
-        # print(cpu_usage)
-        print(mem_free)
-        print(mem_tot, flush=True)
         mem_used = [(tot[0], float(tot[1])-float(free[1])) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
-        print(mem_used)
+        print(mem_used, flush = True)
 
         with open(memory_file, "w") as f:
             for metric in mem_used:
                 f.writelines(str(metric))
 
+    print(resp_cpu_usage, flush=True)
+    if resp_cpu_usage.status_code == 200:
+        cpu_usage_detailed = resp_cpu_usage.json()['data']['result']
+        
+        # Collect the CPU Usage values flattening them into a 1d list
+        cpu_total_values = []
+        cpu_used_values = []
+        for result in cpu_usage_detailed:
+            if type(result["value"][0]) == list:
+                for res in result:
+                    if result["metric"]["mode"] != "idle":
+                        cpu_used_values.append(res)
+                    cpu_total_values.append(res)
+            else:
+                cpu_total_values.append(result)
+                if result["metric"]["mode"] != "idle":
+                    cpu_used_values.append(result)
+        
+        # Group the usage accross processors into the same list
+        tot_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_total_values)
+        not_idle_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_used_values)
 
+        cpu_percentage = [(tot[0], 100 * float(used[1])/float(tot[1])) for used in not_idle_cpu_grouped for tot in tot_cpu_grouped if tot[0] == used[0]]
+
+        with open(cpu_file, "w") as f:
+            for metric in cpu_percentage:
+                f.writelines(str(metric))
+
+def group_2d_list_by_repeated_first_element(list_2d):
+    d = {x: 0 for x, _ in list_2d}
+    for val_1, val_2 in d:
+        d[val_1] += val_2
+    return list(map(tuple, d.items()))
 
 def log_files(csv_file, gnu_file, memory_file, cpu_file):
     app.logger.info(f"csv_file = {csv_file}")
