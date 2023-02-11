@@ -165,7 +165,7 @@ function benchmark_bare_kubernetes(){
     deploy_counter_bare
 	run_send_request_job "kubernetes"
 	delete_counter_bare	
-    delete_request_generator
+    #delete_request_generator
 }
 
 function benchmark_linkerd(){
@@ -456,10 +456,10 @@ function execute_benchmarks(){
 	benchmark_bare_kubernetes
     sleep 60
 
-    benchmark_istio
+    #benchmark_istio
     sleep 60
 
-    benchmark_linkerd
+    #benchmark_linkerd
     sleep 60
 
     #benchmark_consul
