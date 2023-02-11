@@ -136,7 +136,7 @@ def group_2d_list_by_repeated_first_element(list_2d):
     d = {l[0]: 0 for l in list_2d}
     for l in list_2d:
         print(l[0])
-        print(l[1])
+        print(l[1], flush=True)
         d[l[0]] += float(l[1])
     return list(map(tuple, d.items()))
 
