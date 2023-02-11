@@ -110,9 +110,9 @@ def gather_resource_metrics(start, memory_file, cpu_file):
         cpu_total_values = []
         cpu_used_values = []
         for result in cpu_usage_detailed:
+            print(result, flush = True)
             if type(result["values"][0]) == list:
                 for res in result["values"]:
-                    print(res, flush = True)
                     if result["metric"]["mode"] != "idle":
                         cpu_used_values.append(res)
                     cpu_total_values.append(res)
@@ -122,8 +122,6 @@ def gather_resource_metrics(start, memory_file, cpu_file):
                     cpu_used_values.append(result["values"])
         
         # Group the usage accross processors into the same list
-        print(cpu_total_values)
-        print(cpu_used_values)
         tot_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_total_values)
         not_idle_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_used_values)
 
