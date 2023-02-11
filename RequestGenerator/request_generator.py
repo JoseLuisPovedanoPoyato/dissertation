@@ -133,9 +133,9 @@ def gather_resource_metrics(start, memory_file, cpu_file):
                 f.writelines(f"{metric[0]},{metric[1]}\n")
 
 def group_2d_list_by_repeated_first_element(list_2d):
-    d = {x: 0 for x, _ in list_2d}
-    for val_1, val_2 in d:
-        d[val_1] += val_2
+    d = {l[0]: 0 for l in list_2d}
+    for l in list_2d:
+        d[l[0]] += l[1]
     return list(map(tuple, d.items()))
 
 def log_files(csv_file, gnu_file, memory_file, cpu_file):
