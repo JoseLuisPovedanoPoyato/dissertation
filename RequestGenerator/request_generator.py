@@ -121,6 +121,8 @@ def gather_resource_metrics(start, memory_file, cpu_file):
                     cpu_used_values.append(result)
         
         # Group the usage accross processors into the same list
+        print(cpu_total_values)
+        print(not_idle_cpu_grouped)
         tot_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_total_values)
         not_idle_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_used_values)
 
