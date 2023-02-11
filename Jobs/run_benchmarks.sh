@@ -178,6 +178,7 @@ function benchmark_linkerd(){
     sleep 30
     delete_request_generator
 	uninstall_linkerd_cluster
+    sleep 30
 }
 
 function benchmark_istio(){
@@ -190,6 +191,7 @@ function benchmark_istio(){
     sleep 30
     delete_request_generator
 	uninstall_istio_cluster
+    sleep 30
 }
 
 function benchmark_consul(){
