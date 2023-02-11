@@ -132,7 +132,6 @@ function deploy_counter_linkerd() {
 function delete_counter_linkerd() {
     echo "Deleting linkerd micro-counter-deployment"
 	delete_counter
-    sleep 3
 	echo "... Linkerd Injected Micro Counter has been deleted"
 }
 
@@ -145,7 +144,6 @@ function deploy_counter_istio() {
 function delete_counter_istio() {
     echo "Deleting istio micro-counter-deployment"
 	delete_counter
-    sleep 3
 	echo "... Istio Injected Micro Counter has been deleted"
 }
 
@@ -158,7 +156,6 @@ function deploy_counter_consul() {
 function delete_counter_consul() {
     echo "Deleting consul micro-counter-deployment"
 	delete_counter
-    sleep 3
 	echo "... Consul Injected Micro Counter has been deleted"
 }
 
@@ -173,26 +170,31 @@ function benchmark_bare_kubernetes(){
 
 function benchmark_linkerd(){
     install_linkerd_cluster
+    sleep 30
     deploy_request_generator
 	deploy_counter_linkerd
 	run_send_request_job "linkerd"
 	delete_counter_linkerd
+    sleep 30
     delete_request_generator
 	uninstall_linkerd_cluster
 }
 
 function benchmark_istio(){
     install_istio_cluster
+    sleep 30
     deploy_request_generator
 	deploy_counter_istio
 	run_send_request_job "istio"
 	delete_counter_istio
+    sleep 30
     delete_request_generator
 	uninstall_istio_cluster
 }
 
 function benchmark_consul(){
     install_consul_cluster
+    sleep 30
 	deploy_counter_consul
     deploy_request_generator
 	run_send_request_job "consul"
