@@ -105,13 +105,12 @@ def gather_resource_metrics(start, memory_file, cpu_file):
     print(resp_cpu_usage, flush=True)
     if resp_cpu_usage.status_code == 200:
         cpu_usage_detailed = resp_cpu_usage.json()['data']['result']
-        print(cpu_usage_detailed, flush=True)
         
         # Collect the CPU Usage values flattening them into a 1d list
         cpu_total_values = []
         cpu_used_values = []
         for result in cpu_usage_detailed:
-            if type(result["value"][0]) == list:
+            if type(result["values"][0]) == list:
                 for res in result:
                     if result["metric"]["mode"] != "idle":
                         cpu_used_values.append(res)
