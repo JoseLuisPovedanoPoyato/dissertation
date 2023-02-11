@@ -25,8 +25,10 @@ def run_apache_request(user, request, service, post_file, results_dir):
     process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '300', micro_counter_url], capture_output=True, text=True)
     try:
         gather_resource_metrics(start, memory_file, cpu_file)
-    except:
+    except Exception as e:
         app.logger.info("Could not gather resource metrics...")
+        print(e.message, flush = True) 
+        print(e.args, flush = True)
         pass
     logs, errors = process.stdout, process.stderr
     print(logs, flush=True)
