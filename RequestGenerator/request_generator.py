@@ -113,9 +113,9 @@ def gather_resource_metrics(start, memory_file, cpu_file):
             print(result, flush = True)
             if type(result["values"][0]) == list:
                 for res in result["values"]:
+                    cpu_total_values.append(res)
                     if result["metric"]["mode"] != "idle":
                         cpu_used_values.append(res)
-                    cpu_total_values.append(res)
             else:
                 cpu_total_values.append(result["values"])
                 if result["metric"]["mode"] != "idle":
@@ -124,6 +124,9 @@ def gather_resource_metrics(start, memory_file, cpu_file):
         # Group the usage accross processors into the same list
         tot_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_total_values)
         not_idle_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_used_values)
+
+        print(not_idle_cpu_grouped)
+        print(tot_cpu_grouped)
 
         cpu_percentage = [(tot[0], 100 * float(used[1])/float(tot[1])) for used in not_idle_cpu_grouped for tot in tot_cpu_grouped if tot[0] == used[0]]
 
@@ -134,9 +137,7 @@ def gather_resource_metrics(start, memory_file, cpu_file):
 def group_2d_list_by_repeated_first_element(list_2d):
     d = {l[0]: 0 for l in list_2d}
     for l in list_2d:
-        print(l[0])
-        print(l[1], flush=True)
-        d[l[0]] += float(l[1])
+        d[l[0]] = d[l[0]] + float(l[1])
     return list(map(tuple, d.items()))
 
 def log_files(csv_file, gnu_file, memory_file, cpu_file):
