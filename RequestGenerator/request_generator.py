@@ -102,7 +102,6 @@ def gather_resource_metrics(start, memory_file, cpu_file):
             for metric in mem_used:
                 f.writelines(f"{metric[0]},{metric[1]}\n")
 
-    print(resp_cpu_usage, flush=True)
     if resp_cpu_usage.status_code == 200:
         cpu_usage_detailed = resp_cpu_usage.json()['data']['result']
         
@@ -110,7 +109,6 @@ def gather_resource_metrics(start, memory_file, cpu_file):
         cpu_total_values = []
         cpu_used_values = []
         for result in cpu_usage_detailed:
-            print(result, flush = True)
             if type(result["values"][0]) == list:
                 for res in result["values"]:
                     cpu_total_values.append(res)
@@ -125,8 +123,8 @@ def gather_resource_metrics(start, memory_file, cpu_file):
         tot_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_total_values)
         not_idle_cpu_grouped = group_2d_list_by_repeated_first_element(cpu_used_values)
 
-        print(not_idle_cpu_grouped)
-        print(tot_cpu_grouped)
+        print(not_idle_cpu_grouped, flush = True)
+        print(tot_cpu_grouped, flush = True)
 
         cpu_percentage = [(tot[0], 100 * float(used[1])/float(tot[1])) for used in not_idle_cpu_grouped for tot in tot_cpu_grouped if tot[0] == used[0]]
 
