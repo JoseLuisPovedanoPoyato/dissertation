@@ -92,7 +92,7 @@ function uninstall_all_smt(){
 function deploy_counter(){
     local manifest=$1
     kubectl create -f $manifest
-    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 60
+    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 120
     # This needs fixing doesn't work for services
     # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
 }
@@ -165,12 +165,12 @@ function benchmark_bare_kubernetes(){
     deploy_counter_bare
 	run_send_request_job "kubernetes"
 	delete_counter_bare	
-    #delete_request_generator
+    delete_request_generator
 }
 
 function benchmark_linkerd(){
     install_linkerd_cluster
-    sleep 30
+    sleep 60
     deploy_request_generator
 	deploy_counter_linkerd
 	run_send_request_job "linkerd"
@@ -183,7 +183,7 @@ function benchmark_linkerd(){
 
 function benchmark_istio(){
     install_istio_cluster
-    sleep 30
+    sleep 60
     deploy_request_generator
 	deploy_counter_istio
 	run_send_request_job "istio"
@@ -456,10 +456,10 @@ function execute_benchmarks(){
 	benchmark_bare_kubernetes
     sleep 60
 
-    #benchmark_istio
+    benchmark_istio
     sleep 60
 
-    #benchmark_linkerd
+    benchmark_linkerd
     sleep 60
 
     #benchmark_consul
