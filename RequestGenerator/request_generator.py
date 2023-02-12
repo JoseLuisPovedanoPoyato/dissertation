@@ -13,7 +13,7 @@ api = Api(app)
 
 micro_counter_url = 'http://micro-counter-service/count'
 prometheus_query_url = 'http://prometheus:9090/api/v1/query'
-prom_scrape = 1000
+prom_scrape = 1
 
 def run_apache_request(user, request, service, post_file, results_dir):
     csv_file = f"{results_dir}/csv_{user}_{request}_{service}"
@@ -98,9 +98,10 @@ def gather_resource_metrics(start, memory_file, cpu_file, service):
         mem_free = resp_mem_free.json()['data']['result'][0]['values']
         mem_used = [(tot[0], float(tot[1])-float(free[1])) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
 
+        base_time = mem_used[0][0]
         with open(memory_file, "w") as f:
             for metric in mem_used:
-                f.writelines(f"{metric[0]},{metric[1]}\n")
+                f.writelines(f"{metric[0]-base_time},{metric[1]}\n")
 
     print(resp_cpu_usage)
     print(resp_cpu_usage.reason)
