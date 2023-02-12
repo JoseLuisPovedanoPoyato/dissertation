@@ -101,7 +101,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, service):
         base_time = mem_used[0][0]
         with open(memory_file, "w") as f:
             for metric in mem_used:
-                f.writelines(f"{metric[0]-base_time},{metric[1]}\n")
+                f.writelines(f"{float(metric[0])-float(base_time)},{metric[1]}\n")
 
     print(resp_cpu_usage)
     print(resp_cpu_usage.reason)
