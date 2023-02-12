@@ -165,6 +165,7 @@ function benchmark_bare_kubernetes(){
     deploy_counter_bare
 	run_send_request_job "kubernetes"
 	delete_counter_bare	
+    sleep 120
     delete_request_generator
 }
 
