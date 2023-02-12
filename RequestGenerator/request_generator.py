@@ -13,7 +13,7 @@ api = Api(app)
 
 micro_counter_url = 'http://micro-counter-service/count'
 prometheus_query_url = 'http://prometheus:9090/api/v1/query'
-prom_scrape = 1
+prom_scrape = 2
 
 def run_apache_request(user, request, service, post_file, results_dir):
     csv_file = f"{results_dir}/csv_{user}_{request}_{service}"
