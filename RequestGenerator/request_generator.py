@@ -19,12 +19,12 @@ def run_apache_request(user, request, service, post_file, results_dir):
     csv_file = f"{results_dir}/csv_{user}_{request}_{service}"
     gnu_file = f"{results_dir}/gnu_{user}_{request}_{service}"
     memory_file = f"{results_dir}/memory_{user}_{request}_{service}"
-    cpu_file = f"{results_dir}/cpu_{user}_{request}_{service}"
+    cpu_file = f"{results_dir}/cpu_{user}"
     log_files(csv_file, gnu_file, memory_file, cpu_file)
     start = time.time()
     process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '300', micro_counter_url], capture_output=True, text=True)
     try:
-        gather_resource_metrics(start, memory_file, cpu_file)
+        gather_resource_metrics(start, memory_file, cpu_file, service)
     except Exception as e:
         app.logger.info("Could not gather resource metrics...")
         print(e.message, flush = True) 
@@ -81,8 +81,9 @@ def generate_load():
     app.logger.info("Returning results to benchmark controller...")
     return send_file(results)
 
-def gather_resource_metrics(start, memory_file, cpu_file):
-    param_cpu_usage = f'node_cpu_seconds_total[{max(prom_scrape, int(time.time() - start))}s]'
+def gather_resource_metrics(start, memory_file, cpu_file, service):
+    t = max(prom_scrape, int(time.time() - start))
+    param_cpu_usage = f'sum(rate(node_cpu_seconds_total{{mode="idle"}}[{t}])) / sum(rate(node_cpu_seconds_total[t])) * sum(kube_node_status_capacity_cpu_cores)'
     resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
 
     param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}s]"
@@ -102,6 +103,16 @@ def gather_resource_metrics(start, memory_file, cpu_file):
             for metric in mem_used:
                 f.writelines(f"{metric[0]},{metric[1]}\n")
 
+    print(resp_cpu_usage)
+    if resp_cpu_usage.status_code == 200:
+        print(resp_cpu_usage.json()['data']['result'])
+        cpu_usage = resp_cpu_usage.json()['data']['result'][0]['values']
+        print(cpu_usage)
+
+        with open(cpu_file, "a") as f:
+            f.writelines(f"{service},{cpu_usage[1]}\n")
+
+    """
     if resp_cpu_usage.status_code == 200:
         cpu_usage_detailed = resp_cpu_usage.json()['data']['result']
         
@@ -131,6 +142,7 @@ def gather_resource_metrics(start, memory_file, cpu_file):
         with open(cpu_file, "w") as f:
             for metric in cpu_percentage:
                 f.writelines(f"{metric[0]},{metric[1]}\n")
+        """
 
 def group_2d_list_by_repeated_first_element(list_2d):
     d = {l[0]: 0 for l in list_2d}
