@@ -29,6 +29,11 @@ function deploy_benchmark_controller(){
 	echo "... Request generator is live and running"
 }
 
+function delete_benchmark_controller(){
+	echo "Deleting the benchmark controller..."
+	kubectl delete -f ${script_location}/../BenchmarkController/benchmark_controller_manifest.yml
+}
+
 function run_send_request_job() {
 	local smt="$1"
     echo "Finding benchmark controller pod..."
@@ -200,13 +205,16 @@ function benchmark_istio(){
 }
 
 function benchmark_consul(){
+    delete_benchmark_controller
     install_consul_cluster
     sleep 30
+    deploy_benchmark_controller
 	deploy_counter_consul
     deploy_request_generator
 	run_send_request_job "consul"
 	delete_counter_consul
     delete_request_generator
+    delete_benchmark_controller
 	uninstall_consul_cluster
 }
 #--
@@ -458,14 +466,14 @@ function execute_benchmarks(){
     deploy_benchmark_controller
     
 	# Run Benchmarks
-	#benchmark_bare_kubernetes
-    #sleep 60
+	benchmark_bare_kubernetes
+    sleep 60
 
-    #benchmark_istio
-    #sleep 60
+    benchmark_istio
+    sleep 60
 
-    #benchmark_linkerd
-    #sleep 60
+    benchmark_linkerd
+    sleep 60
 
     benchmark_consul
 
