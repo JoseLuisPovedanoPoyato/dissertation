@@ -80,10 +80,6 @@ function install_consul_cluster() {
 	consul-k8s version
 	yes Y | consul-k8s install 
 	consul-k8s status
-    echo "Consul does not permit external communication from services outside the mesh, therefore we are deploying an ingress gateway to enable this behaviour"
-    consul config write ../ingress/ingress-gateway.hcl
-    consul connect envoy -gateway=ingress -register -service ingress-service -address '{{ GetInterfaceIP "eth0" }}:8888'
-
 }
 
 function uninstall_consul_cluster() {
@@ -205,6 +201,7 @@ function benchmark_istio(){
 }
 
 function benchmark_consul(){
+    echo "Consul does not permit external communication from services outside the mesh, therefore we are deleting the benchmark controller and redeploying it after the mesh installs"
     delete_benchmark_controller
     install_consul_cluster
     sleep 30
@@ -212,10 +209,10 @@ function benchmark_consul(){
 	deploy_counter_consul
     deploy_request_generator
 	run_send_request_job "consul"
-	delete_counter_consul
-    delete_request_generator
-    delete_benchmark_controller
-	uninstall_consul_cluster
+	#delete_counter_consul
+    #delete_request_generator
+    #delete_benchmark_controller
+	#uninstall_consul_cluster
 }
 #--
 
@@ -463,17 +460,17 @@ function execute_benchmarks(){
     kubectl apply -f ../PrometheusService/
 
     # Deploy Controller to store results
-    deploy_benchmark_controller
+    #deploy_benchmark_controller
     
 	# Run Benchmarks
-	benchmark_bare_kubernetes
-    sleep 60
+	#benchmark_bare_kubernetes
+    #sleep 60
 
-    benchmark_istio
-    sleep 60
+    #benchmark_istio
+    #sleep 60
 
-    benchmark_linkerd
-    sleep 60
+    #benchmark_linkerd
+    #sleep 60
 
     benchmark_consul
 
