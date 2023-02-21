@@ -193,10 +193,10 @@ function benchmark_istio(){
     deploy_request_generator
 	deploy_counter_istio
 	run_send_request_job "istio"
-	delete_counter_istio
+	#delete_counter_istio
     sleep 30
-    delete_request_generator
-	uninstall_istio_cluster
+    #delete_request_generator
+	#uninstall_istio_cluster
     sleep 30
 }
 
@@ -261,15 +261,15 @@ function execute_benchmarks(){
     
 	# Run Benchmarks
 	benchmark_bare_kubernetes
-    sleep 60
+    sleep 120
 
     benchmark_istio
-    sleep 60
+    sleep 120
 
-    benchmark_linkerd
-    sleep 60
+    #benchmark_linkerd
+    sleep 120
 
-    benchmark_consul
+    #benchmark_consul
     }
 # --
 
