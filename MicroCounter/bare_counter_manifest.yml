@@ -21,10 +21,10 @@ spec:
         image: microcounter:1.0
         resources:
           requests:
-            memory: "230Mi"
+            memory: "250Mi"
             cpu: "140m"
           limits:
-            memory: "210Mi"
+            memory: "250Mi"
             cpu: "140m"
         imagePullPolicy: Never
         ports:
