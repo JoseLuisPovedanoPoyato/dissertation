@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: micro-counter
+      annotations:
+        'consul.hashicorp.com/connect-inject': 'true'
     spec:
       containers:
       - name: micro-counter

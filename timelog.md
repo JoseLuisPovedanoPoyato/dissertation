@@ -351,5 +351,5 @@ It was my birthday
 ## 31 January 2023
 * * 1.5 hours * Updated request generator to start pulling metrics
 
-## 1 January
+## 01 February 2023
 * * 1.0 hour * Created quality of life updates and updated issue with git corruption in repo

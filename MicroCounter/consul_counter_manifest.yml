@@ -19,6 +19,13 @@ spec:
       containers:
       - name: micro-counter
         image: microcounter:1.0
+         resources:
+          requests:
+            memory: "210Mi"
+            cpu: "120m"
+          limits:
+            memory: "210Mi"
+            cpu: "120m"
         imagePullPolicy: Never
         ports:
         - containerPort: 5000

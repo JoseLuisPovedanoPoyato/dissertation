@@ -27,9 +27,7 @@ def run_apache_request(user, request, service, post_file, results_dir):
         gather_resource_metrics(start, memory_file, cpu_file, service)
     except Exception as e:
         app.logger.info("Could not gather resource metrics...")
-        print(e.message, flush = True) 
-        print(e.args, flush = True)
-        pass
+        print(e, flush = True)
     logs, errors = process.stdout, process.stderr
     print(logs, flush=True)
     if errors:
@@ -69,6 +67,7 @@ def generate_load():
     for user in users:
         for req in requests:
             for i in range(len(services)):
+                time.sleep(prom_scrape) # This way we ensure we accidentally not include measurements from previous execution
                 app.logger.info(f"Executing apache ab load... ({count}/{total_apache_execs})")
                 run_apache_request(user, req, services[i], service_files[i], results_dir)
                 count += 1    
@@ -107,7 +106,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, service):
     print(resp_cpu_usage.reason)
     if resp_cpu_usage.status_code == 200:
         print(resp_cpu_usage.json()['data']['result'], flush=True)
-        cpu_usage = resp_cpu_usage.json()['data']['result'][0]['value']
+        cpu_usage = resp_cpu_usage.json()['data']['result'][0]['value'] * t
         print(cpu_usage, flush = True)
 
         with open(cpu_file, "a") as f:
