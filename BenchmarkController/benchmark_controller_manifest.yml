@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: benchmark-controller
+      annotations:
+          'consul.hashicorp.com/connect-inject': 'true'
     spec:
       containers:
       - name: benchmark-controller

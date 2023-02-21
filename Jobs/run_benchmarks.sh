@@ -209,10 +209,10 @@ function benchmark_consul(){
 	deploy_counter_consul
     deploy_request_generator
 	run_send_request_job "consul"
-	delete_counter_consul
-    delete_request_generator
-    delete_benchmark_controller
-	uninstall_consul_cluster
+	#delete_counter_consul
+    #delete_request_generator
+    #delete_benchmark_controller
+	#uninstall_consul_cluster
 }
 #--
 
