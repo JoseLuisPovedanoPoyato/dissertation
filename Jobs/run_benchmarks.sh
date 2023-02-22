@@ -268,19 +268,19 @@ function execute_benchmarks(){
     kubectl apply -f ../PrometheusService/
 
     # Deploy Controller to store results
-    deploy_benchmark_controller
+    #deploy_benchmark_controller
     
 	# Run Benchmarks
-	benchmark_bare_kubernetes
-    sleep 120
+	#benchmark_bare_kubernetes
+    #sleep 120
 
-    benchmark_linkerd
-    sleep 120
+    #benchmark_linkerd
+    #sleep 120
 
-    benchmark_istio
-    sleep 120
+    #benchmark_istio
+    #sleep 120
 
-    #benchmark_consul
+    benchmark_consul
     }
 # --
 
