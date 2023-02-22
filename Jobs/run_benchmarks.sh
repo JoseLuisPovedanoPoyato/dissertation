@@ -277,7 +277,7 @@ function execute_benchmarks(){
     benchmark_istio
     sleep 120
 
-    benchmark_consul
+    #benchmark_consul
     }
 # --
 
