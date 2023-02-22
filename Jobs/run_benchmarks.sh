@@ -262,7 +262,7 @@ function execute_benchmarks(){
     uninstall_all_smt
 
     # Ensure resources are capped so it doesn't crash
-    kubectl apply -f ../ResourceQuota.yaml
+    #kubectl apply -f ../ResourceQuota.yaml
 
     # Ensure Prometheus is running
     kubectl apply -f ../PrometheusService/
