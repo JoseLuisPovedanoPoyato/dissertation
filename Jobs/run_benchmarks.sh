@@ -40,6 +40,7 @@ function run_send_request_job() {
 	local req_pod=$(kubectl get pod -l app=benchmark-controller -o jsonpath="{.items[0].metadata.name}")
 	echo "Benchmark Controller is sending the request..."
     local data='{"smt":"'"$smt"'"}'
+    kubectl get pods # Print pods right before sending request to ensure everything is live at this point
     kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -H "Content-Type: application/json" -d "$data"
     kubectl cp default/$req_pod:results/ results/
 }
