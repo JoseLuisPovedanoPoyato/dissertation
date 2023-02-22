@@ -97,7 +97,7 @@ function uninstall_all_smt(){
 function deploy_counter(){
     local manifest=$1
     kubectl create -f $manifest
-    grace "kubectl get pods --all-namespaces | grep micro-counter-deployment | grep -v Running" 120
+    grace "kubectl get pods --all-namespaces | grep micro-counter | grep -v Running" 120
     # This needs fixing doesn't work for services
     # grace "kubectl get services --all-namespaces | grep micro-counter-service | grep -v Running" 10
 }
@@ -106,6 +106,15 @@ function delete_counter(){
 	kubectl delete deployments/micro-counter
 	kubectl delete services/micro-counter-service
     kubectl delete -f ${script_location}/../MicroCounter/bare_counter_manifest.yml
+    while true; do
+        if kubectl get pods -l 'app=micro-counter' | grep -q 'micro-counter'; then
+            echo "Some micro-counter pods are still running..."
+            sleep 10
+        else
+            echo "Micro-counter has been succesfully terminated"
+            break
+        fi
+    done
 }
 
 function deploy_counter_bare() {
@@ -170,7 +179,6 @@ function benchmark_bare_kubernetes(){
     deploy_counter_bare
 	run_send_request_job "kubernetes"
 	delete_counter_bare	
-    sleep 120
     delete_request_generator
 }
 
@@ -181,7 +189,6 @@ function benchmark_linkerd(){
 	deploy_counter_linkerd
 	run_send_request_job "linkerd"
 	delete_counter_linkerd
-    sleep 30
     delete_request_generator
 	uninstall_linkerd_cluster
     sleep 30
@@ -193,7 +200,8 @@ function benchmark_istio(){
     deploy_request_generator
 	deploy_counter_istio
 	run_send_request_job "istio"
-	#delete_counter_istio
+	sleep 10
+    #delete_counter_istio
     sleep 30
     #delete_request_generator
 	#uninstall_istio_cluster
