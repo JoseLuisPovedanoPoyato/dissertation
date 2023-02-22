@@ -214,8 +214,8 @@ function benchmark_consul(){
     install_consul_cluster
     sleep 30
     deploy_benchmark_controller
-	deploy_counter_consul
     deploy_request_generator
+	deploy_counter_consul
 	run_send_request_job "consul"
 	#delete_counter_consul
     #delete_request_generator
