@@ -445,3 +445,4 @@ It was my birthday
 * * 1 hour * Looked for information about services problem, only found a bug that Kubernetes had in 2017 which caused this, was resolved by using IP address
 	- Tried using IP address, it did not work
 * * X hours * Trying to upscale the pods slowly to find out when consul inject starts failing
+	- 20 works, 30 ...
