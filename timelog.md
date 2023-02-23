@@ -334,6 +334,7 @@ It was my birthday
 	- Found out cluster uses Role Based Access Control (RBAC), which was not configured properly in cluster-role to access /metrics
 
 ## 27 January 2023
+* * 0 hours * Meeting with Yehia moved to Monday
 * * 0.5 hours * Updated Prometheus to access /metrics, still does not work
 * * 1 hours * Researched alternatives for metrics
 
@@ -349,7 +350,98 @@ It was my birthday
 * * 2.0 hours * Set up NodeExporter to extract cluster metrics 
 
 ## 31 January 2023
-* * 1.5 hours * Updated request generator to start pulling metrics
+* * 1.5 hours * Started configuring request generator to start pulling metrics from Prometheus
 
 ## 01 February 2023
 * * 1.0 hour * Created quality of life updates and updated issue with git corruption in repo
+* * 2.0 hour * NodeExporter does not provide a MemoryUsed reading, instead it gives FreeMemory and TotalMemory -> RequestGenerator now calculates memory used
+
+## 02 February 2023
+* * 1 hour * Metrics measures are very sparse and do not give us accurate measurements -> Prometheus now scrapes results every 5 seconds -> Further reduced to 1s
+* * 0.5 hours * Met with Yehia, discussed how PrometheusMetrics has been configured so far & discussed how to represent realistic data
+* * 1 hour * Tried to set up CPU metrics pulling but could not get it to work
+* * 0.5 hours * Updated values to represent real life usage
+* * 1 hour * Run a realistic run using real values and trying to collect metrics -> Server Crashed
+
+## 03 February 2023 (Server is down)
+* * 1.5 hours * Scaled up pods to better distribute load, added Resource Limits to pods so they don't crash the server
+* * 1 hour * Added Error Handling to resource gathering metrics to prevent it from stopping execution
+
+## 04 February 2023 (Server is down)
+* * 2 hours * Created virtual box in home computer and trial and tested distribution of resources and pods, found upscaling pods with less resources each might help
+* * 2 hours * Used results saved to start creating graphs, set up gnuplot to create latency graphs
+
+## 06 February 2023 (Yehia is in office, Server Restarts)
+* * 1 hour * Tried rerunning -> Server almost crashed (Killed it on time) -> Scaled pods up, reduced simulatenous users
+* * 3 hours * Trial & Tested around with pods scaling and resources per pods. Increased apache ab timeout period
+
+## 08 February 2023
+* * 0.5 hours * Benchmark sometimes sends requests before pods are fully live -> Increased wait before sending requests
+* * 3.5 hours * Kept trial & Testing with pods scaling, resources per pods and num of users/services -> Kubernetes runs
+
+## 09 February 2023
+* * 0.5 hours * Met with Yehia, went over graphs, discussed findings from graph data, agreed on rerunning certain benchamrks because of weird values
+* * 1.5 hours * Automated the creation of memory graphs
+
+## 11 February 2023
+* * 0.5 hours * Tried setting up CPU gathering -> Failed, provides average over time not usage at diff points in time like memory
+* * 3.5 hours * Collected different usage per id at diff points in time, collected total resource available and tried calculating percentage usage
+
+## 12 February 2023
+* * 3 hours * Tried debugging homemade CPU calculator -> Its terribly broken, there are measurements missing
+* * 1 hour * Went back to collecting average -> Can represent in a bar chart
+
+## 13 February 2023
+* * 0.5 hour * Performed a complete run to collect Istio, Linkerd and Kube to check data looks valid in graphs
+* * 1 hour * Started configuring Consul, attempted to use an Ingress gateway
+* * 0.5 hours * Consul pods fail to start up, they start consuming more and more resources and crash the server (Server Crashes)
+
+## 14 February 2023
+* * 1 hour * Worked on writing diss methodology
+* * 0.5 hours * Further reduced users/services and resource per pods because Consul didn't seem able to handle it
+
+## 15 February 2023
+* * 2 hours * Tried to set up consul run on virtualbox, Consul gives weird error and will not run on vbox
+
+## 16 Februaru 2023
+* * 2 hours * Writing diss, collecting references and data from different places, mostly Linkerd and Istio website
+
+## 17 February 2023
+* * 1.5 hours * Work on creating CPU graphs, results seem weird though
+* * 1 hour * Results for CPU are weird because they are an average over time, which doesn't include time, therefore if Istio uses 20% over 100s looks like less usage than 50% over 10s
+
+## 20 February 2023
+* * 0.5 hour * Meeting with Yehia -> Went over memory graphs, discussed issue with CPU, agreed to multiply usage by time to get better reading
+* * 1 hour * Added finishing touches to graphs generators and created a multiplier for the CPU calculatio
+
+## 21 February 2023 (Yehia is back in office server restarts)
+* * 3 hours * Conducted multiple Istio + Linkerd + Kubernetes run -> SMTs fail to inject all pods in time
+	- Some Kubernetes pods crash on occasion with the higher loads (CrashLoopBackOff)
+	- Linkerd leaves fails to inject 5-10 pods which remain stuck in CrashLoopBackOff
+	- Istio fails to inject 30-25 pods which often remain in CrashLoopBackOff
+	- Crashed pods are not sent request which gives advantage to the other SMTs, however this does prove how Linkerd is considerably more lightweight than Istio
+
+## 22 February 2023
+* * 2 hours * Reduced pods to 62 so Istio can handle it and kept resource cap per pod
+	- Istio absolutely smoked all the other runs (5 - 6 mins vs 11 - 12 mins), but also used considerably more resources
+		- Why? Turns out the resource cap is limited to the container running the micro-counter, NOT the entire pod
+			- In previous run, there were not enough resources for Istio to run properly
+			- In this run, the uncapped areas of Istio benefit more from the additional resources than the uncapped areas of Linkerd/Kubernetes
+		- This demonstrates that Istio Control and Data Plane (Envoy Proxy) are considerably more resource heavy than Linkerd's 
+
+* * 1 hour * Uncapped resource usage per pod to see how the systems optimise themselves
+	- Kubernetes and Linkerd down to 4-5 mins, Istio down to 5-6 mins
+	- Linkerd and Kube now use more resources, but Istio still uses more resources
+	- Can conclude that Linkerd is more efficient than Istio, needing less resources and obtaining better results
+
+* * 0.5 hours * Yehia will be OOO for a while, so went in to collect Server
+
+* * 2 hours * Attempting to get Consul to function
+	- Problem 1: Consul can't handle so much simultaneous injection, 62 pods is too much
+	- Problem 2: Consul injected pods fail to ping their own service, might have to mess around with the DNS Configuration
+
+
+## 23 February 2023
+* * 1 hour * Looked for information about services problem, only found a bug that Kubernetes had in 2017 which caused this, was resolved by using IP address
+	- Tried using IP address, it did not work
+* * X hours * Trying to upscale the pods slowly to find out when consul inject starts failing
