@@ -272,14 +272,14 @@ function execute_benchmarks(){
     #deploy_benchmark_controller
     
 	# Run Benchmarks
-	#benchmark_bare_kubernetes
-    #sleep 120
+	benchmark_bare_kubernetes
+    sleep 10
 
-    #benchmark_linkerd
-    #sleep 120
+    benchmark_linkerd
+    sleep 60
 
-    #benchmark_istio
-    #sleep 120
+    benchmark_istio
+    sleep 60
 
     benchmark_consul
     }
