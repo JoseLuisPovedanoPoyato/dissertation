@@ -82,7 +82,9 @@ def generate_load():
 
 def gather_resource_metrics(start, memory_file, cpu_file, service):
     t = max(prom_scrape, int(time.time() - start))
-    param_cpu_usage = f'100 - avg by (instance) (irate(node_cpu_seconds_total{{mode="idle"}}[{t}s])) * 100'
+    
+    param_cpu_usage = f'100 - (avg by (instance) (rate(node_cpu_seconds_total{{job="node",mode="idle"}}[{t}s])) * 100)'
+    #param_cpu_usage = f'100 - avg by (instance) (irate(node_cpu_seconds_total{{mode="idle"}}[{t}s])) * 100' THIS ONE RECORDS SOMETHING, DO NOT DELETE
     resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
 
     param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}s]"
