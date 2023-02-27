@@ -107,6 +107,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, service):
     print(resp_cpu_usage)
     print(resp_cpu_usage.reason)
     if resp_cpu_usage.status_code == 200:
+        print(resp_cpu_usage.json())
         print(resp_cpu_usage.json()['data']['result'], flush=True)
         cpu_usage = resp_cpu_usage.json()['data']['result'][0]['value'] * t
         print(cpu_usage, flush = True)
