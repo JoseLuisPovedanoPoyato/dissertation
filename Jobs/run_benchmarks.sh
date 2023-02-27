@@ -57,7 +57,7 @@ function install_linkerd_cluster() {
 	sleep 10
     linkerd check
     echo "Setting automatic Linkerd injections to newly deployed pods to default namespace..."
-    kubectl annotate default "linkerd.io/inject=enabled"
+    kubectl annotate namespace default "linkerd.io/inject=enabled"
 }
 
 function uninstall_linkerd_cluster() {
