@@ -268,7 +268,7 @@ function execute_benchmarks(){
 
     # Ensure Prometheus is running
     kubectl apply -f ../PrometheusService/
-    bash ../PrometheusService/install_cadvisor.sh
+    kubectl apply -k ../PrometheusService/cadvisor/
 
     # Deploy Controller to store results
     deploy_benchmark_controller
