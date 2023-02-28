@@ -20,7 +20,6 @@ spec:
         image: gcr.io/cadvisor/cadvisor:v0.45.0
         args:
           - --disable_metrics=accelerator,advtcp,app,cpu,cpuLoad,disk,diskIO,hugetlb,memory,memory_numa,network,oom_event,percpu,perf_event,process,referenced_memory,resctrl,sched,tcp,udp
-          - --docker_only
         resources:
           requests:
             memory: 400Mi
