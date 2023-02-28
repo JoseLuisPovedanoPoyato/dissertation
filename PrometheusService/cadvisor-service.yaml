@@ -25,8 +25,8 @@ spec:
   type: ExternalName
   externalName: cadvisor.cadvisor.svc.cluster.local
   ports:
-  - port: 9100
-    targetPort: 9100
+  - port: 8080
+    targetPort: 8080
     protocol: TCP
 ---
 apiVersion: v1
@@ -38,6 +38,6 @@ spec:
   type: ExternalName
   externalName: cadvisor.cadvisor.svc.cluster.local
   ports:
-  - port: 9100
-    targetPort: 9100
+  - port: 8080
+    targetPort: 8080
     protocol: TCP
