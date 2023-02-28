@@ -24,7 +24,7 @@ metadata:
   namespace: default
 spec:
   type: ExternalName
-  externalName: cadvisor.monitoring.svc.cluster.local
+  externalName: cadvisor.cadvisor.svc.cluster.local
   ports:
   - port: 9100
     targetPort: 9100
