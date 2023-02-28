@@ -107,6 +107,21 @@ ab -p request_1.json -T application/json -c 1 -n 10 -v 4 http://micro-counter-se
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=node_cpu_seconds_total[10s]'
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query='
 
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=node_cpu_seconds_total{container_label_io_kubernetes_container_name=""}[10s]'
+// With Regular Expression
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~".*-proxy"}[10s]'
+
+//Linkerd targetting requests
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="linkerd-proxy"}[10s]'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="linkerd-init"}[10s]'
+
+//Istio targetting requests
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="istio-proxy"}[10s]'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="linkerd-init"}[10s]'
+
+//Combined Measurement
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]'
+
 curl http://localhost:5000/send_requests
 
 - 19:21 (72s) -

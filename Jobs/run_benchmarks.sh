@@ -38,9 +38,10 @@ function run_send_request_job() {
 	local smt="$1"
     echo "Finding benchmark controller pod..."
 	local req_pod=$(kubectl get pod -l app=benchmark-controller -o jsonpath="{.items[0].metadata.name}")
-	echo "Benchmark Controller is sending the request..."
     local data='{"smt":"'"$smt"'"}'
+    echo "All pods should have been deployed... Getting pods to guarantee everything functions previous to sending request..."
     kubectl get pods # Print pods right before sending request to ensure everything is live at this point
+    echo "Benchmark Controller is sending the request..."
     kubectl exec $req_pod -- curl -X POST http://localhost:5000/send_requests -H "Content-Type: application/json" -d "$data"
     kubectl cp default/$req_pod:results/ results/
 }
@@ -267,6 +268,7 @@ function execute_benchmarks(){
 
     # Ensure Prometheus is running
     kubectl apply -f ../PrometheusService/
+    bash ../PrometheusService/install_cadvisor.sh
 
     # Deploy Controller to store results
     deploy_benchmark_controller
