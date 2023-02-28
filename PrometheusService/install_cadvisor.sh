@@ -1,0 +1,1 @@
+kubectl apply -k https://github.com/google/cadvisor//deploy/kubernetes/base #This is the command we must run to install cadvisor
