@@ -20,6 +20,15 @@ function deploy_linkerd_request_generator(){ # Might not need this look into aut
 function delete_request_generator(){
 	echo "Deleting the request generator..."
 	kubectl delete deployments request-generator
+    while true; do
+        if kubectl get pods -l 'app=request-generator' | grep -q 'request-generator'; then
+            echo "The request generator has not been fully terminated yet..."
+            sleep 10
+        else
+            echo "Request generator has been succesfully terminated"
+            break
+        fi
+    done
 }
 
 function deploy_benchmark_controller(){
@@ -192,6 +201,7 @@ function benchmark_linkerd(){
 	run_send_request_job "linkerd"
 	delete_counter_linkerd
     delete_request_generator
+    sleep 30
 	uninstall_linkerd_cluster
     sleep 30
 }

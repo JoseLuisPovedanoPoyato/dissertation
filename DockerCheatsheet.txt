@@ -112,15 +112,15 @@ curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~".*-proxy"}[10s]'
 
 //Linkerd targetting requests
-curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="linkerd-proxy"}[10s]'
-curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="linkerd-init"}[10s]'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="linkerd-proxy"}[10s]' # Works
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="linkerd-init"}[10s]' # Does not work -> Not a regular container but an init container, might have to figure out a diff way to measure it
 
 //Istio targetting requests
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="istio-proxy"}[10s]'
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="linkerd-init"}[10s]'
 
-//Combined Measurement
-curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]'
+//Combined Measurements
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]' # Works for Linkerd
 
 curl http://localhost:5000/send_requests
 
