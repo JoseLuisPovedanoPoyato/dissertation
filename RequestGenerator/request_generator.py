@@ -130,7 +130,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
         print(resp_smt_data_cpu_usage.json()['data']['result'], flush=True)
         cpu_usage_result = resp_smt_data_cpu_usage.json()['data']['result'] 
         if (len(cpu_usage_result) > 0):
-            cpu_usage = resp_smt_data_cpu_usage[0]['value']
+            cpu_usage = cpu_usage_result[0]['value']
             with open(cpu_data_plane_file, "a") as f:
                 f.writelines(f"{service},{cpu_usage[1]}\n")
     
