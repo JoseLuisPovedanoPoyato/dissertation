@@ -253,7 +253,7 @@ function grace() {
     while true; do
         eval $1
         if [ $? -eq 0 ]; then
-            sleep 1
+            sleep 5
             grace=10
             continue
         fi
