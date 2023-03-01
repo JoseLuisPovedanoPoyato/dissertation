@@ -96,7 +96,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
     resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
 
     #Collect Control Plane CPU Usage from cadvisor
-    param_smt_control_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{namespace=~"(linkerd|istio)"}}[{t}s])))'
+    param_smt_control_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{t}s])))'
     resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
 
     #Collect Memory from Node Exporter
@@ -108,7 +108,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
     #Collect Memory from Cadvisor
     param_mem_data_tot = f'container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s]'
     resp_mem_data_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_tot})
-    param_mem_control_tot = f'container_memory_usage_bytes{{namespace=~"(linkerd)|(istio)"}}[{max(prom_scrape, int(time.time() - start))}s]'
+    param_mem_control_tot = f'container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{max(prom_scrape, int(time.time() - start))}s]'
     resp_mem_control_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_control_tot})
 
 

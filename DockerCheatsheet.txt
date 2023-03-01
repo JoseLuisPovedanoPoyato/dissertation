@@ -123,7 +123,8 @@ curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]' # Works for Linkerd
 
 // Sum of measurements
-curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(rate(container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]')) # Works for Linkerd
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(rate(container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]))' # Works for Linkerd
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(rate(container_cpu_usage_seconds_total{container_label_io_kubernetes_pod_namespace=~"istio-system"}[10s]))'
 
 curl http://localhost:5000/send_requests
 
