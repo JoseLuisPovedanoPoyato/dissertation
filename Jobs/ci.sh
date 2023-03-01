@@ -37,6 +37,7 @@ fi
 if git diff HEAD^ HEAD --name-only | grep ".yaml" | grep "PrometheusService/" > /dev/null
 then
   kubectl apply -f ../PrometheusService/
+  kubectl apply -k ../PrometheusService/cadvisor
 else
   echo "No Updates to Prometheus Service"
 fi
