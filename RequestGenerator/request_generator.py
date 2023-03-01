@@ -82,52 +82,52 @@ def generate_load():
     app.logger.info("Returning results to benchmark controller...")
     return send_file(results)
 
-def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file, service):
+def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file, mem_data_plane_file, mem_control_plane_file, service):
     t = max(prom_scrape, int(time.time() - start))
     
-    #param_cpu_usage = f'100 - (avg by (instance) (rate(node_cpu_seconds_total{{job="node",mode="idle"}}[{t}s])) * 100)' This one does not work
-    
-    param_cpu_usage = f'100 - (avg by (instance) (rate(node_cpu_seconds_total{{mode="idle"}}[{t}s])) * 100)'
-    #param_cpu_usage = f'100 - avg by (instance) (irate(node_cpu_seconds_total{{mode="idle"}}[{t}s])) * 100' THIS ONE RECORDS SOMETHING, DO NOT DELETE
-    resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
+    resp_cpu_usage = None
+    #param_cpu_usage = f'100 - (avg by (instance) (rate(node_cpu_seconds_total{{mode="idle"}}[{t}s])) * 100)'
+    #resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
 
+    #Collect Data Plane CPU Usage from cadvsior
     param_smt_data_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{t}s]))'
     resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
 
+    #Collect Control Plane CPU Usage from cadvisor
     param_smt_control_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{namespace=~"(linkerd)|(istio)"}}[{t}s])))'
     resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
 
+    #Collect Memory from Node Exporter
     param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}s]"
     resp_mem_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_tot})
-    
     param_mem_free = f"node_memory_MemFree_bytes[{max(prom_scrape, int(time.time() - start))}s]"
     resp_mem_free = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_free})
+
+    #Collect Memory from Cadvisor
+    param_mem_data_tot = f'container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s]'
+    resp_mem_data_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_tot})
+    param_mem_control_tot = f'container_memory_usage_bytes{{namespace=~"(linkerd)|(istio)"}}[{max(prom_scrape, int(time.time() - start))}s]'
+    resp_mem_control_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_control_tot})
 
 
     if resp_mem_tot.status_code == 200 and resp_mem_free.status_code == 200:
         mem_tot = resp_mem_tot.json()['data']['result'][0]['values']
         mem_free = resp_mem_free.json()['data']['result'][0]['values']
-        mem_used = [(tot[0], float(tot[1])-float(free[1])) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
+        mem_used = [(free[0], float(tot[1])-float(free[1])) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
 
         base_time = mem_used[0][0]
         with open(memory_file, "w") as f:
             for metric in mem_used:
                 f.writelines(f"{float(metric[0])-float(base_time)},{metric[1]}\n")
 
-    print(resp_cpu_usage)
-    print(resp_cpu_usage.reason)
+    """
     if resp_cpu_usage.status_code == 200:
-        print(resp_cpu_usage.json())
-        print(resp_cpu_usage.json()['data']['result'], flush=True)
         cpu_usage = resp_cpu_usage.json()['data']['result'][0]['value'] * t
-        print(cpu_usage, flush = True)
-
         with open(cpu_file, "a") as f:
             f.writelines(f"{service},{cpu_usage[1]}\n")
+    """
 
     if resp_smt_data_cpu_usage.status_code == 200:
-        print(resp_smt_data_cpu_usage.json())
-        print(resp_smt_data_cpu_usage.json()['data']['result'], flush=True)
         cpu_usage_result = resp_smt_data_cpu_usage.json()['data']['result'] 
         if (len(cpu_usage_result) > 0):
             cpu_usage = cpu_usage_result[0]['value']
@@ -142,6 +142,24 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
             cpu_usage = cpu_usage_result[0]['value']
             with open(cpu_control_plane_file, "a") as f:
                 f.writelines(f"{service},{cpu_usage[1]}\n")
+
+    if resp_mem_data_tot.status_code == 200:
+        print(resp_mem_data_tot.json())
+        print(resp_mem_data_tot.json()['data']['result'], flush=True)
+        mem_usage_result = resp_mem_data_tot.json()['data']['result'] 
+        if (len(mem_usage_result) > 0):
+            mem_usage = mem_usage_result[0]['values']
+            with open(mem_data_plane_file, "a") as f:
+                f.writelines(f"{service},{mem_usage[1]}\n")
+
+    if resp_mem_control_tot.status_code == 200:
+        print(resp_mem_control_tot.json())
+        print(resp_mem_control_tot.json()['data']['result'], flush=True)
+        mem_usage_result = resp_mem_control_tot.json()['data']['result'] 
+        if (len(mem_usage_result) > 0):
+            mem_usage = mem_usage_result[0]['values']
+            with open(mem_control_plane_file, "a") as f:
+                f.writelines(f"{service},{mem_usage[1]}\n")
 
     """
     if resp_cpu_usage.status_code == 200:
