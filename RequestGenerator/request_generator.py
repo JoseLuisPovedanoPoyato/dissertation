@@ -23,7 +23,7 @@ def run_apache_request(user, request, service, post_file, results_dir):
     cpu_data_plane_file = f"{results_dir}/cpu_data_plane_{user}"
     cpu_control_plane_file = f"{results_dir}/cpu_control_plane_{user}"
     mem_data_plane_file = f"{results_dir}/mem_data_plane_{user}_{request}_{service}"
-    mem_control_plane_file = f"{results_dir}/mem_control_plane_{user}{user}_{request}_{service}"
+    mem_control_plane_file = f"{results_dir}/mem_control_plane_{user}_{request}_{service}"
     log_files(csv_file, gnu_file, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file, mem_data_plane_file, mem_control_plane_file)
     start = time.time()
     process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '300', micro_counter_url], capture_output=True, text=True)
@@ -121,6 +121,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
         with open(memory_file, "w") as f:
             for metric in mem_used:
                 f.writelines(f"{float(metric[0])-float(base_time)},{metric[1]}\n")
+        app.logger.info("Recorded Node Memory Usage.")
 
     """
     if resp_cpu_usage.status_code == 200:
@@ -135,6 +136,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
             cpu_usage = cpu_usage_result[0]['value']
             with open(cpu_data_plane_file, "a") as f:
                 f.writelines(f"{service},{cpu_usage[1]}\n")
+            app.logger.info("Recorded Data Plane CPU Usage.")
     
     if resp_smt_control_cpu_usage.status_code == 200:
         print(resp_smt_control_cpu_usage.json())
@@ -144,6 +146,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
             cpu_usage = cpu_usage_result[0]['value']
             with open(cpu_control_plane_file, "a") as f:
                 f.writelines(f"{service},{cpu_usage[1]}\n")
+            app.logger.info("Recorded Control Plane CPU Usage.")
 
     if resp_mem_data_tot.status_code == 200:
         print(resp_mem_data_tot.json())
@@ -153,6 +156,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
             mem_usage = mem_usage_result[0]['values']
             with open(mem_data_plane_file, "a") as f:
                 f.writelines(f"{service},{mem_usage[1]}\n")
+            app.logger.info("Recorded Data Plane Memory Usage.")
 
     if resp_mem_control_tot.status_code == 200:
         print(resp_mem_control_tot.json())
@@ -162,6 +166,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
             mem_usage = mem_usage_result[0]['values']
             with open(mem_control_plane_file, "a") as f:
                 f.writelines(f"{service},{mem_usage[1]}\n")
+            app.logger.info("Recorded Control Plane Memory Usage.")
 
     """
     if resp_cpu_usage.status_code == 200:
