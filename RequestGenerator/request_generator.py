@@ -96,7 +96,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
     resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
 
     #Collect Control Plane CPU Usage from cadvisor
-    param_smt_control_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{namespace=~"(linkerd)|(istio)"}}[{t}s])))'
+    param_smt_control_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{namespace=~"(linkerd|istio)"}}[{t}s])))'
     resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
 
     #Collect Memory from Node Exporter
