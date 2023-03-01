@@ -21,7 +21,7 @@ spec:
         args:
           - --disable_metrics=accelerator,advtcp,app,cpuLoad,cpu_topology,cpuset,disk,diskIO,hugetlb,memory_numa,network,oom_event,percpu,perf_event,process,referenced_memory,resctrl,sched,tcp,udp
           - --enable_metrics=cpu,memory
-          - --housekeeping_interval=1.0s
+          - --housekeeping_interval=1s
         resources:
           requests:
             memory: 400Mi
