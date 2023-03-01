@@ -20,7 +20,9 @@ def run_apache_request(user, request, service, post_file, results_dir):
     gnu_file = f"{results_dir}/gnu_{user}_{request}_{service}"
     memory_file = f"{results_dir}/memory_{user}_{request}_{service}"
     cpu_file = f"{results_dir}/cpu_{user}"
-    log_files(csv_file, gnu_file, memory_file, cpu_file)
+    cpu_data_plane_file = f"{results_dir}/cpu_data_plane_{user}"
+    cpu_control_plane_file = f"{results_dir}/cpu_control_plane_{user}"
+    log_files(csv_file, gnu_file, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file)
     start = time.time()
     process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '300', micro_counter_url], capture_output=True, text=True)
     try:
@@ -80,7 +82,7 @@ def generate_load():
     app.logger.info("Returning results to benchmark controller...")
     return send_file(results)
 
-def gather_resource_metrics(start, memory_file, cpu_file, service):
+def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file, service):
     t = max(prom_scrape, int(time.time() - start))
     
     #param_cpu_usage = f'100 - (avg by (instance) (rate(node_cpu_seconds_total{{job="node",mode="idle"}}[{t}s])) * 100)' This one does not work
@@ -88,6 +90,12 @@ def gather_resource_metrics(start, memory_file, cpu_file, service):
     param_cpu_usage = f'100 - (avg by (instance) (rate(node_cpu_seconds_total{{mode="idle"}}[{t}s])) * 100)'
     #param_cpu_usage = f'100 - avg by (instance) (irate(node_cpu_seconds_total{{mode="idle"}}[{t}s])) * 100' THIS ONE RECORDS SOMETHING, DO NOT DELETE
     resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
+
+    param_smt_data_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{t}s]))'
+    resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
+
+    param_smt_control_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"NOT_SURE_WHAT_GOES_HERE"}}[{t}s])))'
+    resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
 
     param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}s]"
     resp_mem_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_tot})
@@ -116,6 +124,24 @@ def gather_resource_metrics(start, memory_file, cpu_file, service):
 
         with open(cpu_file, "a") as f:
             f.writelines(f"{service},{cpu_usage[1]}\n")
+
+    if resp_smt_data_cpu_usage.status_code == 200:
+        print(resp_smt_data_cpu_usage.json())
+        print(resp_smt_data_cpu_usage.json()['data']['result'], flush=True)
+        cpu_usage_result = resp_smt_data_cpu_usage.json()['data']['result'] 
+        if (len(cpu_usage_result) > 0):
+            cpu_usage = resp_smt_data_cpu_usage[0]['value']
+            with open(cpu_data_plane_file, "a") as f:
+                f.writelines(f"{service},{cpu_usage[1]}\n")
+    
+    if resp_smt_control_cpu_usage.status_code == 200:
+        print(resp_smt_control_cpu_usage.json())
+        print(resp_smt_control_cpu_usage.json()['data']['result'], flush=True)
+        cpu_usage_result = resp_smt_control_cpu_usage.json()['data']['result'] 
+        if (len(cpu_usage_result) > 0):
+            cpu_usage = cpu_usage_result[0]['value']
+            with open(cpu_control_plane_file, "a") as f:
+                f.writelines(f"{service},{cpu_usage[1]}\n")
 
     """
     if resp_cpu_usage.status_code == 200:
@@ -155,11 +181,14 @@ def group_2d_list_by_repeated_first_element(list_2d):
         d[l[0]] = d[l[0]] + float(l[1])
     return list(map(tuple, d.items()))
 
-def log_files(csv_file, gnu_file, memory_file, cpu_file):
+def log_files(csv_file, gnu_file, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file):
     app.logger.info(f"csv_file = {csv_file}")
     app.logger.info(f"gnu_file = {gnu_file}")
     app.logger.info(f"memory_file = {memory_file}")
     app.logger.info(f"cpu_file = {cpu_file}")
+    app.logger.info(f"If this experiment is run in a meshed cluster, the SMT specific data will be stored as follows:")
+    app.logger.info(f"cpu_data_plane_file = {cpu_data_plane_file}")
+    app.logger.info(f"cpu_control_plane_file = {cpu_control_plane_file}")
 
 
 if __name__ == "__main__":

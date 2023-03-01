@@ -122,6 +122,9 @@ curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x
 //Combined Measurements
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]' # Works for Linkerd
 
+// Sum of measurements
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(rate(container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]')) # Works for Linkerd
+
 curl http://localhost:5000/send_requests
 
 - 19:21 (72s) -
