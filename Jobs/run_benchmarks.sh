@@ -195,7 +195,7 @@ function benchmark_bare_kubernetes(){
 
 function benchmark_linkerd(){
     install_linkerd_cluster
-    sleep 60
+    sleep 30
     deploy_request_generator
 	deploy_counter_linkerd
 	run_send_request_job "linkerd"
@@ -208,7 +208,7 @@ function benchmark_linkerd(){
 
 function benchmark_istio(){
     install_istio_cluster
-    sleep 60
+    sleep 30
     deploy_request_generator
 	deploy_counter_istio
 	run_send_request_job "istio"
