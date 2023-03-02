@@ -130,28 +130,17 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
             f.writelines(f"{service},{cpu_usage[1]}\n")
     """
 
-    if resp_smt_data_cpu_usage.status_code == 200:
-        cpu_usage_result = resp_smt_data_cpu_usage.json()['data']['result'] 
-        if (len(cpu_usage_result) > 0):
-            cpu_usage = cpu_usage_result[0]['value']
-            with open(cpu_data_plane_file, "a") as f:
-                f.writelines(f"{service},{cpu_usage[1]}\n")
-            app.logger.info("Recorded Data Plane CPU Usage.")
-            print(cpu_usage, flush = True)
-        else:
-            app.logger.info(f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
-    
     if resp_smt_control_cpu_usage.status_code == 200:
-        record_avg_metric(resp_smt_data_cpu_usage, cpu_data_plane_file, "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
+        record_avg_metric(resp_smt_data_cpu_usage, cpu_data_plane_file, service, "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
 
     if resp_smt_control_cpu_usage.status_code == 200:
-        record_avg_metric(resp_smt_control_cpu_usage, cpu_control_plane_file, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
+        record_avg_metric(resp_smt_control_cpu_usage, cpu_control_plane_file, service, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
 
     if resp_mem_data_tot.status_code == 200:
-        record_avg_metric(resp_mem_data_tot, mem_data_plane_file, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
+        record_avg_metric(resp_mem_data_tot, mem_data_plane_file, service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
     if resp_mem_control_tot.status_code == 200:
-        record_avg_metric(resp_mem_control_tot, mem_control_plane_file, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+        record_avg_metric(resp_mem_control_tot, mem_control_plane_file, service, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
 
     """
     if resp_cpu_usage.status_code == 200:
@@ -189,8 +178,9 @@ def record_avg_metric(response, file, index, succesful_message=None, failed_mess
     if not succesful_message:
         succesful_message = f"Succesfully recorded contents of {response} in {file}"
     if not failed_message:
-        succesful_message = f"Failed to record contents of {response} in {file}"
+        failed_message = f"Failed to record contents of {response} in {file}"
     resp_result = response.json()['data']['result']
+    print(resp_result, flush=True)
     if (len(resp_result) > 0):
         metric = resp_result[0]['value']
         with open(file, "a") as f:
