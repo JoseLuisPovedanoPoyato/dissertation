@@ -100,9 +100,9 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
     resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
 
     #Collect Memory from Node Exporter
-    param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}s]"
+    param_mem_tot = f"sum(avg_over_time(node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}s]))"
     resp_mem_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_tot})
-    param_mem_free = f"node_memory_MemFree_bytes[{max(prom_scrape, int(time.time() - start))}s]"
+    param_mem_free = f"sum(avg_over_time(node_memory_MemFree_bytes[{max(prom_scrape, int(time.time() - start))}s]))"
     resp_mem_free = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_free})
 
     #Collect Memory from Cadvisor
