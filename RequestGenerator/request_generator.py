@@ -16,19 +16,17 @@ prometheus_query_url = 'http://prometheus:9090/api/v1/query'
 prom_scrape = 2
 
 def run_apache_request(user, request, service, post_file, results_dir):
-    csv_file = f"{results_dir}/csv_{user}_{request}_{service}"
-    gnu_file = f"{results_dir}/gnu_{user}_{request}_{service}"
-    memory_file = f"{results_dir}/memory_{user}_{request}_{service}"
-    cpu_file = f"{results_dir}/cpu_{user}"
-    cpu_data_plane_file = f"{results_dir}/cpu_data_plane_{user}"
-    cpu_control_plane_file = f"{results_dir}/cpu_control_plane_{user}"
-    mem_data_plane_file = f"{results_dir}/mem_data_plane_{user}"
-    mem_control_plane_file = f"{results_dir}/mem_control_plane_{user}"
-    log_files(csv_file, gnu_file, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file, mem_data_plane_file, mem_control_plane_file)
+    files = {'csv_file':f"{results_dir}/csv_{user}_{request}_{service}", 'gnu_file':f"{results_dir}/gnu_{user}_{request}_{service}",
+              'memory_file':f"{results_dir}/memory_{user}_{request}_{service}", 'cpu_file':f"{results_dir}/cpu_{user}", 
+              'cpu_data_plane_file':f"{results_dir}/cpu_data_plane_{user}", 'cpu_control_plane_file':f"{results_dir}/cpu_control_plane_{user}",
+              'mem_data_plane_file':f"{results_dir}/mem_data_plane_{user}", 'mem_control_plane_file':f"{results_dir}/mem_control_plane_{user}",
+              'mem_data_plane_by_proxy_file':f"{results_dir}/mem_data_plane_by_proxy_{user}_{request}_{service}"
+            }
+    log_files(files)
     start = time.time()
     process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '300', micro_counter_url], capture_output=True, text=True)
     try:
-        gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file, mem_data_plane_file, mem_control_plane_file, service)
+        gather_resource_metrics(start, files, service)
     except Exception as e:
         app.logger.info("Could not gather resource metrics...")
         print(e, flush = True)
@@ -84,7 +82,7 @@ def generate_load():
     app.logger.info("Returning results to benchmark controller...")
     return send_file(results)
 
-def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file, mem_data_plane_file, mem_control_plane_file, service):
+def gather_resource_metrics(start, files, service):
     t = max(prom_scrape, int(time.time() - start))
     
     resp_cpu_usage = None
@@ -118,7 +116,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
         mem_used = [(free[0], float(tot[1])-float(free[1])) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
 
         base_time = mem_used[0][0]
-        with open(memory_file, "w") as f:
+        with open(files['memory_file'], "w") as f:
             for metric in mem_used:
                 f.writelines(f"{float(metric[0])-float(base_time)},{metric[1]}\n")
         app.logger.info("Recorded Node Memory Usage.")
@@ -131,16 +129,16 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
     """
 
     if resp_smt_control_cpu_usage.status_code == 200:
-        record_avg_metric(resp_smt_data_cpu_usage, cpu_data_plane_file, service, "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
+        record_avg_metric(resp_smt_data_cpu_usage, files['cpu_data_plane_file'], service, "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
 
     if resp_smt_control_cpu_usage.status_code == 200:
-        record_avg_metric(resp_smt_control_cpu_usage, cpu_control_plane_file, service, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
+        record_avg_metric(resp_smt_control_cpu_usage, files['cpu_control_plane_file'], service, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
 
     if resp_mem_data_tot.status_code == 200:
-        record_avg_metric(resp_mem_data_tot, mem_data_plane_file, service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
+        record_avg_metric(resp_mem_data_tot, files['mem_data_plane_file'], service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
     if resp_mem_control_tot.status_code == 200:
-        record_avg_metric(resp_mem_control_tot, mem_control_plane_file, service, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+        record_avg_metric(resp_mem_control_tot, files['mem_control_plane_file'], service, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
 
     """
     if resp_cpu_usage.status_code == 200:
@@ -196,17 +194,9 @@ def group_2d_list_by_repeated_first_element(list_2d):
         d[l[0]] = d[l[0]] + float(l[1])
     return list(map(tuple, d.items()))
 
-def log_files(csv_file, gnu_file, memory_file, cpu_file, cpu_data_plane_file, cpu_control_plane_file, mem_data_plane_file, mem_control_plane_file):
-    app.logger.info(f"csv_file = {csv_file}")
-    app.logger.info(f"gnu_file = {gnu_file}")
-    app.logger.info(f"memory_file = {memory_file}")
-    app.logger.info(f"cpu_file = {cpu_file}")
-    app.logger.info(f"If this benchmark is running in a meshed cluster, the SMT specific data will be stored as follows:")
-    app.logger.info(f"cpu_data_plane_file = {cpu_data_plane_file}")
-    app.logger.info(f"cpu_control_plane_file = {cpu_control_plane_file}")
-    app.logger.info(f"mem_data_plane_file = {mem_data_plane_file}")
-    app.logger.info(f"mem_control_plane_file = {mem_control_plane_file}")
-
+def log_files(files):
+    for file in files:
+        app.logger.info(f"{file} = {files[file]}")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
