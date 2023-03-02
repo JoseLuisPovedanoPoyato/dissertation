@@ -104,8 +104,10 @@ apt update / apt-get vim / vim request.txt - {"count" : 0, "max_count" : 2000}
 curl -X POST -H "Content-Type: application/json" -d @request.txt http://micro-counter-service/count
 ab -p request_1.json -T application/json -c 1 -n 10 -v 4 http://micro-counter-service/count
 
+# Node Exporter queries
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=node_cpu_seconds_total[10s]'
-curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query='
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=node_memory_MemFree_bytes[10s]'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(node_memory_MemTotal_bytes[10s])) - sum(avg_over_time(node_memory_MemFree_bytes[10s]))'
 
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=node_cpu_seconds_total{container_label_io_kubernetes_container_name=""}[10s]'
 // With Regular Expression
@@ -128,7 +130,19 @@ curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x
 
 // Memory Usage ones
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=container_memory_usage_bytes{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]'
-curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg(container_memory_usage_bytes{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]))'
+
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(container_memory_usage_bytes{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[10s]))'
+
+// Run the following 3 together to get Overall Usage (NodeExporter) + Counter Usage + Proxy Usage
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(node_memory_MemTotal_bytes[5m])) - sum(avg_over_time(node_memory_MemFree_bytes[5m]))'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(container_memory_usage_bytes{container_label_io_kubernetes_container_name=~".*"}[5m]))'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(container_memory_usage_bytes{container_label_io_kubernetes_container_name=~"(micro-counter)|(benchmark-controller)|(request-generator)"}[5m]))'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(container_memory_usage_bytes{container_label_io_kubernetes_pod_namespace=~"(monitoring)|(cadvisor)"}[5m]))'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(container_memory_usage_bytes{container_label_io_kubernetes_pod_namespace=~"(kube-system)|(kube-public)|(kube-node-lease)|(local-path-storage)"}[5m]))'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(container_memory_usage_bytes{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[5m]))'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(container_memory_usage_bytes{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}[5m]))'
+
+
 
 curl http://localhost:5000/send_requests
 
