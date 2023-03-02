@@ -144,14 +144,14 @@ def gather_resource_metrics(start, files, service):
     if resp_mem_data_tot.status_code == 200:
         record_single_value_metric(resp_mem_data_tot, files['mem_data_plane_file'], service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
-    if resp_mem_data_tot.status_code == 200:
-        record_multiple_value_metric(resp_mem_data_by_proxy, files['mem_data_plane_by_proxy_file'], "Recorded Data Plane Memory usage by proxy.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
-
     if resp_mem_control_tot.status_code == 200:
         record_single_value_metric(resp_mem_control_tot, files['mem_control_plane_file'], service, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
 
     if resp_mem_counter_app.status_code == 200:
         record_single_value_metric(resp_mem_counter_app, files['mem_counter'], service, "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
+
+    if resp_mem_data_tot.status_code == 200:
+        record_multiple_value_metric(resp_mem_data_by_proxy, files['mem_data_plane_by_proxy_file'], "Recorded Data Plane Memory usage by proxy.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
 
     """
@@ -208,6 +208,7 @@ def record_multiple_value_metric(response, file, succesful_message=None, failed_
     if not failed_message:
         failed_message = f"Failed to record contents of {response} in {file}"
     resp_result = response.json()['data']['result']
+    print(resp_result, flush = True)
     if (len(resp_result) > 0):
         i = 1
         for metric in resp_result:    
