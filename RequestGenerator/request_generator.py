@@ -96,7 +96,7 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
     resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
 
     #Collect Control Plane CPU Usage from cadvisor
-    param_smt_control_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{t}s])))'
+    param_smt_control_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{t}s]))'
     resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
 
     #Collect Memory from Node Exporter
@@ -154,8 +154,9 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
         mem_usage_result = resp_mem_data_tot.json()['data']['result'] 
         if (len(mem_usage_result) > 0):
             mem_usage = mem_usage_result[0]['values']
-            with open(mem_data_plane_file, "a") as f:
-                f.writelines(f"{service},{mem_usage[1]}\n")
+            with open(mem_data_plane_file, "w") as f:
+                for metric in mem_usage:
+                    f.writelines(f"{metric[0]},{metric[1]}\n")
             app.logger.info("Recorded Data Plane Memory Usage.")
 
     if resp_mem_control_tot.status_code == 200:
@@ -165,7 +166,8 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
         if (len(mem_usage_result) > 0):
             mem_usage = mem_usage_result[0]['values']
             with open(mem_control_plane_file, "a") as f:
-                f.writelines(f"{service},{mem_usage[1]}\n")
+                for metric in mem_usage:
+                    f.writelines(f"{metric[0]},{metric[1]}\n")
             app.logger.info("Recorded Control Plane Memory Usage.")
 
     """
