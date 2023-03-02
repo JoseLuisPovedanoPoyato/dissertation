@@ -20,11 +20,11 @@ def run_apache_request(user, request, service, post_file, results_dir):
               'memory_file':f"{results_dir}/memory_{user}_{request}_{service}", 'cpu_file':f"{results_dir}/cpu_{user}", 
               'cpu_data_plane_file':f"{results_dir}/cpu_data_plane_{user}", 'cpu_control_plane_file':f"{results_dir}/cpu_control_plane_{user}",
               'mem_data_plane_file':f"{results_dir}/mem_data_plane_{user}", 'mem_control_plane_file':f"{results_dir}/mem_control_plane_{user}",
-              'mem_data_plane_by_proxy_file':f"{results_dir}/mem_data_plane_by_proxy_{user}_{request}_{service}"
+              'mem_data_plane_by_proxy_file':f"{results_dir}/mem_data_plane_by_proxy_{user}_{request}_{service}", 'mem_counter':f"{results_dir}/mem_data_plane_{user}"
             }
     log_files(files)
     start = time.time()
-    process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', csv_file, '-g', gnu_file, '-v', '1', '-s', '300', micro_counter_url], capture_output=True, text=True)
+    process = subprocess.run(['ab', '-p', post_file, '-T', 'application/json', '-c', str(user), '-n', str(request * user), '-e', files['csv_file'], '-g', files['gnu_file'], '-v', '1', '-s', '300', micro_counter_url], capture_output=True, text=True)
     try:
         gather_resource_metrics(start, files, service)
     except Exception as e:
@@ -111,6 +111,11 @@ def gather_resource_metrics(start, files, service):
     param_mem_control_tot = f'sum(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{max(prom_scrape, int(time.time() - start))}s]))'
     resp_mem_control_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_control_tot})
 
+    #Collect grouped memory by area
+    param_mem_counter_app = f'sum(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"micro-counter"}}[{max(prom_scrape, int(time.time() - start))}s]))'
+    resp_mem_counter_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_counter_app})
+    
+
 
     if resp_mem_tot.status_code == 200 and resp_mem_free.status_code == 200:
         mem_tot = resp_mem_tot.json()['data']['result'][0]['values']
@@ -142,9 +147,11 @@ def gather_resource_metrics(start, files, service):
     if resp_mem_data_tot.status_code == 200:
         record_avg_metric(resp_mem_data_by_proxy, files['mem_data_plane_by_proxy_file'], service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
-
     if resp_mem_control_tot.status_code == 200:
         record_avg_metric(resp_mem_control_tot, files['mem_control_plane_file'], service, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+
+    if resp_mem_counter_app.status_code == 200:
+        record_avg_metric(resp_mem_counter_app, files['mem_counter'], service, "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
 
 
     """
