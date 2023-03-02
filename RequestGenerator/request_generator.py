@@ -156,10 +156,9 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
         mem_usage_result = resp_mem_data_tot.json()['data']['result']
         print(mem_usage_result, flush=True) 
         if (len(mem_usage_result) > 0):
-            mem_usage = mem_usage_result[0]['values']
-            with open(mem_data_plane_file, "w") as f:
-                for metric in mem_usage:
-                    f.writelines(f"{metric[0]},{metric[1]}\n")
+            mem_usage = mem_usage_result[0]['value']
+            with open(mem_control_plane_file, "a") as f:
+                f.writelines(f"{mem_usage[0]},{mem_usage[1]}\n")
             app.logger.info("Recorded Data Plane Memory Usage.")
             print(mem_usage, flush = True)
         else:
@@ -169,10 +168,9 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
         mem_usage_result = resp_mem_control_tot.json()['data']['result']
         print(mem_usage_result, flush=True) 
         if (len(mem_usage_result) > 0):
-            mem_usage = mem_usage_result[0]['values']
+            mem_usage = mem_usage_result[0]['value']
             with open(mem_control_plane_file, "a") as f:
-                for metric in mem_usage:
-                    f.writelines(f"{metric[0]},{metric[1]}\n")
+                f.writelines(f"{mem_usage[0]},{mem_usage[1]}\n")
             app.logger.info("Recorded Control Plane Memory Usage.")
             print(mem_usage, flush = True)
         else:
