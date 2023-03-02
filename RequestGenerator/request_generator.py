@@ -149,9 +149,8 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
             app.logger.info("Recorded Control Plane CPU Usage.")
 
     if resp_mem_data_tot.status_code == 200:
-        print(resp_mem_data_tot.json())
-        print(resp_mem_data_tot.json()['data']['result'], flush=True)
-        mem_usage_result = resp_mem_data_tot.json()['data']['result'] 
+        mem_usage_result = resp_mem_data_tot.json()['data']['result']
+        print(mem_usage_result, flush=True) 
         if (len(mem_usage_result) > 0):
             mem_usage = mem_usage_result[0]['values']
             with open(mem_data_plane_file, "w") as f:
@@ -160,9 +159,8 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
             app.logger.info("Recorded Data Plane Memory Usage.")
 
     if resp_mem_control_tot.status_code == 200:
-        print(resp_mem_control_tot.json())
-        print(resp_mem_control_tot.json()['data']['result'], flush=True)
-        mem_usage_result = resp_mem_control_tot.json()['data']['result'] 
+        mem_usage_result = resp_mem_control_tot.json()['data']['result']
+        print(mem_usage_result, flush=True) 
         if (len(mem_usage_result) > 0):
             mem_usage = mem_usage_result[0]['values']
             with open(mem_control_plane_file, "a") as f:
