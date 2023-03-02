@@ -35,7 +35,7 @@ function deploy_benchmark_controller(){
 	echo "Deploying the benchmark controller..."
 	kubectl create -f ${script_location}/../BenchmarkController/benchmark_controller_manifest.yml
     grace "kubectl get pods --all-namespaces | grep benchmark-controller | grep -v Running" 5
-	echo "... Request generator is live and running"
+	echo "... Benchmark Controller is live and running"
 }
 
 function delete_benchmark_controller(){
