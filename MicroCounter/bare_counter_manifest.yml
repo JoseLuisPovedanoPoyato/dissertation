@@ -17,7 +17,7 @@ metadata:
   labels:
     app: micro-counter
 spec:
-  replicas: 36
+  replicas: 24
   selector:
     matchLabels:
       app: micro-counter
