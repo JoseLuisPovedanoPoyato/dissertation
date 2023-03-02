@@ -211,7 +211,7 @@ def record_multiple_value_metric(response, file, succesful_message=None, failed_
     if (len(resp_result) > 0):
         for metric in resp_result:    
             with open(file, "a") as f:
-                f.writelines(f"{metric['metric']['container_label_io_kubernetes_pod_name']},{metric['value'][1]}\n")
+                f.writelines(f"{metric['metric']['container_label_io_kubernetes_pod_name']}, {metric['value'][0]}, {metric['value'][1]}\n")
         app.logger.info(f"{succesful_message}")
         print(['value'], flush = True)
     else:
