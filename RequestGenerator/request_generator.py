@@ -106,6 +106,8 @@ def gather_resource_metrics(start, files, service):
     #Collect Memory from Cadvisor
     param_mem_data_tot = f'sum(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s]))'
     resp_mem_data_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_tot})
+    param_mem_data_by_proxy = f'avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s])'
+    resp_mem_data_by_proxy = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_by_proxy})
     param_mem_control_tot = f'sum(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{max(prom_scrape, int(time.time() - start))}s]))'
     resp_mem_control_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_control_tot})
 
@@ -137,8 +139,13 @@ def gather_resource_metrics(start, files, service):
     if resp_mem_data_tot.status_code == 200:
         record_avg_metric(resp_mem_data_tot, files['mem_data_plane_file'], service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
+    if resp_mem_data_tot.status_code == 200:
+        record_avg_metric(resp_mem_data_by_proxy, files['mem_data_plane_by_proxy_file'], service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
+
+
     if resp_mem_control_tot.status_code == 200:
         record_avg_metric(resp_mem_control_tot, files['mem_control_plane_file'], service, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+
 
     """
     if resp_cpu_usage.status_code == 200:
