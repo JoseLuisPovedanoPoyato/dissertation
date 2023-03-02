@@ -208,15 +208,12 @@ def record_multiple_value_metric(response, file, succesful_message=None, failed_
     if not failed_message:
         failed_message = f"Failed to record contents of {response} in {file}"
     resp_result = response.json()['data']['result']
-    print(resp_result, flush = True)
     if (len(resp_result) > 0):
-        i = 1
         for metric in resp_result:    
             with open(file, "a") as f:
-                f.writelines(f"{str(i)},{metric['value'][1]}\n")
-            i = i + 1
+                f.writelines(f"{metric['metric']['container_label_io_kubernetes_pod_name']},{metric['value'][1]}\n")
         app.logger.info(f"{succesful_message}")
-        print(metric[0]['value'], flush = True)
+        print(['value'], flush = True)
     else:
         app.logger.info(f"{failed_message}")
 

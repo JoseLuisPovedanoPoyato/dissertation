@@ -143,6 +143,7 @@ curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(container_memory_usage_bytes{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}[5m]))'
 
 
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=avg_over_time(container_memory_usage_bytes{id=~"/kubelet.slice/.*",container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}[5m])'
 
 curl http://localhost:5000/send_requests
 
