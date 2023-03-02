@@ -137,16 +137,20 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
             with open(cpu_data_plane_file, "a") as f:
                 f.writelines(f"{service},{cpu_usage[1]}\n")
             app.logger.info("Recorded Data Plane CPU Usage.")
+            print(cpu_usage, flush = True)
+        else:
+            app.logger.info(f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
     
     if resp_smt_control_cpu_usage.status_code == 200:
-        print(resp_smt_control_cpu_usage.json())
-        print(resp_smt_control_cpu_usage.json()['data']['result'], flush=True)
         cpu_usage_result = resp_smt_control_cpu_usage.json()['data']['result'] 
         if (len(cpu_usage_result) > 0):
             cpu_usage = cpu_usage_result[0]['value']
             with open(cpu_control_plane_file, "a") as f:
                 f.writelines(f"{service},{cpu_usage[1]}\n")
             app.logger.info("Recorded Control Plane CPU Usage.")
+            print(cpu_usage, flush = True)
+        else:
+            app.logger.info(f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
 
     if resp_mem_data_tot.status_code == 200:
         mem_usage_result = resp_mem_data_tot.json()['data']['result']
@@ -157,6 +161,9 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
                 for metric in mem_usage:
                     f.writelines(f"{metric[0]},{metric[1]}\n")
             app.logger.info("Recorded Data Plane Memory Usage.")
+            print(mem_usage, flush = True)
+        else:
+            app.logger.info(f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
     if resp_mem_control_tot.status_code == 200:
         mem_usage_result = resp_mem_control_tot.json()['data']['result']
@@ -167,6 +174,9 @@ def gather_resource_metrics(start, memory_file, cpu_file, cpu_data_plane_file, c
                 for metric in mem_usage:
                     f.writelines(f"{metric[0]},{metric[1]}\n")
             app.logger.info("Recorded Control Plane Memory Usage.")
+            print(mem_usage, flush = True)
+        else:
+            app.logger.info(f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
 
     """
     if resp_cpu_usage.status_code == 200:
