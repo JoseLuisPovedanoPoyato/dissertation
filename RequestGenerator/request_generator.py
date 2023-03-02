@@ -213,7 +213,8 @@ def record_multiple_value_metric(response, file, succesful_message=None, failed_
         i = 1
         for metric in resp_result:    
             with open(file, "a") as f:
-                f.writelines(f"{i},{metric[0]['value'][1]}\n")
+                f.writelines(f"{str(i)},{metric['value'][1]}\n")
+            i = i + 1
         app.logger.info(f"{succesful_message}")
         print(metric[0]['value'], flush = True)
     else:
