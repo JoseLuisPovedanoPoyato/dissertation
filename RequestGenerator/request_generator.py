@@ -136,22 +136,22 @@ def gather_resource_metrics(start, files, service):
     """
 
     if resp_smt_control_cpu_usage.status_code == 200:
-        record_avg_metric(resp_smt_data_cpu_usage, files['cpu_data_plane_file'], service, "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_smt_data_cpu_usage, files['cpu_data_plane_file'], service, "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
 
     if resp_smt_control_cpu_usage.status_code == 200:
-        record_avg_metric(resp_smt_control_cpu_usage, files['cpu_control_plane_file'], service, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_smt_control_cpu_usage, files['cpu_control_plane_file'], service, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
 
     if resp_mem_data_tot.status_code == 200:
-        record_avg_metric(resp_mem_data_tot, files['mem_data_plane_file'], service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_mem_data_tot, files['mem_data_plane_file'], service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
     if resp_mem_data_tot.status_code == 200:
-        record_avg_metric(resp_mem_data_by_proxy, files['mem_data_plane_by_proxy_file'], service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
+        record_multiple_value_metric(resp_mem_data_by_proxy, files['mem_data_plane_by_proxy_file'], "Recorded Data Plane Memory usage by proxy.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
     if resp_mem_control_tot.status_code == 200:
-        record_avg_metric(resp_mem_control_tot, files['mem_control_plane_file'], service, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_mem_control_tot, files['mem_control_plane_file'], service, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
 
     if resp_mem_counter_app.status_code == 200:
-        record_avg_metric(resp_mem_counter_app, files['mem_counter'], service, "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_mem_counter_app, files['mem_counter'], service, "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
 
 
     """
@@ -186,7 +186,7 @@ def gather_resource_metrics(start, files, service):
                 f.writelines(f"{metric[0]},{metric[1]}\n")
         """
 
-def record_avg_metric(response, file, index, succesful_message=None, failed_message=None):
+def record_single_value_metric(response, file, index, succesful_message=None, failed_message=None):
     if not succesful_message:
         succesful_message = f"Succesfully recorded contents of {response} in {file}"
     if not failed_message:
@@ -199,6 +199,22 @@ def record_avg_metric(response, file, index, succesful_message=None, failed_mess
             f.writelines(f"{index},{metric[1]}\n")
         app.logger.info(f"{succesful_message}")
         print(metric, flush = True)
+    else:
+        app.logger.info(f"{failed_message}")
+
+def record_multiple_value_metric(response, file, succesful_message=None, failed_message=None):
+    if not succesful_message:
+        succesful_message = f"Succesfully recorded contents of {response} in {file}"
+    if not failed_message:
+        failed_message = f"Failed to record contents of {response} in {file}"
+    resp_result = response.json()['data']['result']
+    if (len(resp_result) > 0):
+        i = 1
+        for metric in resp_result:    
+            with open(file, "a") as f:
+                f.writelines(f"{i},{metric[0]['value'][1]}\n")
+        app.logger.info(f"{succesful_message}")
+        print(metric[0]['value'], flush = True)
     else:
         app.logger.info(f"{failed_message}")
 
