@@ -100,8 +100,8 @@ def gather_resource_metrics(start, files, service):
     #Collect Memory from Node Exporter
     param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}s]"
     resp_mem_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_tot})
-    param_mem_free = f"node_memory_MemFree_bytes[{max(prom_scrape, int(time.time() - start))}s]"
-    resp_mem_free = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_free})
+    param_mem_available = f"node_memory_MemAvailable_bytes[{max(prom_scrape, int(time.time() - start))}s]"
+    resp_mem_available = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_available})
 
     #Collect Memory from Cadvisor
     # Control Plane
@@ -122,11 +122,14 @@ def gather_resource_metrics(start, files, service):
     #BenchmarkController
     param_mem_benchmark_controller_app = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"benchmark-controller"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
     resp_mem_benchmark_controller_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_benchmark_controller_app})
+    #Monitoring Systems
+    param_mem_benchmark_controller_app = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"benchmark-controller"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
+    resp_mem_benchmark_controller_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_benchmark_controller_app})
 
 
-    if resp_mem_tot.status_code == 200 and resp_mem_free.status_code == 200:
+    if resp_mem_tot.status_code == 200 and resp_mem_available.status_code == 200:
         mem_tot = resp_mem_tot.json()['data']['result'][0]['values']
-        mem_free = resp_mem_free.json()['data']['result'][0]['values']
+        mem_free = resp_mem_available.json()['data']['result'][0]['values']
         mem_used = [(free[0], float(tot[1])-float(free[1])) for free in mem_free for tot in mem_tot if tot[0] == free[0]]
 
         base_time = mem_used[0][0]
