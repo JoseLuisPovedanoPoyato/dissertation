@@ -123,8 +123,8 @@ def gather_resource_metrics(start, files, service):
     param_mem_benchmark_controller_app = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"benchmark-controller"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
     resp_mem_benchmark_controller_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_benchmark_controller_app})
     #Monitoring Systems
-    param_mem_benchmark_controller_app = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"benchmark-controller"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
-    resp_mem_benchmark_controller_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_benchmark_controller_app})
+    param_mem_monitoring_apps = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(cadvisor|monitoring)"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
+    resp_mem_monitoring_apps = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_monitoring_apps})
 
 
     if resp_mem_tot.status_code == 200 and resp_mem_available.status_code == 200:
@@ -159,7 +159,10 @@ def gather_resource_metrics(start, files, service):
         record_single_value_metric(resp_mem_req_gen_app, files['grouped_mem_file'], "Request Generator", "Recorded Request Generator Application Memory Usage.", f"Scraping for Request Generator Memory Usage over the last {t} seconds was blank.")
     if resp_mem_benchmark_controller_app.status_code == 200:
         record_single_value_metric(resp_mem_benchmark_controller_app, files['grouped_mem_file'], "Benchmark Controller", "Recorded Benchmark Controller Application Memory Usage.", f"Scraping for Benchmark Controller Memory Usage over the last {t} seconds was blank.")
-    
+    if resp_mem_monitoring_apps.status_code == 200:
+        record_single_value_metric(resp_mem_monitoring_apps, files['grouped_mem_file'], "Monitoring (Cadvisor + Node Exporter + Prometheus)", "Recorded Monitoring Apps Memory Usage.", f"Scraping for Monitoring Apps Memory Usage over the last {t} seconds was blank.")
+
+
     if resp_mem_data_tot.status_code == 200:
         record_multiple_value_metric(resp_mem_data_by_proxy, files['mem_data_plane_by_proxy_file'], "Recorded Data Plane Memory usage by proxy.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
 
