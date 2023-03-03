@@ -104,15 +104,17 @@ def gather_resource_metrics(start, files, service):
     resp_mem_free = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_free})
 
     #Collect Memory from Cadvisor
-    param_mem_data_tot = f'sum(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s]))'
-    resp_mem_data_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_tot})
-    param_mem_data_by_proxy = f'avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s])'
-    resp_mem_data_by_proxy = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_by_proxy})
-    param_mem_control_tot = f'sum(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{max(prom_scrape, int(time.time() - start))}s]))'
+    # Control Plane
+    param_mem_control_tot = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
     resp_mem_control_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_control_tot})
-
-    #Collect grouped memory by area
-    param_mem_counter_app = f'sum(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"micro-counter"}}[{max(prom_scrape, int(time.time() - start))}s]))'
+    # Data Plane
+    param_mem_data_tot = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
+    resp_mem_data_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_tot})
+    # Data Plane memory per proxy
+    param_mem_data_by_proxy = f'avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name)'
+    resp_mem_data_by_proxy = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_by_proxy})
+    #MicroCounter
+    param_mem_counter_app = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"micro-counter"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
     resp_mem_counter_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_counter_app})
     
 
