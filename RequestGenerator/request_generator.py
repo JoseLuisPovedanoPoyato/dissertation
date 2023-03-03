@@ -145,14 +145,13 @@ def gather_resource_metrics(start, files, service):
             f.writelines(f"{service},{cpu_usage[1]}\n")
     """
 
+    #CPU Collection
     if resp_smt_control_cpu_usage.status_code == 200:
         record_single_value_metric(resp_smt_data_cpu_usage, files['cpu_data_plane_file'], service, "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
     if resp_smt_control_cpu_usage.status_code == 200:
         record_single_value_metric(resp_smt_control_cpu_usage, files['cpu_control_plane_file'], service, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
-    if resp_mem_data_tot.status_code == 200:
-        record_single_value_metric(resp_mem_data_tot, files['grouped_mem_file'], "Data Plane", "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
-    if resp_mem_control_tot.status_code == 200:
-        record_single_value_metric(resp_mem_control_tot, files['grouped_mem_file'], "Control Plane", "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+    
+    # Memory Collection
     if resp_mem_counter_app.status_code == 200:
         record_single_value_metric(resp_mem_counter_app, files['grouped_mem_file'], "Micro-Counter", "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
     if resp_mem_req_gen_app.status_code == 200:
@@ -160,12 +159,15 @@ def gather_resource_metrics(start, files, service):
     if resp_mem_benchmark_controller_app.status_code == 200:
         record_single_value_metric(resp_mem_benchmark_controller_app, files['grouped_mem_file'], "Benchmark Controller", "Recorded Benchmark Controller Application Memory Usage.", f"Scraping for Benchmark Controller Memory Usage over the last {t} seconds was blank.")
     if resp_mem_monitoring_apps.status_code == 200:
-        record_single_value_metric(resp_mem_monitoring_apps, files['grouped_mem_file'], "Monitoring (Cadvisor + Node Exporter + Prometheus)", "Recorded Monitoring Apps Memory Usage.", f"Scraping for Monitoring Apps Memory Usage over the last {t} seconds was blank.")
-
-
+        record_single_value_metric(resp_mem_monitoring_apps, files['grouped_mem_file'], "Monitoring", "Recorded Monitoring Apps Memory Usage.", f"Scraping for Monitoring Apps Memory Usage over the last {t} seconds was blank.")
+    if resp_mem_data_tot.status_code == 200:
+        record_single_value_metric(resp_mem_data_tot, files['grouped_mem_file'], "Data Plane", "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
+    if resp_mem_control_tot.status_code == 200:
+        record_single_value_metric(resp_mem_control_tot, files['grouped_mem_file'], "Control Plane", "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+    
     if resp_mem_data_tot.status_code == 200:
         record_multiple_value_metric(resp_mem_data_by_proxy, files['mem_data_plane_by_proxy_file'], "Recorded Data Plane Memory usage by proxy.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
-
+    
 
     """
     if resp_cpu_usage.status_code == 200:
