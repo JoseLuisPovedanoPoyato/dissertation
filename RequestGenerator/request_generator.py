@@ -19,10 +19,8 @@ def run_apache_request(user, request, service, post_file, results_dir):
     files = {'csv_file':f"{results_dir}/csv_{user}_{request}_{service}", 'gnu_file':f"{results_dir}/gnu_{user}_{request}_{service}",
               'memory_file':f"{results_dir}/memory_{user}_{request}_{service}", 'cpu_file':f"{results_dir}/cpu_{user}", 
               'cpu_data_plane_file':f"{results_dir}/cpu_data_plane_{user}", 'cpu_control_plane_file':f"{results_dir}/cpu_control_plane_{user}",
-              'mem_data_plane_file':f"{results_dir}/mem_data_plane_{user}", 'mem_control_plane_file':f"{results_dir}/mem_control_plane_{user}",
               'mem_data_plane_by_proxy_file':f"{results_dir}/mem_data_plane_by_proxy_{user}_{request}_{service}", 
-              'mem_counter':f"{results_dir}/mem_micro_counter_{user}", "mem_req_gen":f"{results_dir}/mem_req_gen_{user}",
-              "mem_benchmark_controller":f"{results_dir}/mem_benchmark_controller_{user}",
+              'grouped_mem_file':f"{results_dir}/grouped_mem_file_{user}_{request}_{service}",
             }
     log_files(files)
     start = time.time()
@@ -149,15 +147,15 @@ def gather_resource_metrics(start, files, service):
     if resp_smt_control_cpu_usage.status_code == 200:
         record_single_value_metric(resp_smt_control_cpu_usage, files['cpu_control_plane_file'], service, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
     if resp_mem_data_tot.status_code == 200:
-        record_single_value_metric(resp_mem_data_tot, files['mem_data_plane_file'], service, "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_mem_data_tot, files['grouped_mem_file'], "Data Plane", "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
     if resp_mem_control_tot.status_code == 200:
-        record_single_value_metric(resp_mem_control_tot, files['mem_control_plane_file'], service, "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_mem_control_tot, files['grouped_mem_file'], "Control Plane", "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
     if resp_mem_counter_app.status_code == 200:
-        record_single_value_metric(resp_mem_counter_app, files['mem_counter'], service, "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_mem_counter_app, files['grouped_mem_file'], "Micro-Counter", "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
     if resp_mem_req_gen_app.status_code == 200:
-        record_single_value_metric(resp_mem_req_gen_app, files['mem_req_gen'], service, "Recorded Request Generator Application Memory Usage.", f"Scraping for Request Generator Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_mem_req_gen_app, files['grouped_mem_file'], "Request Generator", "Recorded Request Generator Application Memory Usage.", f"Scraping for Request Generator Memory Usage over the last {t} seconds was blank.")
     if resp_mem_benchmark_controller_app.status_code == 200:
-        record_single_value_metric(resp_mem_benchmark_controller_app, files['mem_benchmark_controller'], service, "Recorded Benchmark Controller Application Memory Usage.", f"Scraping for Benchmark Controller Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_mem_benchmark_controller_app, files['grouped_mem_file'], "Benchmark Controller", "Recorded Benchmark Controller Application Memory Usage.", f"Scraping for Benchmark Controller Memory Usage over the last {t} seconds was blank.")
     
     if resp_mem_data_tot.status_code == 200:
         record_multiple_value_metric(resp_mem_data_by_proxy, files['mem_data_plane_by_proxy_file'], "Recorded Data Plane Memory usage by proxy.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
