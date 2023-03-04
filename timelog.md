@@ -526,4 +526,4 @@ It was my birthday
 	- Cannot get it to work, rate and sum still mess up everything (Tried multiplying adding and subtracting time for both (cad and node) nothing works)
 * * 0.5 hour * Found way to obtain percentage usage, multiply usage by time and seem to be collecting valid measurements
 * * 0.5 hours * Debugged timelog not syncing with repo issues
-* * X hours * Execute complete run
+* * 0.5 hours * Execute complete run & Deploy overnight run, with 10 requests, to debug scraping issues
