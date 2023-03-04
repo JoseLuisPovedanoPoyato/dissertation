@@ -86,7 +86,7 @@ def gather_resource_metrics(start, files, service):
     t = max(prom_scrape, int(time.time() - start))
     
     resp_cpu_usage = None
-    param_cpu_usage = f'avg by (instance) sum((rate(node_cpu_seconds_total{{mode!="idle"}}[{t}s])))'
+    param_cpu_usage = f'sum(rate(node_cpu_seconds_total{{mode!="idle"}}[{t}s]))'
     resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
 
     #Collect Data Plane CPU Usage from cadvsior
