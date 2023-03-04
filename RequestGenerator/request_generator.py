@@ -160,17 +160,17 @@ def gather_resource_metrics(start, files, service):
             
     # CPU Collection
     if resp_cpu_counter_app.status_code == 200:
-        record_single_value_metric(resp_cpu_counter_app, files['grouped_cpu_file'], "Micro-Counter", "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_cpu_counter_app, files['grouped_cpu_file'], "Micro-Counter", "Recorded MicroCounter Application CPU Usage.", f"Scraping for Micro Counter CPU Usage over the last {t} seconds was blank.")
     if resp_cpu_req_gen_app.status_code == 200:
-        record_single_value_metric(resp_cpu_req_gen_app, files['grouped_cpu_file'], "Request Generator", "Recorded Request Generator Application Memory Usage.", f"Scraping for Request Generator Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_cpu_req_gen_app, files['grouped_cpu_file'], "Request Generator", "Recorded Request Generator Application CPU Usage.", f"Scraping for Request Generator CPU Usage over the last {t} seconds was blank.")
     if resp_cpu_benchmark_controller_app.status_code == 200:
-        record_single_value_metric(resp_cpu_benchmark_controller_app, files['grouped_cpu_file'], "Benchmark Controller", "Recorded Benchmark Controller Application Memory Usage.", f"Scraping for Benchmark Controller Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_cpu_benchmark_controller_app, files['grouped_cpu_file'], "Benchmark Controller", "Recorded Benchmark Controller Application CPU Usage.", f"Scraping for Benchmark Controller CPU Usage over the last {t} seconds was blank.")
     if resp_cpu_monitoring_apps.status_code == 200:
-        record_single_value_metric(resp_cpu_monitoring_apps, files['grouped_cpu_file'], "Monitoring", "Recorded Monitoring Apps Memory Usage.", f"Scraping for Monitoring Apps Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_cpu_monitoring_apps, files['grouped_cpu_file'], "Monitoring", "Recorded Monitoring Apps CPU Usage.", f"Scraping for Monitoring Apps CPU Usage over the last {t} seconds was blank.")
     if resp_smt_data_cpu_usage.status_code == 200:
-        record_single_value_metric(resp_smt_data_cpu_usage, files['grouped_cpu_file'], "Data Plane", "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_smt_data_cpu_usage, files['grouped_cpu_file'], "Data Plane", "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
     if resp_smt_control_cpu_usage.status_code == 200:
-        record_single_value_metric(resp_smt_control_cpu_usage, files['grouped_cpu_file'], "Control Plane", "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_smt_control_cpu_usage, files['grouped_cpu_file'], "Control Plane", "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
     
 
     # Memory Collection
