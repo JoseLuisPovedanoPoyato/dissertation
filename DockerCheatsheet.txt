@@ -106,6 +106,9 @@ ab -p request_1.json -T application/json -c 1 -n 10 -v 4 http://micro-counter-se
 
 # Node Exporter queries
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=node_cpu_seconds_total[10s]'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum by (mode, instance) (rate(node_cpu_seconds_total{job="node"}[1m]))'
+curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(node_cpu_seconds_total[10s])' 
+
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=node_memory_MemFree_bytes[10s]'
 curl -X POST http://prometheus:9090/api/v1/query -H 'Content-Type: application/x-www-form-urlencoded' -d 'query=sum(avg_over_time(node_memory_MemTotal_bytes[10s])) - sum(avg_over_time(node_memory_MemFree_bytes[10s]))'
 
