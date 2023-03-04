@@ -77,7 +77,7 @@ function uninstall_linkerd_cluster() {
 # Istio Installation commands
 function install_istio_cluster(){
     echo "Installing Istio to cluster..."
-    istioctl install --set profile=demo -y
+    istioctl install --set profile=default -y
     echo "Setting automatic Istio proxy injections to newly deployed pods to default namespace..."
     kubectl label namespace default istio-injection=enabled
 }
