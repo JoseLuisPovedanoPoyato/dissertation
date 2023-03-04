@@ -444,5 +444,86 @@ It was my birthday
 ## 23 February 2023
 * * 1 hour * Looked for information about services problem, only found a bug that Kubernetes had in 2017 which caused this, was resolved by using IP address
 	- Tried using IP address, it did not work
-* * X hours * Trying to upscale the pods slowly to find out when consul inject starts failing
-	- 20 works, 30 works, ...
+* * 3 hours * Trying to upscale the pods slowly to find out when consul inject starts failing
+	- 20 works, 30 works, 36 is optimum solution
+
+## 24 February 2023
+* * 0 hours * Set pods to 36 for everything and rerun benchmark
+
+## 26 February 2023
+* * 0 hours * Reduced overly time consuming sleeps *
+
+## 27 February 2023
+* * 0.5 hours * Meeting with Yehia -> Discussed problems with Node Exporter, if cannot debug by tonight moving on to Cadvisor, memory readings look okay
+* * 4 hours * Trying to measure CPU usage through Node Exporter (Not going well)
+* * 0.5 hours * Resolved error that sometimes causes failure in Linkerd Injection
+
+## 28 February 2023
+* * 3 hours * Implementing Cadvisor and creating service to test it properly functions
+* * 1.5 hours * Linking Cadvisor to Prometheus
+* * 1.5 hours * Reducing Cadvisor usage as it currently crashes the server
+
+## 1 March 2023
+* * 0.5 hours * Further configure Cadvisor
+* * 2.5 hours * Extract CPU measurements from Cadvisor 
+	- Problems:
+		- Granularity is too low, this sometimes affects results
+		- Cadvisor uses dynamic scraping, which then is further delayed by Prometheus scraping
+		- Disabled all metrics but CPU fixed issue
+* * 0.5 hours * Improved application Logging
+* * 1 hour * Added collection of memory measurements from Cadvisor
+	- Problem: Had to enable memory readings, this crashes the server again
+* * 1 hour * Get Cadvisor to collect more scrapes
+	- Increase scraping rate -> Server breaks
+	- Reduce rate -> Can't get results
+	- Switch to --docker-only=True -> Can have higher rate now!
+* * 1 hour * Keep trying to get metrics
+	- Problem: There is still issue with granularity, there are some errors with measurements being larger for lower services...
+
+## 2 March 2023
+* * 1 hour * Added more details to CPU usage collection to detect errors
+* * 0.5 hours * Improved logging to make system more transparent when debugging
+* * 0.5 hours * Reduced number of deployments so Cadvisor can handle it -> from 36 to 24.
+* * 1.5 hours * Cadvisor uses dynamic scraping, therefore I cannot add data together from different pods
+	- Solution: Take an average per pod and sum it together
+* * 0.5 hours * Meeting with Yehia to discuss all problems with Cadvisor
+	- Recommendation: Use scatterplot to plot the proxies average in the data plane
+* * 1 hour * Tested different queries to collect memory usage
+* * 1 hour * Refactored file storage system to make it more streamlined and less confusing 
+* * 0.5 hours * Collect Memory Usage per proxy & Memory usage by micro-counter
+* * 1 hour * Refactored logic to collect measurements with function (Simplifies code)
+* * 1.5 hours * Found Cadvisor takes double measurements
+	- Cadvisor collects measurements from cgroups
+	- There is a cgroup called kubelet
+	- There is a cgroup called docker which seems to be kubelet's parent, leading to double measurements being taken
+	- Tried adding Memory usage together, however it does not match, verified with free and normal kubernetes deployment without executing anything
+	- Confirms data is being doubled
+* * 0.5 hours * I select data using only 1 id and it matches free
+	- Problem: Why do doubled measurements match Node Exporter measurements?
+
+## 3 March 2023
+* * 0.5 hours * Removed all duplicated measurements
+* * 1 hour * Collect grouped memory from cluster
+* * 0.5 hours * Updated files so all grouped memory goes to the same file (Facilitates plotting)
+* * 1 hour * Automated the creation of the gnuplot scripts
+* * 2 hours * Researched different types of Linux memory
+	- 6 types: Total, Free, Available, Cache, Buffer and Used. 
+		- Used = Total - Available
+		- Available = Free + Cache + Buffer, as cache and buffer memory can be immediately dropped without swapping if needed for application
+		- Therefore usage should be Total - Available, current calculation was Total - Free
+* * 1 hour * Finished memory collection queries and reorder for easier readability/debugging -> Generated improved graph
+	- Looks more how we expected it to look!
+
+## 4 March 2023
+* * 1.5 hours * Automated plotting graph capabilities -> Unzipping and copying data into batch run is now done automatically, same as clean up
+* * 1.5 hours * Created scatterplot
+	- Problem: Either it plots the same x value 60 times creating a curved line to the side OR
+	- Does not plot labels at all (Going with this)
+	- ScatterPlot looks ugly because of data distribution, ask Yehia what to do on Monday
+* * 2 hours * Tried debugging Node Exporter CPU usage using different queries
+	- Cannot get it to work, rate and sum do not seem to do what I think they should do
+* * 1.5 hours * Tried debugging Node Exporter CPU usage using different queries
+	- Cannot get it to work, rate and sum still mess up everything (Tried multiplying adding and subtracting time for both (cad and node) nothing works)
+* * 0.5 hour * Found way to obtain percentage usage, multiply usage by time and seem to be collecting valid measurements
+* * 0.5 hours * Debugged timelog not syncing with repo issues
+* * X hours * Execute complete run
