@@ -91,7 +91,7 @@ def gather_resource_metrics(start, files, service):
     resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
 
     #Collect Data Plane CPU Usage from cadvsior
-    param_smt_data_cpu_usage = f'(sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio)-proxy"}}[{t}s]))/ sum (machine_cpu_cores)) * {len_t}'
+    param_smt_data_cpu_usage = f'(sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{t}s]))/ sum (machine_cpu_cores)) * {len_t}'
     resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
 
     #Collect Control Plane CPU Usage from cadvisor
@@ -147,7 +147,7 @@ def gather_resource_metrics(start, files, service):
     """
             
     #CPU Collection
-    if resp_smt_control_cpu_usage.status_code == 200:
+    if resp_smt_data_cpu_usage.status_code == 200:
         record_single_value_metric(resp_smt_data_cpu_usage, files['cpu_data_plane_file'], service, "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
     if resp_smt_control_cpu_usage.status_code == 200:
         record_single_value_metric(resp_smt_control_cpu_usage, files['cpu_control_plane_file'], service, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
