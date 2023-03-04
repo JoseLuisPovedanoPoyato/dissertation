@@ -86,8 +86,8 @@ def gather_resource_metrics(start, files, service):
     t = max(prom_scrape, int(time.time() - start))
     
     resp_cpu_usage = None
-    #param_cpu_usage = f'100 - (avg by (instance) (rate(node_cpu_seconds_total{{mode="idle"}}[{t}s])) * 100)'
-    #resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
+    param_cpu_usage = f'avg by (instance) (rate(node_cpu_seconds_total[{t}s]))'
+    resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
 
     #Collect Data Plane CPU Usage from cadvsior
     param_smt_data_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{t}s]))'
@@ -138,12 +138,10 @@ def gather_resource_metrics(start, files, service):
                 f.writelines(f"{float(metric[0])-float(base_time)},{metric[1]}\n")
         app.logger.info("Recorded Node Memory Usage.")
 
-    """
     if resp_cpu_usage.status_code == 200:
-        cpu_usage = resp_cpu_usage.json()['data']['result'][0]['value'] * t
-        with open(cpu_file, "a") as f:
+        cpu_usage = resp_cpu_usage.json()['data']['result'][0]['value']
+        with open(files['cpu_file'], "a") as f:
             f.writelines(f"{service},{cpu_usage[1]}\n")
-    """
 
     #CPU Collection
     if resp_smt_control_cpu_usage.status_code == 200:
