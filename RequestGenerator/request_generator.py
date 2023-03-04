@@ -87,15 +87,15 @@ def gather_resource_metrics(start, files, service):
     t = max(prom_scrape, int(len_t))
     
     resp_cpu_usage = None
-    param_cpu_usage = f'sum(rate(node_cpu_seconds_total[{t}s])) - sum(rate(node_cpu_seconds_total{{mode="idle"}}[{t}s]))'
+    param_cpu_usage = f'sum(rate(node_cpu_seconds_total[{t}s])) - sum by (cpu) (rate(node_cpu_seconds_total{{mode="idle"}}[{t}s]))'
     resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
 
     #Collect Data Plane CPU Usage from cadvsior
-    param_smt_data_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{t}s]))'
+    param_smt_data_cpu_usage = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio)-proxy"}}[{t}s]))/ sum (machine_cpu_cores)) * {len_t}'
     resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
 
     #Collect Control Plane CPU Usage from cadvisor
-    param_smt_control_cpu_usage = f'sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{t}s]))'
+    param_smt_control_cpu_usage = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
     resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
 
     #Collect Memory from Node Exporter
