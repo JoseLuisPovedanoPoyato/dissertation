@@ -18,7 +18,7 @@ prom_scrape = 2
 def run_apache_request(user, request, service, post_file, results_dir):
     files = {'csv_file':f"{results_dir}/csv_{user}_{request}_{service}", 'gnu_file':f"{results_dir}/gnu_{user}_{request}_{service}",
               'memory_file':f"{results_dir}/memory_{user}_{request}_{service}", 'cpu_file':f"{results_dir}/cpu_{user}", 
-              'cpu_data_plane_file':f"{results_dir}/cpu_data_plane_{user}", 'cpu_control_plane_file':f"{results_dir}/cpu_control_plane_{user}",
+              'grouped_cpu_file':f"{results_dir}/grouped_cpu_file_{user}_{request}_{service}",
               'mem_data_plane_by_proxy_file':f"{results_dir}/mem_data_plane_by_proxy_{user}_{request}_{service}", 
               'grouped_mem_file':f"{results_dir}/grouped_mem_file_{user}_{request}_{service}",
             }
@@ -90,20 +90,32 @@ def gather_resource_metrics(start, files, service):
     param_cpu_usage = f'sum(rate(node_cpu_seconds_total[{t}s])) - sum by (cpu) (rate(node_cpu_seconds_total{{mode="idle"}}[{t}s]))'
     resp_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_usage})
 
-    #Collect Data Plane CPU Usage from cadvsior
-    param_smt_data_cpu_usage = f'(sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{t}s]))/ sum (machine_cpu_cores)) * {len_t}'
-    resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
-
-    #Collect Control Plane CPU Usage from cadvisor
-    param_smt_control_cpu_usage = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
-    resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
-
     #Collect Memory from Node Exporter
     param_mem_tot = f"node_memory_MemTotal_bytes[{max(prom_scrape, int(time.time() - start))}s]"
     resp_mem_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_tot})
     param_mem_available = f"node_memory_MemAvailable_bytes[{max(prom_scrape, int(time.time() - start))}s]"
     resp_mem_available = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_available})
 
+    #Collect CPU Usage from Cadvsior
+    # Data Plane
+    param_smt_data_cpu_usage = f'(sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{t}s]))/ sum (machine_cpu_cores)) * {len_t}'
+    resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
+    # Control Plane
+    param_smt_control_cpu_usage = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
+    resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
+    #MicroCounter
+    param_cpu_counter_app = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"micro-counter"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
+    resp_cpu_counter_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_counter_app})
+    #RequestGenerator
+    param_cpu_req_gen_app = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"request-generator"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
+    resp_cpu_req_gen_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_req_gen_app})
+    #BenchmarkController
+    param_cpu_benchmark_controller_app = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"benchmark-controller"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
+    resp_cpu_benchmark_controller_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_benchmark_controller_app})
+    #Monitoring Systems
+    param_cpu_monitoring_apps = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(cadvisor|monitoring)"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
+    resp_cpu_monitoring_apps = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_monitoring_apps})
+    
     #Collect Memory from Cadvisor
     # Control Plane
     param_mem_control_tot = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
@@ -152,6 +164,21 @@ def gather_resource_metrics(start, files, service):
     if resp_smt_control_cpu_usage.status_code == 200:
         record_single_value_metric(resp_smt_control_cpu_usage, files['cpu_control_plane_file'], service, "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
     
+    # CPU Collection
+    if resp_cpu_counter_app.status_code == 200:
+        record_single_value_metric(resp_cpu_counter_app, files['grouped_cpu_file'], "Micro-Counter", "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
+    if resp_cpu_req_gen_app.status_code == 200:
+        record_single_value_metric(resp_cpu_req_gen_app, files['grouped_cpu_file'], "Request Generator", "Recorded Request Generator Application Memory Usage.", f"Scraping for Request Generator Memory Usage over the last {t} seconds was blank.")
+    if resp_cpu_benchmark_controller_app.status_code == 200:
+        record_single_value_metric(resp_cpu_benchmark_controller_app, files['grouped_cpu_file'], "Benchmark Controller", "Recorded Benchmark Controller Application Memory Usage.", f"Scraping for Benchmark Controller Memory Usage over the last {t} seconds was blank.")
+    if resp_cpu_monitoring_apps.status_code == 200:
+        record_single_value_metric(resp_cpu_monitoring_apps, files['grouped_cpu_file'], "Monitoring", "Recorded Monitoring Apps Memory Usage.", f"Scraping for Monitoring Apps Memory Usage over the last {t} seconds was blank.")
+    if resp_cpu_data_tot.status_code == 200:
+        record_single_value_metric(resp_cpu_data_tot, files['grouped_cpu_file'], "Data Plane", "Recorded Data Plane Memory Usage.", f"Scraping for Data Plane Memory Usage over the last {t} seconds was blank.")
+    if resp_cpu_control_tot.status_code == 200:
+        record_single_value_metric(resp_cpu_control_tot, files['grouped_cpu_file'], "Control Plane", "Recorded Control Plane Memory Usage.", f"Scraping for Control Plane Memory Usage over the last {t} seconds was blank.")
+    
+
     # Memory Collection
     if resp_mem_counter_app.status_code == 200:
         record_single_value_metric(resp_mem_counter_app, files['grouped_mem_file'], "Micro-Counter", "Recorded MicroCounter Application Memory Usage.", f"Scraping for Micro Counter Memory Usage over the last {t} seconds was blank.")
