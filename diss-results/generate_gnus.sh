@@ -48,7 +48,7 @@ for user in "${users[@]}"; do
   done
 done
 
-### Generate Grouped Memory CPU
+### Generate Grouped CPU GNU
 rm smt_grouped_cpu.p
 touch smt_grouped_cpu.p
 # For each combination of users and microservices
