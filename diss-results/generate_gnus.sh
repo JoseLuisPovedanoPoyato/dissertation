@@ -48,6 +48,19 @@ for user in "${users[@]}"; do
   done
 done
 
+rm smt_proxy_mem.p
+touch smt_proxy_mem.p
+# For each combination of users and microservices
+for user in "${users[@]}"; do
+  for request in "${requests[@]}"; do
+    for service in "${microservices[@]}"; do
+      # Read in the template and substitute the users and services
+      template=$(sed "s/_user_/$user/g;s/_request_/$request/g;s/_service_/$service/g" smt_proxy_mem_template.p)
+      echo "$template" >> smt_proxy_mem.p
+    done
+  done
+done
+
 ### Generate CPU GNU
 rm smt_cpu.p
 touch smt_cpu.p

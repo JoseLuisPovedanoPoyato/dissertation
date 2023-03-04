@@ -6,6 +6,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_100_3_10" every ::1 title "Kubernetes", "istio/csv_100_3_10" every ::1 title "Istio", "linkerd/csv_100_3_10" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -17,6 +19,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_100_3_20" every ::1 title "Kubernetes", "istio/csv_100_3_20" every ::1 title "Istio", "linkerd/csv_100_3_20" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -28,6 +32,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_100_3_40" every ::1 title "Kubernetes", "istio/csv_100_3_40" every ::1 title "Istio", "linkerd/csv_100_3_40" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -39,6 +45,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_100_3_60" every ::1 title "Kubernetes", "istio/csv_100_3_60" every ::1 title "Istio", "linkerd/csv_100_3_60" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -50,6 +58,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_100_3_80" every ::1 title "Kubernetes", "istio/csv_100_3_80" every ::1 title "Istio", "linkerd/csv_100_3_80" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -61,6 +71,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_200_3_10" every ::1 title "Kubernetes", "istio/csv_200_3_10" every ::1 title "Istio", "linkerd/csv_200_3_10" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -72,6 +84,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_200_3_20" every ::1 title "Kubernetes", "istio/csv_200_3_20" every ::1 title "Istio", "linkerd/csv_200_3_20" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -83,6 +97,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_200_3_40" every ::1 title "Kubernetes", "istio/csv_200_3_40" every ::1 title "Istio", "linkerd/csv_200_3_40" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -94,6 +110,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_200_3_60" every ::1 title "Kubernetes", "istio/csv_200_3_60" every ::1 title "Istio", "linkerd/csv_200_3_60" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -105,6 +123,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_200_3_80" every ::1 title "Kubernetes", "istio/csv_200_3_80" every ::1 title "Istio", "linkerd/csv_200_3_80" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -116,6 +136,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_400_3_10" every ::1 title "Kubernetes", "istio/csv_400_3_10" every ::1 title "Istio", "linkerd/csv_400_3_10" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -127,6 +149,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_400_3_20" every ::1 title "Kubernetes", "istio/csv_400_3_20" every ::1 title "Istio", "linkerd/csv_400_3_20" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -138,6 +162,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_400_3_40" every ::1 title "Kubernetes", "istio/csv_400_3_40" every ::1 title "Istio", "linkerd/csv_400_3_40" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -149,6 +175,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_400_3_60" every ::1 title "Kubernetes", "istio/csv_400_3_60" every ::1 title "Istio", "linkerd/csv_400_3_60" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -160,6 +188,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_400_3_80" every ::1 title "Kubernetes", "istio/csv_400_3_80" every ::1 title "Istio", "linkerd/csv_400_3_80" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -171,6 +201,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_600_3_10" every ::1 title "Kubernetes", "istio/csv_600_3_10" every ::1 title "Istio", "linkerd/csv_600_3_10" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -182,6 +214,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_600_3_20" every ::1 title "Kubernetes", "istio/csv_600_3_20" every ::1 title "Istio", "linkerd/csv_600_3_20" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -193,6 +227,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_600_3_40" every ::1 title "Kubernetes", "istio/csv_600_3_40" every ::1 title "Istio", "linkerd/csv_600_3_40" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -204,6 +240,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_600_3_60" every ::1 title "Kubernetes", "istio/csv_600_3_60" every ::1 title "Istio", "linkerd/csv_600_3_60" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -215,6 +253,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_600_3_80" every ::1 title "Kubernetes", "istio/csv_600_3_80" every ::1 title "Istio", "linkerd/csv_600_3_80" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -226,6 +266,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_800_3_10" every ::1 title "Kubernetes", "istio/csv_800_3_10" every ::1 title "Istio", "linkerd/csv_800_3_10" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -237,6 +279,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_800_3_20" every ::1 title "Kubernetes", "istio/csv_800_3_20" every ::1 title "Istio", "linkerd/csv_800_3_20" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -248,6 +292,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_800_3_40" every ::1 title "Kubernetes", "istio/csv_800_3_40" every ::1 title "Istio", "linkerd/csv_800_3_40" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -259,6 +305,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_800_3_60" every ::1 title "Kubernetes", "istio/csv_800_3_60" every ::1 title "Istio", "linkerd/csv_800_3_60" every ::1 title "Linkerd"
 
 #Next plot starts here
@@ -270,6 +318,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv_800_3_80" every ::1 title "Kubernetes", "istio/csv_800_3_80" every ::1 title "Istio", "linkerd/csv_800_3_80" every ::1 title "Linkerd"
 
 #Next plot starts here

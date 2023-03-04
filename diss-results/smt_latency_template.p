@@ -6,6 +6,8 @@ set size ratio 0.75
 set grid
 set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
+
+set xtics rotate by -45
 plot "kubernetes/csv__user___request___service_" every ::1 title "Kubernetes", "istio/csv__user___request___service_" every ::1 title "Istio", "linkerd/csv__user___request___service_" every ::1 title "Linkerd"
 
 #Next plot starts here
