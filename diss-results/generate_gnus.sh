@@ -48,6 +48,20 @@ for user in "${users[@]}"; do
   done
 done
 
+### Generate Grouped Memory CPU
+rm smt_grouped_cpu.p
+touch smt_grouped_cpu.p
+# For each combination of users and microservices
+for user in "${users[@]}"; do
+  for request in "${requests[@]}"; do
+    for service in "${microservices[@]}"; do
+      # Read in the template and substitute the users and services
+      template=$(sed "s/_user_/$user/g;s/_request_/$request/g;s/_service_/$service/g" smt_grouped_cpu_template.p)
+      echo "$template" >> smt_grouped_cpu.p
+    done
+  done
+done
+
 rm smt_proxy_mem.p
 touch smt_proxy_mem.p
 # For each combination of users and microservices
