@@ -271,8 +271,8 @@ function grace() {
 
 function execute_benchmarks(){
     # Cleanse the system of all SMTs
-    kubectl delete deployment micro-counter
     kubectl delete deployment request-generator
+    delete_counter
     uninstall_all_smt
 
     # Ensure resources are capped so it doesn't crash
