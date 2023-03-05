@@ -502,7 +502,7 @@ It was my birthday
 	- Problem: Why do doubled measurements match Node Exporter measurements?
 
 ## 3 March 2023
-* * 0.5 hours * Removed all duplicated measurements
+* * 0.5 hours * Removed all duplicated measurements (By calculating average to guarantee max portability (We don't have to worry about cherry picking correct id))
 * * 1 hour * Collect grouped memory from cluster
 * * 0.5 hours * Updated files so all grouped memory goes to the same file (Facilitates plotting)
 * * 1 hour * Automated the creation of the gnuplot scripts
@@ -527,3 +527,6 @@ It was my birthday
 * * 0.5 hour * Found way to obtain percentage usage, multiply usage by time and seem to be collecting valid measurements
 * * 0.5 hours * Debugged timelog not syncing with repo issues
 * * 0.5 hours * Execute complete run & Deploy overnight run, with 10 requests, to debug scraping issues
+
+## 5 March 2023
+* * 1 hour * Reviewed 10RPU run and generated graphs, some CPU values are very small, perhaps split into separate plots?

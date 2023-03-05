@@ -1,7 +1,7 @@
 set datafile separator ','
 set terminal png
 set output "smts_proxy_mem__user___request___service_.png"
-set title "SMTs Data Plane Usage per Proxy - _user_ Users, _service_ Microservices"
+set title "SMTs Data Plane Usage per Proxy - _user_ Users, _request_ RPU, _service_ Microservices"
 set style histogram cluster gap 2
 set size ratio 0.75 
 set grid
