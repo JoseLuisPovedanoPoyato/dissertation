@@ -21,6 +21,7 @@ def run_apache_request(user, request, service, post_file, results_dir):
               'grouped_cpu_file':f"{results_dir}/grouped_cpu_file_{user}_{request}_{service}",
               'mem_data_plane_by_proxy_file':f"{results_dir}/mem_data_plane_by_proxy_{user}_{request}_{service}", 
               'grouped_mem_file':f"{results_dir}/grouped_mem_file_{user}_{request}_{service}",
+              'smts_only_cpu_file':f"{results_dir}/smts_only_cpu_file_{user}_{request}_{service}",
             }
     log_files(files)
     start = time.time()
@@ -169,8 +170,10 @@ def gather_resource_metrics(start, files, service):
         record_single_value_metric(resp_cpu_monitoring_apps, files['grouped_cpu_file'], "Monitoring", "Recorded Monitoring Apps CPU Usage.", f"Scraping for Monitoring Apps CPU Usage over the last {t} seconds was blank.")
     if resp_smt_data_cpu_usage.status_code == 200:
         record_single_value_metric(resp_smt_data_cpu_usage, files['grouped_cpu_file'], "Data Plane", "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_smt_data_cpu_usage, files['smts_only_cpu_file'], "Data Plane", "Recorded Data Plane CPU Usage in exclusively SMT Usage File.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
     if resp_smt_control_cpu_usage.status_code == 200:
         record_single_value_metric(resp_smt_control_cpu_usage, files['grouped_cpu_file'], "Control Plane", "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
+        record_single_value_metric(resp_smt_control_cpu_usage, files['smts_only_cpu_file'], "Control Plane", "Recorded Control Plane CPU Usage in exclusively SMT Usage File.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
     
 
     # Memory Collection

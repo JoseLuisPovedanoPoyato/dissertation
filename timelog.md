@@ -530,3 +530,4 @@ It was my birthday
 
 ## 5 March 2023
 * * 1 hour * Reviewed 10RPU run and generated graphs, some CPU values are very small, perhaps split into separate plots?
+* * 0.5 hours * Store Data and Control Plane CPU in individual file for easier separate plotting
