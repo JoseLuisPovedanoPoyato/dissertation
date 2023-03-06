@@ -19,6 +19,21 @@ for user in "${users[@]}"; do
   done
 done
 
+### Generate Latency BOX_PLOT GNU
+rm smt_latency_boxplot.p
+touch smt_latency_boxplot.p
+# For each combination of users and microservices
+for user in "${users[@]}"; do
+  for request in "${requests[@]}"; do
+    for service in "${microservices[@]}"; do
+      # Read in the template and substitute the users and services
+      template=$(sed "s/_user_/$user/g;s/_request_/$request/g;s/_service_/$service/g" smt_latency_boxplot_template.p)
+      # Append the output to the smt_latency.p file
+      echo "$template" >> smt_latency_boxplot.p
+    done
+  done
+done
+
 ### Generate Memory GNU
 rm smt_memory.p
 touch smt_memory.p
@@ -61,6 +76,19 @@ for user in "${users[@]}"; do
     done
   done
 done
+rm smts_only_cpu.p
+touch smts_only_cpu.p
+# For each combination of users and microservices
+for user in "${users[@]}"; do
+  for request in "${requests[@]}"; do
+    for service in "${microservices[@]}"; do
+      # Read in the template and substitute the users and services
+      template=$(sed "s/_user_/$user/g;s/_request_/$request/g;s/_service_/$service/g" smts_only_cpu_template.p)
+      echo "$template" >> smts_only_cpu.p
+    done
+  done
+done
+
 
 rm smt_proxy_mem.p
 touch smt_proxy_mem.p
