@@ -41,31 +41,54 @@ def change_outlier_colour(bp, c):
     plt.plot(np.ones(len(top_points)), top_points, "x", color=f"{c}", markersize=1)
     plt.plot(np.ones(len(bottom_points)), bottom_points, "x", color=f"{c}")
 
-def gen_graph(service, request):
-    linkerd_files = []
-    for u in USERS:
-            linkerd_files.append(f"linkerd/csv_{u}_{request}_{service}")
+def get_latency_data(service, request):
+    linkerd_files = [f"linkerd/csv_{u}_{request}_{service}" for u in USERS]
+    istio_files = [f"istio/csv_{u}_{request}_{service}" for u in USERS]
+    kubernetes_files = [f"kubernetes/csv_{u}_{request}_{service}" for u in USERS]
+    return (get_data(kubernetes_files), get_data(istio_files), get_data(linkerd_files))
 
-    istio_files = []
-    for u in USERS:
-            istio_files.append(f"istio/csv_{u}_{request}_{service}")
+def set_to_MB(data):
+    for l in range(len(data)):
+        for d in range(len(data[l])):
+            data[l][d] = data[l][d]/(1024*1024) 
+    return data
 
-    kubernetes_files = []
-    for u in USERS:
-            kubernetes_files.append(f"kubernetes/csv_{u}_{request}_{service}")
+def get_memory_data(service, request):
+    linkerd_files = [f"linkerd/memory_{u}_{request}_{service}" for u in USERS]
+    istio_files = [f"istio/memory_{u}_{request}_{service}" for u in USERS]
+    kubernetes_files = [f"kubernetes/memory_{u}_{request}_{service}" for u in USERS]
+    k_d = set_to_MB(get_data(kubernetes_files))
+    i_d = set_to_MB(get_data(istio_files))
+    l_d = set_to_MB(get_data(linkerd_files))
+    return (k_d, i_d, l_d)
 
+def label_latency_graph(service, request):
+    plt.ylabel('Response Time (since first response packet) (ms)') 
+    plt.xlabel('Number of Simultaneous Users')
+    plt.title(f"SMTs Latency - {request} RPU, {service} MicroServices")  
 
-    data_istio = get_data(istio_files)
-    data_linkerd = get_data(linkerd_files)
-    data_kubernetes = get_data(kubernetes_files)
+    plt.tight_layout()
+    plt.savefig(f'smt_latency_boxplot_{request}_{service}.png')
 
+def label_memory_graph(service, request):
+    plt.ylabel('Memory Usage (MB)') 
+    plt.xlabel('Number of Simultaneous Users')
+    plt.title(f"SMTs Memory Usage - {request} RPU, {service} MicroServices")  
+
+    plt.tight_layout()
+    plt.savefig(f'smt_memory_boxplot_{request}_{service}.png')
+
+def gen_graph(data_kubernetes, data_istio, data_linkerd):
     ticks = [u for u in USERS]
-
     plt.figure()
 
-    bp_kubernetes = plt.boxplot(data_kubernetes, positions=np.array(range(len(data_kubernetes)))*2.0-0.5, sym='.', widths=0.4)
-    bp_istio = plt.boxplot(data_istio, positions=np.array(range(len(data_istio)))*2.0, sym='.', widths=0.4)
-    bp_linkerd = plt.boxplot(data_linkerd, positions=np.array(range(len(data_linkerd)))*2.0+0.5, sym='.', widths=0.4)
+    flierprops_istio = dict(marker='.', markersize=4, linestyle='none', markeredgecolor=ISTIO_COLOUR)
+    flierprops_linkerd = dict(marker='.', markersize=4, linestyle='none', markeredgecolor=LINKERD_COLOUR)
+    flierprops_kubernetes = dict(marker='.', markersize=4, linestyle='none', markeredgecolor=KUBERNETES_COLOUR)
+
+    bp_kubernetes = plt.boxplot(data_kubernetes, positions=np.array(range(len(data_kubernetes)))*2.0-0.5, flierprops=flierprops_kubernetes, widths=0.4)
+    bp_istio = plt.boxplot(data_linkerd, positions=np.array(range(len(data_linkerd)))*2.0, flierprops=flierprops_istio, widths=0.4)
+    bp_linkerd = plt.boxplot(data_istio, positions=np.array(range(len(data_istio)))*2.0+0.5, flierprops=flierprops_linkerd, widths=0.4)
     
     set_box_color(bp_istio, ISTIO_COLOUR) # colors are from http://colorbrewer2.org/
     set_box_color(bp_linkerd, LINKERD_COLOUR)
@@ -81,15 +104,20 @@ def gen_graph(service, request):
     plt.plot([], c=ISTIO_COLOUR, label='Istio')
     plt.plot([], c=LINKERD_COLOUR, label='Linkerd')
     plt.legend()
-
-    plt.ylabel('Response Time (since first response packet) (ms)') 
-    plt.xlabel('Number of Simultaneous Users')
-    plt.title(f"SMTs Latency - {request} RPU, {service} MicroServices")  
-
     plt.xticks(range(0, len(ticks) * 2, 2), ticks)
-    plt.tight_layout()
-    plt.savefig(f'smt_latency_boxplot_{request}_{service}')
+    
+def gen_latency_graph(service, request):
+    data_kubernetes, data_istio, data_linkerd = get_latency_data(service, request)
+    gen_graph(data_kubernetes, data_istio, data_linkerd)
+    label_latency_graph(service, request)
+
+def gen_memory_graph(service, request):
+    data_kubernetes, data_istio, data_linkerd = get_memory_data(service, request)
+    gen_graph(data_kubernetes, data_istio, data_linkerd)
+    label_memory_graph(service, request)
+
 
 for service in SERVICES:
     for req in REQUESTS:
-        gen_graph(service, req)
+        gen_latency_graph(service, req)
+        gen_memory_graph(service, req)

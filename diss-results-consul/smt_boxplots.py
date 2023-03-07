@@ -5,7 +5,7 @@ import numpy as np
 # Creating dataset
 
 USERS = ['100', '200', '400', '600', '800']
-REQUESTS = ['10']
+REQUESTS = ['1']
 SERVICES = ['20', '40', '80']
 
 ISTIO_COLOUR = '#1f78b4'
@@ -69,10 +69,15 @@ def gen_graph(service, request):
 
     plt.figure()
 
-    bp_kubernetes = plt.boxplot(data_kubernetes, positions=np.array(range(len(data_kubernetes)))*2.0-0.8, sym='.', widths=0.4)
-    bp_istio = plt.boxplot(data_istio, positions=np.array(range(len(data_istio)))*2.0-0.2, sym='.', widths=0.4)
-    bp_linkerd = plt.boxplot(data_linkerd, positions=np.array(range(len(data_linkerd)))*2.0+0.4, sym='.', widths=0.4)
-    bp_consul = plt.boxplot(data_consul, positions=np.array(range(len(data_consul)))*2.0+1.0, sym='.', widths=0.4)
+    flierprops_istio = dict(marker='.', markersize=4, linestyle='none', markeredgecolor=ISTIO_COLOUR)
+    flierprops_linkerd = dict(marker='.', markersize=4, linestyle='none', markeredgecolor=LINKERD_COLOUR)
+    flierprops_kubernetes = dict(marker='.', markersize=4, linestyle='none', markeredgecolor=KUBERNETES_COLOUR)
+    flierprops_consul = dict(marker='.', markersize=4, linestyle='none', markeredgecolor=CONSUL_COLOUR)
+
+    bp_kubernetes = plt.boxplot(data_kubernetes, positions=np.array(range(len(data_kubernetes)))*2.5-0.8, sym='.', widths=0.4, flierprops=flierprops_kubernetes)
+    bp_linkerd = plt.boxplot(data_linkerd, positions=np.array(range(len(data_linkerd)))*2.5-0.2, sym='.', widths=0.4, flierprops=flierprops_linkerd)
+    bp_istio = plt.boxplot(data_istio, positions=np.array(range(len(data_istio)))*2.5+0.4, sym='.', widths=0.4, flierprops=flierprops_istio)
+    bp_consul = plt.boxplot(data_consul, positions=np.array(range(len(data_consul)))*2.5+1.0, sym='.', widths=0.4, flierprops=flierprops_consul)
     
     set_box_color(bp_istio, ISTIO_COLOUR) # colors are from http://colorbrewer2.org/
     set_box_color(bp_linkerd, LINKERD_COLOUR)

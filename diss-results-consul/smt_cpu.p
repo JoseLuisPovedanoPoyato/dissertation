@@ -8,7 +8,7 @@ set output "smts_cpu_100.png"
 set title "SMTs CPU Usage - 100 Users"
 set xlabel "Services"
 set ylabel "CPU Usage ()"
-plot "kubernetes/cpu_100" using 2:xtic(1) title "Kubernetes", "istio/cpu_100" using 2:xtic(1) title "Istio", "linkerd/cpu_100" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/cpu_100" using 2:xtic(1) title "Kubernetes", "istio/cpu_100" using 2:xtic(1) title "Istio", "linkerd/cpu_100" using 2:xtic(1) title "Linkerd", "consul/cpu_100" using 2:xtic(1) title "Consul"
 
 #Next plot starts here
 set size 1, 1
@@ -21,7 +21,7 @@ set output "smts_cpu_200.png"
 set title "SMTs CPU Usage - 200 Users"
 set xlabel "Services"
 set ylabel "CPU Usage ()"
-plot "kubernetes/cpu_200" using 2:xtic(1) title "Kubernetes", "istio/cpu_200" using 2:xtic(1) title "Istio", "linkerd/cpu_200" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/cpu_200" using 2:xtic(1) title "Kubernetes", "istio/cpu_200" using 2:xtic(1) title "Istio", "linkerd/cpu_200" using 2:xtic(1) title "Linkerd", "consul/cpu_200" using 2:xtic(1) title "Consul"
 
 #Next plot starts here
 set size 1, 1
@@ -34,7 +34,7 @@ set output "smts_cpu_400.png"
 set title "SMTs CPU Usage - 400 Users"
 set xlabel "Services"
 set ylabel "CPU Usage ()"
-plot "kubernetes/cpu_400" using 2:xtic(1) title "Kubernetes", "istio/cpu_400" using 2:xtic(1) title "Istio", "linkerd/cpu_400" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/cpu_400" using 2:xtic(1) title "Kubernetes", "istio/cpu_400" using 2:xtic(1) title "Istio", "linkerd/cpu_400" using 2:xtic(1) title "Linkerd", "consul/cpu_400" using 2:xtic(1) title "Consul"
 
 #Next plot starts here
 set size 1, 1
@@ -47,7 +47,7 @@ set output "smts_cpu_600.png"
 set title "SMTs CPU Usage - 600 Users"
 set xlabel "Services"
 set ylabel "CPU Usage ()"
-plot "kubernetes/cpu_600" using 2:xtic(1) title "Kubernetes", "istio/cpu_600" using 2:xtic(1) title "Istio", "linkerd/cpu_600" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/cpu_600" using 2:xtic(1) title "Kubernetes", "istio/cpu_600" using 2:xtic(1) title "Istio", "linkerd/cpu_600" using 2:xtic(1) title "Linkerd", "consul/cpu_600" using 2:xtic(1) title "Consul"
 
 #Next plot starts here
 set size 1, 1
@@ -60,6 +60,6 @@ set output "smts_cpu_800.png"
 set title "SMTs CPU Usage - 800 Users"
 set xlabel "Services"
 set ylabel "CPU Usage ()"
-plot "kubernetes/cpu_800" using 2:xtic(1) title "Kubernetes", "istio/cpu_800" using 2:xtic(1) title "Istio", "linkerd/cpu_800" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/cpu_800" using 2:xtic(1) title "Kubernetes", "istio/cpu_800" using 2:xtic(1) title "Istio", "linkerd/cpu_800" using 2:xtic(1) title "Linkerd", "consul/cpu_800" using 2:xtic(1) title "Consul"
 
 #Next plot starts here

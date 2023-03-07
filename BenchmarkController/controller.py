@@ -8,7 +8,7 @@ import pathlib
 # We simulate 1, 5, 10, (and maybe 100 and 1000) users sending simultaneous requests
 # Each user will try to send 1, 2, 4, 8 and 16 requests each
 CONCURRENT_USERS=[100, 200, 400, 600]
-REQUESTS_PER_USER = [1] #2, 4, 8, 16
+REQUESTS_PER_USER = [3] #2, 4, 8, 16
 SERVICES_PER_REQ = [10, 20, 40]
 
 REQUEST_GENERATOR_URL = "http://request-generator-service/generate_load"
