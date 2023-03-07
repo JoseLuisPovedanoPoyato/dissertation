@@ -229,10 +229,10 @@ function benchmark_consul(){
     deploy_request_generator
 	deploy_counter_consul
 	run_send_request_job "consul"
-	#delete_counter_consul
-    #delete_request_generator
-    #delete_benchmark_controller
-	#uninstall_consul_cluster
+	delete_counter_consul
+    delete_request_generator
+    delete_benchmark_controller
+	uninstall_consul_cluster
 }
 #--
 
@@ -286,16 +286,16 @@ function execute_benchmarks(){
     deploy_benchmark_controller
     
 	# Run Benchmarks
-	#benchmark_bare_kubernetes
-    #sleep 10
-
-    benchmark_linkerd
+	benchmark_bare_kubernetes
+    sleep 10
+    
+    benchmark_consul
     sleep 60
 
     benchmark_istio
     sleep 60
 
-    benchmark_consul
+    benchmark_linkerd
     }
 # --
 

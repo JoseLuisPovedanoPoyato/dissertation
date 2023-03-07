@@ -5,6 +5,7 @@ gnuplot smt_grouped_cpu.p
 gnuplot smts_only_cpu.p
 gnuplot smt_proxy_mem.p
 python smt_boxplots.py
+python cpu_stacked_bar_chart.py
 
 cd kubernetes
 pwd
