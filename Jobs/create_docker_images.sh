@@ -41,6 +41,7 @@ function create_docker_images(){
 	create_micro_counter_img
 	create_micro_counter_A_img
 	create_micro_counter_B_img
+	docker rmi microcounter:1.0
 }
 # --
 
