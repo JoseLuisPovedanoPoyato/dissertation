@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-counter-service-a
+spec:
+  selector:
+    app: micro-counter-a
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro-counter-a
+  labels:
+    app: micro-counter-a
+spec:
+  replicas: 12
+  selector:
+    matchLabels:
+      app: micro-counter-a
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: micro-counter-a
+      annotations:
+        'consul.hashicorp.com/connect-inject': 'true'
+    spec:
+      containers:
+      - name: micro-counter
+        image: microcounter_a:1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
