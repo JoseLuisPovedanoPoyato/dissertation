@@ -23,14 +23,14 @@ function create_micro_counter_img(){
 
 function create_micro_counter_B_img(){
 	docker rmi microcounter_b:1.0
-	docker build ../MicroCounter/ -t microcounter_b:1.0 -f ../MicroCounter/Dockerfile
+	docker build ../MicroCounterB/ -t microcounter_b:1.0 -f ../MicroCounterB/Dockerfile
 	kind load docker-image microcounter_b:1.0
 	kubectl delete deployments micro-counter-b
 }
 
 function create_micro_counter_A_img(){
 	docker rmi microcounter_a:1.0
-	docker build ../MicroCounter/ -t microcounter_a:1.0 -f ../MicroCounter/Dockerfile
+	docker build ../MicroCounterA/ -t microcounter_a:1.0 -f ../MicroCounterA/Dockerfile
 	kind load docker-image microcounter_a:1.0
 	kubectl delete deployments micro-counter-a
 }
