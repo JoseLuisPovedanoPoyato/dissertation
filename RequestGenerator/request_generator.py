@@ -11,7 +11,7 @@ import time
 app = Flask(__name__)
 api = Api(app)
 
-micro_counter_url = 'http://micro-counter-service/count'
+micro_counter_url = 'http://micro-counter-service-a/count'
 prometheus_query_url = 'http://prometheus:9090/api/v1/query'
 prom_scrape = 2
 
