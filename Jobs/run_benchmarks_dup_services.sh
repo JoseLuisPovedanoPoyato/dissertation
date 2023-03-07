@@ -224,6 +224,7 @@ function benchmark_istio(){
 function benchmark_consul(){
     echo "Consul does not permit external communication from services outside the mesh, therefore we are deleting the benchmark controller and redeploying it after the mesh installs"
     kubectl delete -f ../PrometheusService/
+    kubectl apply -k ../PrometheusService/cadvisor/
     delete_benchmark_controller
     install_consul_cluster
     sleep 30
@@ -234,6 +235,8 @@ function benchmark_consul(){
 	delete_counter_consul
     delete_request_generator
     delete_benchmark_controller
+    kubectl delete -f ../PrometheusService/
+    kubectl delete -k ../PrometheusService/cadvisor/
 	uninstall_consul_cluster
 }
 #--
@@ -277,6 +280,9 @@ function execute_benchmarks(){
     delete_counter
     uninstall_all_smt
 
+    benchmark_consul
+    sleep 60
+
     # Ensure resources are capped so it doesn't crash
     # kubectl apply -f ../ResourceQuota.yaml
 
@@ -295,9 +301,6 @@ function execute_benchmarks(){
     sleep 60
 
     benchmark_linkerd
-    sleep 60
-
-    benchmark_consul
     sleep 60
     }
 # --

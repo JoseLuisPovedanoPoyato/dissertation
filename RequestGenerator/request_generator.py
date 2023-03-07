@@ -99,10 +99,10 @@ def gather_resource_metrics(start, files, service):
 
     #Collect CPU Usage from Cadvsior
     # Data Plane
-    param_smt_data_cpu_usage = f'(sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{t}s]))/ sum (machine_cpu_cores)) * {len_t}'
+    param_smt_data_cpu_usage = f'(sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~((linkerd|istio)-proxy)|consul-dataplane"}}[{t}s]))/ sum (machine_cpu_cores)) * {len_t}'
     resp_smt_data_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_usage})
     # Control Plane
-    param_smt_control_cpu_usage = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
+    param_smt_control_cpu_usage = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system|consul)"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
     resp_smt_control_cpu_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_usage})
     #MicroCounter
     param_cpu_counter_app = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"micro-counter"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
@@ -119,13 +119,13 @@ def gather_resource_metrics(start, files, service):
     
     #Collect Memory from Cadvisor
     # Control Plane
-    param_mem_control_tot = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system)"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
+    param_mem_control_tot = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system|consul)"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
     resp_mem_control_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_control_tot})
     # Data Plane
-    param_mem_data_tot = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
+    param_mem_data_tot = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"((linkerd|istio)-proxy)|consul-dataplane"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
     resp_mem_data_tot = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_tot})
     # Data Plane memory per proxy
-    param_mem_data_by_proxy = f'avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"(linkerd|istio)-proxy"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name)'
+    param_mem_data_by_proxy = f'avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~((linkerd|istio)-proxy)|consul-dataplane"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name)'
     resp_mem_data_by_proxy = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_mem_data_by_proxy})
     #MicroCounter
     param_mem_counter_app = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_container_name=~"micro-counter"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
