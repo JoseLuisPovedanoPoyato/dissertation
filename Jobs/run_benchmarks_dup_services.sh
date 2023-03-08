@@ -297,10 +297,10 @@ function execute_benchmarks(){
 	benchmark_bare_kubernetes
     sleep 10
     
-    #benchmark_istio
+    benchmark_istio
     sleep 60
 
-    #benchmark_linkerd
+    benchmark_linkerd
     sleep 60
     }
 # --
