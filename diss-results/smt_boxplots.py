@@ -87,8 +87,8 @@ def gen_graph(data_kubernetes, data_istio, data_linkerd):
     flierprops_kubernetes = dict(marker='.', markersize=4, linestyle='none', markeredgecolor=KUBERNETES_COLOUR)
 
     bp_kubernetes = plt.boxplot(data_kubernetes, positions=np.array(range(len(data_kubernetes)))*2.0-0.5, flierprops=flierprops_kubernetes, widths=0.4)
-    bp_istio = plt.boxplot(data_linkerd, positions=np.array(range(len(data_linkerd)))*2.0, flierprops=flierprops_istio, widths=0.4)
-    bp_linkerd = plt.boxplot(data_istio, positions=np.array(range(len(data_istio)))*2.0+0.5, flierprops=flierprops_linkerd, widths=0.4)
+    bp_linkerd = plt.boxplot(data_linkerd, positions=np.array(range(len(data_linkerd)))*2.0, flierprops=flierprops_linkerd, widths=0.4)
+    bp_istio = plt.boxplot(data_istio, positions=np.array(range(len(data_istio)))*2.0+0.5, flierprops=flierprops_istio, widths=0.4)
     
     set_box_color(bp_istio, ISTIO_COLOUR) # colors are from http://colorbrewer2.org/
     set_box_color(bp_linkerd, LINKERD_COLOUR)

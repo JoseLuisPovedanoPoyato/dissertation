@@ -71,7 +71,7 @@ def gen_chart(k_d, i_d, l_d, labels):
     plt.legend(labels)
         
     plt.title(f"Avg CPU Usage by Service Mesh per Area - {req} RPU, {service} MicroServices")
-    plt.savefig(f'smt_memory_boxplot_{req}_{service}.png')
+    plt.savefig(f'smt_cpu_stacked_{req}_{service}.png')
 
 for service in SERVICES:
     for req in REQUESTS:
