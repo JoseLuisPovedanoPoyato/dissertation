@@ -5,7 +5,7 @@ import numpy as np
 # Creating dataset
 
 USERS = ['100', '200', '400', '600', '800']
-REQUESTS = ['10']
+REQUESTS = ['3']
 SERVICES = ['20', '40', '80']
 
 ISTIO_COLOUR = '#1f78b4'
