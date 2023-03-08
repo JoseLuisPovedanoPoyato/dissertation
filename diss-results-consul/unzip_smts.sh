@@ -7,4 +7,4 @@ find ./consul/ ! -name '*.p' -type f -delete
 unzip linkerd.zip -d linkerd/
 unzip istio.zip -d istio/
 unzip kubernetes.zip -d kubernetes/
-unzip istio.zip -d consul/
+unzip consul.zip -d consul/
