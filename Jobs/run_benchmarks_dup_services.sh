@@ -280,8 +280,8 @@ function execute_benchmarks(){
     delete_counter
     uninstall_all_smt
 
-    benchmark_consul
-    sleep 60
+    #benchmark_consul
+    #sleep 60
 
     # Ensure resources are capped so it doesn't crash
     # kubectl apply -f ../ResourceQuota.yaml

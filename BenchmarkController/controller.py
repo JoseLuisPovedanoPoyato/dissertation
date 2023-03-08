@@ -29,7 +29,7 @@ def send_requests():
         data = request.get_json()
         print(data)
     except:
-        app.logger.error(f"Request Data could not be accessed, using default specification instead.")
+        app.logger.error(f"Request Data could not be accessed, using default specifi    cation instead.")
     smt = data.get("smt", "kubernetes")
     users = data.get("users", CONCURRENT_USERS)
     n_requests = data.get("requests", REQUESTS_PER_USER)
