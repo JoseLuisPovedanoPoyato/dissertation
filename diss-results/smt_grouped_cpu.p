@@ -9,7 +9,7 @@ set title "SMTs CPU Usage Distribution - 100 Users, 10 RPU, 20 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_100_10_20" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_100_10_20" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_100_10_20" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_100_10_20" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_100_10_20" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_100_10_20" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -23,7 +23,7 @@ set title "SMTs CPU Usage Distribution - 100 Users, 10 RPU, 40 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_100_10_40" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_100_10_40" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_100_10_40" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_100_10_40" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_100_10_40" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_100_10_40" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -37,7 +37,7 @@ set title "SMTs CPU Usage Distribution - 100 Users, 10 RPU, 80 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_100_10_80" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_100_10_80" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_100_10_80" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_100_10_80" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_100_10_80" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_100_10_80" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -51,7 +51,7 @@ set title "SMTs CPU Usage Distribution - 200 Users, 10 RPU, 20 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_200_10_20" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_200_10_20" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_200_10_20" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_200_10_20" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_200_10_20" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_200_10_20" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -65,7 +65,7 @@ set title "SMTs CPU Usage Distribution - 200 Users, 10 RPU, 40 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_200_10_40" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_200_10_40" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_200_10_40" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_200_10_40" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_200_10_40" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_200_10_40" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -79,7 +79,7 @@ set title "SMTs CPU Usage Distribution - 200 Users, 10 RPU, 80 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_200_10_80" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_200_10_80" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_200_10_80" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_200_10_80" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_200_10_80" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_200_10_80" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -93,7 +93,7 @@ set title "SMTs CPU Usage Distribution - 400 Users, 10 RPU, 20 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_400_10_20" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_400_10_20" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_400_10_20" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_400_10_20" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_400_10_20" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_400_10_20" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -107,7 +107,7 @@ set title "SMTs CPU Usage Distribution - 400 Users, 10 RPU, 40 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_400_10_40" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_400_10_40" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_400_10_40" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_400_10_40" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_400_10_40" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_400_10_40" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -121,7 +121,7 @@ set title "SMTs CPU Usage Distribution - 400 Users, 10 RPU, 80 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_400_10_80" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_400_10_80" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_400_10_80" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_400_10_80" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_400_10_80" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_400_10_80" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -135,7 +135,7 @@ set title "SMTs CPU Usage Distribution - 600 Users, 10 RPU, 20 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_600_10_20" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_600_10_20" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_600_10_20" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_600_10_20" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_600_10_20" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_600_10_20" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -149,7 +149,7 @@ set title "SMTs CPU Usage Distribution - 600 Users, 10 RPU, 40 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_600_10_40" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_600_10_40" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_600_10_40" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_600_10_40" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_600_10_40" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_600_10_40" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -163,7 +163,7 @@ set title "SMTs CPU Usage Distribution - 600 Users, 10 RPU, 80 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_600_10_80" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_600_10_80" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_600_10_80" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_600_10_80" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_600_10_80" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_600_10_80" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -177,7 +177,7 @@ set title "SMTs CPU Usage Distribution - 800 Users, 10 RPU, 20 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_800_10_20" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_800_10_20" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_800_10_20" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_800_10_20" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_800_10_20" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_800_10_20" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -191,7 +191,7 @@ set title "SMTs CPU Usage Distribution - 800 Users, 10 RPU, 40 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_800_10_40" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_800_10_40" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_800_10_40" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_800_10_40" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_800_10_40" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_800_10_40" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here
 set size 1, 1
@@ -205,6 +205,6 @@ set title "SMTs CPU Usage Distribution - 800 Users, 10 RPU, 80 Services"
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file_800_10_80" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file_800_10_80" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file_800_10_80" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file_800_10_80" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file_800_10_80" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file_800_10_80" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here

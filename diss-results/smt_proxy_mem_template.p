@@ -11,7 +11,7 @@ set xtics rotate by -45
 
 set xrange [0:3]
 
-plot "istio/mem_data_plane_by_proxy__user___request___service_" using ($0/$0):2:xtic("Istio") title "Istio", "linkerd/mem_data_plane_by_proxy__user___request___service_" using ($0/$0 + 1):2:xtic("Linkerd") title "Linkerd"
+plot "istio/mem_data_plane_by_proxy__user___request___service_" using ($0/$0):2:xtic("Istio") title "Istio" lc rgb "#7570b3", "linkerd/mem_data_plane_by_proxy__user___request___service_" using ($0/$0 + 1):2:xtic("Linkerd") title "Linkerd" lc rgb "#d95f02"
 
 
 #Next plot starts here

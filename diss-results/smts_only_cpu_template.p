@@ -9,6 +9,6 @@ set title "Avg CPU Distribution - _user_ Users, _request_ RPU, _service_ Service
 set xlabel "Application Area"
 set ylabel "CPU Used (Seconds)"
 set xtics rotate by -45
-plot "istio/smts_only_cpu_file__user___request___service_" using 2:xtic(1) title "Istio", "linkerd/smts_only_cpu_file__user___request___service_" using 2:xtic(1) title "Linkerd"
+plot "istio/smts_only_cpu_file__user___request___service_" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/smts_only_cpu_file__user___request___service_" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here

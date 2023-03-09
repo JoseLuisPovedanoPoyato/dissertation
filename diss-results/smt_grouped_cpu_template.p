@@ -9,6 +9,6 @@ set title "SMTs CPU Usage Distribution - _user_ Users, _request_ RPU, _service_ 
 set xlabel "Application Area"
 set ylabel "CPU Used (s)"
 set xtics rotate by -45
-plot "kubernetes/grouped_cpu_file__user___request___service_" using 2:xtic(1) title "Kubernetes", "istio/grouped_cpu_file__user___request___service_" using 2:xtic(1) title "Istio", "linkerd/grouped_cpu_file__user___request___service_" using 2:xtic(1) title "Linkerd"
+plot "kubernetes/grouped_cpu_file__user___request___service_" using 2:xtic(1) title "Kubernetes" lc rgb "#1b9e77", "istio/grouped_cpu_file__user___request___service_" using 2:xtic(1) title "Istio" lc rgb "#7570b3", "linkerd/grouped_cpu_file__user___request___service_" using 2:xtic(1) title "Linkerd" lc rgb "#d95f02"
 
 #Next plot starts here

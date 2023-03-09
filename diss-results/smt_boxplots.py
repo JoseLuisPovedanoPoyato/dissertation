@@ -8,9 +8,9 @@ USERS = ['100', '200', '400', '600', '800']
 REQUESTS = ['10']
 SERVICES = ['20', '40', '80']
 
-ISTIO_COLOUR = '#1f78b4'
-LINKERD_COLOUR = '#b2df8a'
-KUBERNETES_COLOUR = '#a6cee3'
+ISTIO_COLOUR = '#7570b3'
+LINKERD_COLOUR = '#d95f02'
+KUBERNETES_COLOUR = '#1b9e77'
 
 def get_data(files):
     data = []

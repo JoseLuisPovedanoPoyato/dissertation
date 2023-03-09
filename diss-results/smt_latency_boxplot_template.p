@@ -13,6 +13,6 @@ set ylabel "Response Time (ms)"
 set xtics rotate by -45
 set xrange [0:16]
 set yrange[0:MAX]
-plot "kubernetes/csv__user___request___service_" using (1):$2:xtic("100 Users") title "Kubernetes", "istio/csv__user___request___service_" using (1):$2:xtic("100 Users") title "Istio", "linkerd/csv__user___request___service_" using (1):$2:xtic("100 Users") title "Linkerd"
+plot "kubernetes/csv__user___request___service_" using (1):$2:xtic("100 Users") title "Kubernetes" rgb "#1b9e77", "istio/csv__user___request___service_" using (1):$2:xtic("100 Users") title "Istio" rgb "#7570b3", "linkerd/csv__user___request___service_" using (1):$2:xtic("100 Users") title "Linkerd" rgb "#d95f02"
 
 #Next plot starts here
