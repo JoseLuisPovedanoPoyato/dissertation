@@ -221,7 +221,6 @@ function benchmark_istio(){
 
 function benchmark_consul(){
     echo "Consul does not permit external communication from services outside the mesh, therefore we are deleting the benchmark controller and redeploying it after the mesh installs"
-    kubectl delete -f ../PrometheusService/
     delete_benchmark_controller
     install_consul_cluster
     sleep 30
@@ -289,8 +288,8 @@ function execute_benchmarks(){
 	benchmark_bare_kubernetes
     sleep 10
     
-    benchmark_consul
-    sleep 60
+    #benchmark_consul
+    #sleep 60
 
     benchmark_istio
     sleep 60
