@@ -50,16 +50,3 @@ set ylabel "CPU Usage ()"
 plot "kubernetes/cpu_600" using 2:xtic(1) title "Kubernetes", "istio/cpu_600" using 2:xtic(1) title "Istio", "linkerd/cpu_600" using 2:xtic(1) title "Linkerd", "consul/cpu_600" using 2:xtic(1) title "Consul"
 
 #Next plot starts here
-set size 1, 1
-set datafile separator ','
-set terminal png size 700 
-set style data histogram
-set style histogram cluster gap 1
-set style fill solid border rgb "black"
-set output "smts_cpu_800.png"
-set title "SMTs CPU Usage - 800 Users"
-set xlabel "Services"
-set ylabel "CPU Usage ()"
-plot "kubernetes/cpu_800" using 2:xtic(1) title "Kubernetes", "istio/cpu_800" using 2:xtic(1) title "Istio", "linkerd/cpu_800" using 2:xtic(1) title "Linkerd", "consul/cpu_800" using 2:xtic(1) title "Consul"
-
-#Next plot starts here

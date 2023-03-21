@@ -2,8 +2,8 @@
 import matplotlib.pyplot as plt
 
 USERS = ['100', '200', '400', '600', '800']
-REQUESTS = ['10']
-SERVICES = ['20', '40', '80']
+REQUESTS = ['3', '5', '10']
+SERVICES = ['10', '20', '40', '60', '80']
 
 COLOURS = ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00']
 

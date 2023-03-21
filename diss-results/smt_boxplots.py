@@ -5,8 +5,8 @@ import numpy as np
 # Creating dataset
 
 USERS = ['100', '200', '400', '600', '800']
-REQUESTS = ['10']
-SERVICES = ['20', '40', '80']
+REQUESTS = ['3', '5', '10']
+SERVICES = ['10', '20', '40', '60', '80']
 
 ISTIO_COLOUR = '#7570b3'
 LINKERD_COLOUR = '#d95f02'

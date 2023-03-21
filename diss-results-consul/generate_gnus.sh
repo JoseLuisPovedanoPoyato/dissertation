@@ -1,8 +1,8 @@
 #!/bin/bash
 
-users=("100" "200" "400" "600" "800")
+users=("100" "200" "400" "600")
 requests=("1")
-microservices=("10" "20" "40" "60" "80")
+microservices=("10" "20" "40")
 
 ### Generate Latency GNU
 rm smt_latency.p
