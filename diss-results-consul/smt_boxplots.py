@@ -4,9 +4,9 @@ import numpy as np
 
 # Creating dataset
 
-USERS = ['100', '200', '400', '600', '800']
-REQUESTS = ['1']
-SERVICES = ['20', '40', '80']
+USERS = ['100', '200', '400']
+REQUESTS = ['10']
+SERVICES = ['10', '20', '40']
 
 ISTIO_COLOUR = '#1f78b4'
 LINKERD_COLOUR = '#b2df8a'
@@ -42,31 +42,48 @@ def change_outlier_colour(bp, c):
     plt.plot(np.ones(len(top_points)), top_points, "x", color=f"{c}", markersize=1)
     plt.plot(np.ones(len(bottom_points)), bottom_points, "x", color=f"{c}")
 
-def gen_graph(service, request):
-    linkerd_files = []
-    for u in USERS:
-            linkerd_files.append(f"linkerd/csv_{u}_{request}_{service}")
+def get_latency_data(service, request):
+    linkerd_files = [f"linkerd/csv_{u}_{request}_{service}" for u in USERS]
+    istio_files = [f"istio/csv_{u}_{request}_{service}" for u in USERS]
+    kubernetes_files = [f"kubernetes/csv_{u}_{request}_{service}" for u in USERS]
+    consul_files = [f"consul/csv_{u}_{request}_{service}" for u in USERS]
+    return (get_data(kubernetes_files), get_data(istio_files), get_data(linkerd_files), get_data(consul_files))
 
-    istio_files = []
-    for u in USERS:
-            istio_files.append(f"istio/csv_{u}_{request}_{service}")
+def set_to_MB(data):
+    for l in range(len(data)):
+        for d in range(len(data[l])):
+            data[l][d] = data[l][d]/(1024*1024) 
+    return data
 
-    kubernetes_files = []
-    for u in USERS:
-            kubernetes_files.append(f"kubernetes/csv_{u}_{request}_{service}")
+def get_memory_data(service, request):
+    linkerd_files = [f"linkerd/memory_{u}_{request}_{service}" for u in USERS]
+    istio_files = [f"istio/memory_{u}_{request}_{service}" for u in USERS]
+    kubernetes_files = [f"kubernetes/memory_{u}_{request}_{service}" for u in USERS]
+    consul_files = [f"consul/memory_{u}_{request}_{service}" for u in USERS]
+    k_d = set_to_MB(get_data(kubernetes_files))
+    i_d = set_to_MB(get_data(istio_files))
+    l_d = set_to_MB(get_data(linkerd_files))
+    c_d = set_to_MB(get_data(consul_files))
+    return (k_d, i_d, l_d, c_d)
 
-    consul_files = []
-    for u in USERS:
-        consul_files.append(f"consul/csv_{u}_{request}_{service}")
+def label_latency_graph(service, request):
+    plt.ylabel('Response Time (since first response packet) (ms)') 
+    plt.xlabel('Number of Simultaneous Users')
+    plt.title(f"SMTs Latency - {request} RPU, {service} MicroServices")  
 
+    plt.tight_layout()
+    plt.savefig(f'smt_latency_boxplot_{request}_{service}.png')
 
-    data_istio = get_data(istio_files)
-    data_linkerd = get_data(linkerd_files)
-    data_kubernetes = get_data(kubernetes_files)
-    data_consul = get_data(consul_files)
+def label_memory_graph(service, request):
+    plt.ylabel('Memory Usage (MB)') 
+    plt.xlabel('Number of Simultaneous Users')
+    plt.title(f"SMTs Memory Usage - {request} RPU, {service} MicroServices")  
 
+    plt.tight_layout()
+    plt.savefig(f'smt_memory_boxplot_{request}_{service}.png')
+
+def gen_graph(data_kubernetes, data_istio, data_linkerd, data_consul):
     ticks = [u for u in USERS]
-
     plt.figure()
 
     flierprops_istio = dict(marker='.', markersize=4, linestyle='none', markeredgecolor=ISTIO_COLOUR)
@@ -84,26 +101,26 @@ def gen_graph(service, request):
     set_box_color(bp_kubernetes, KUBERNETES_COLOUR)
     set_box_color(bp_consul, CONSUL_COLOUR)
 
-    #Change outlier colour
-    #change_outlier_colour(bp_istio, ISTIO_COLOUR)
-    #change_outlier_colour(bp_linkerd, LINKERD_COLOUR)
-    #change_outlier_colour(bp_kubernetes, KUBERNETES_COLOUR)
-
     # draw temporary red and blue lines and use them to create a legend
     plt.plot([], c=KUBERNETES_COLOUR, label='Kubernetes')
     plt.plot([], c=ISTIO_COLOUR, label='Istio')
     plt.plot([], c=LINKERD_COLOUR, label='Linkerd')
     plt.plot([], c=CONSUL_COLOUR, label='Consul')
     plt.legend()
-
-    plt.ylabel('Response Time (since first response packet) (ms)') 
-    plt.xlabel('Number of Simultaneous Users')
-    plt.title(f"SMTs Latency - {request} RPU, {service} MicroServices")  
-
     plt.xticks(range(0, len(ticks) * 2, 2), ticks)
-    plt.tight_layout()
-    plt.savefig(f'smt_latency_boxplot_{request}_{service}')
+    
+def gen_latency_graph(service, request):
+    data_kubernetes, data_istio, data_linkerd, data_consul = get_latency_data(service, request)
+    gen_graph(data_kubernetes, data_istio, data_linkerd, data_consul)
+    label_latency_graph(service, request)
+
+def gen_memory_graph(service, request):
+    data_kubernetes, data_istio, data_linkerd, data_consul = get_memory_data(service, request)
+    gen_graph(data_kubernetes, data_istio, data_linkerd, data_consul)
+    label_memory_graph(service, request)
+
 
 for service in SERVICES:
     for req in REQUESTS:
-        gen_graph(service, req)
+        gen_latency_graph(service, req)
+        gen_memory_graph(service, req)

@@ -1,9 +1,9 @@
 # importing package
 import matplotlib.pyplot as plt
 
-USERS = ['100', '200', '400', '600', '800']
-REQUESTS = ['1']
-SERVICES = ['20', '40', '80']
+USERS = ['100', '200', '400']
+REQUESTS = ['10']
+SERVICES = ['10', '20', '40']
 
 COLOURS = ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00']
 
@@ -77,7 +77,7 @@ def gen_chart(k_d, i_d, l_d, c_d, labels):
     plt.legend(labels)
         
     plt.title(f"Avg CPU Usage by Service Mesh per Area - {req} RPU, {service} MicroServices")
-    plt.savefig(f'smt_memory_boxplot_{req}_{service}.png')
+    plt.savefig(f'smt_cpu_stacked_barchart_{req}_{service}.png')
 
 for service in SERVICES:
     for req in REQUESTS:
