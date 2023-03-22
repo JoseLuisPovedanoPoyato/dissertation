@@ -288,20 +288,20 @@ function execute_benchmarks(){
     kubectl apply -k ../PrometheusService/cadvisor/
 
     benchmark_consul
-    # sleep 60
+    sleep 60
     
     # Deploy Controller to store results
-    # deploy_benchmark_controller
+    deploy_benchmark_controller
     
 	# Run Benchmarks
-	# benchmark_bare_kubernetes
-    # sleep 10
+	benchmark_bare_kubernetes
+    sleep 10
     
-    # benchmark_istio
-    # sleep 60
+    benchmark_istio
+    sleep 60
 
-    # benchmark_linkerd
-    # sleep 60
+    benchmark_linkerd
+    sleep 60
     }
 # --
 

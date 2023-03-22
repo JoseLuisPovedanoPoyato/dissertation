@@ -1,7 +1,7 @@
 #!/bin/bash
 
-users=("100" "200" "400" "600")
-requests=("1")
+users=("100" "200" "400")
+requests=("10")
 microservices=("10" "20" "40")
 
 ### Generate Latency GNU
