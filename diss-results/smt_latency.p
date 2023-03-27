@@ -8,7 +8,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_3_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_3_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_3_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_3_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -21,7 +21,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_3_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_3_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_3_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_3_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -34,7 +34,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_3_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_3_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_3_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_3_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -47,7 +47,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_3_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_3_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_3_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_3_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -60,7 +60,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_3_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_3_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_3_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_3_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -73,7 +73,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_5_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_5_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_5_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_5_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -86,7 +86,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_5_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_5_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_5_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_5_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -99,7 +99,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_5_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_5_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_5_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_5_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -112,7 +112,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_5_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_5_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_5_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_5_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -125,7 +125,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_5_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_5_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_5_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_5_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -138,7 +138,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_10_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_10_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_10_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_10_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -151,7 +151,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_10_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_10_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_10_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_10_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -164,7 +164,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_10_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_10_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_10_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_10_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -177,7 +177,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_10_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_10_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_10_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_10_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -190,7 +190,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_100_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_100_10_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_100_10_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_100_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_100_10_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_100_10_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -203,7 +203,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_3_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_3_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_3_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_3_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -216,7 +216,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_3_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_3_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_3_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_3_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -229,7 +229,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_3_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_3_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_3_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_3_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -242,7 +242,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_3_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_3_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_3_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_3_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -255,7 +255,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_3_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_3_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_3_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_3_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -268,7 +268,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_5_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_5_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_5_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_5_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -281,7 +281,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_5_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_5_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_5_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_5_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -294,7 +294,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_5_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_5_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_5_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_5_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -307,7 +307,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_5_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_5_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_5_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_5_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -320,7 +320,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_5_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_5_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_5_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_5_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -333,7 +333,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_10_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_10_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_10_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_10_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -346,7 +346,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_10_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_10_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_10_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_10_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -359,7 +359,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_10_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_10_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_10_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_10_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -372,7 +372,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_10_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_10_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_10_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_10_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -385,7 +385,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_200_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_200_10_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_200_10_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_200_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_200_10_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_200_10_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -398,7 +398,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_3_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_3_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_3_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_3_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -411,7 +411,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_3_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_3_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_3_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_3_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -424,7 +424,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_3_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_3_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_3_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_3_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -437,7 +437,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_3_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_3_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_3_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_3_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -450,7 +450,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_3_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_3_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_3_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_3_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -463,7 +463,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_5_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_5_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_5_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_5_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -476,7 +476,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_5_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_5_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_5_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_5_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -489,7 +489,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_5_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_5_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_5_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_5_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -502,7 +502,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_5_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_5_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_5_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_5_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -515,7 +515,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_5_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_5_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_5_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_5_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -528,7 +528,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_10_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_10_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_10_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_10_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -541,7 +541,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_10_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_10_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_10_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_10_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -554,7 +554,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_10_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_10_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_10_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_10_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -567,7 +567,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_10_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_10_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_10_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_10_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -580,7 +580,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_400_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_400_10_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_400_10_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_400_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_400_10_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_400_10_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -593,7 +593,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_3_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_3_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_3_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_3_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -606,7 +606,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_3_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_3_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_3_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_3_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -619,7 +619,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_3_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_3_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_3_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_3_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -632,7 +632,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_3_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_3_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_3_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_3_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -645,7 +645,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_3_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_3_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_3_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_3_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -658,7 +658,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_5_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_5_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_5_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_5_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -671,7 +671,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_5_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_5_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_5_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_5_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -684,7 +684,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_5_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_5_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_5_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_5_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -697,7 +697,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_5_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_5_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_5_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_5_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -710,7 +710,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_5_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_5_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_5_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_5_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -723,7 +723,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_10_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_10_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_10_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_10_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -736,7 +736,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_10_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_10_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_10_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_10_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -749,7 +749,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_10_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_10_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_10_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_10_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -762,7 +762,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_10_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_10_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_10_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_10_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -775,7 +775,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_600_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_600_10_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_600_10_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_600_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_600_10_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_600_10_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -788,7 +788,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_3_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_3_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_3_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_3_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_3_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -801,7 +801,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_3_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_3_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_3_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_3_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_3_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -814,7 +814,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_3_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_3_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_3_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_3_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_3_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -827,7 +827,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_3_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_3_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_3_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_3_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_3_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -840,7 +840,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_3_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_3_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_3_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_3_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_3_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -853,7 +853,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_5_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_5_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_5_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_5_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_5_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -866,7 +866,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_5_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_5_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_5_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_5_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_5_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -879,7 +879,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_5_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_5_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_5_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_5_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_5_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -892,7 +892,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_5_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_5_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_5_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_5_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_5_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -905,7 +905,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_5_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_5_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_5_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_5_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_5_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -918,7 +918,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_10_10" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_10_10" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_10_10" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_10_10" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_10_10" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -931,7 +931,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_10_20" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_10_20" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_10_20" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_10_20" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_10_20" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -944,7 +944,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_10_40" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_10_40" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_10_40" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_10_40" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_10_40" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -957,7 +957,7 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_10_60" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_10_60" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_10_60" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_10_60" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_10_60" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here
 set datafile separator ','
@@ -970,6 +970,6 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv_800_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv_800_10_80" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv_800_10_80" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv_800_10_80" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv_800_10_80" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv_800_10_80" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here

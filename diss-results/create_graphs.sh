@@ -11,15 +11,18 @@ cd kubernetes
 pwd
 gnuplot latency_users.p
 gnuplot latency_services.p
+gnuplot latency_cross_users_services.p
 
 cd ../istio
 pwd
 gnuplot latency_users.p
 gnuplot latency_services.p
+gnuplot latency_cross_users_services.p
 
 cd ../linkerd
 pwd
 gnuplot latency_users.p
 gnuplot latency_services.p
+gnuplot latency_cross_users_services.p
 
 cd ..

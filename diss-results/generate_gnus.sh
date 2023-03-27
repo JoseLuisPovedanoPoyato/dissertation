@@ -4,6 +4,7 @@ users=("100" "200" "400" "600" "800")
 requests=("3" "5" "10")
 microservices=("10" "20" "40" "60" "80")
 
+
 ### Generate Latency GNU
 rm smt_latency.p
 touch smt_latency.p
@@ -15,21 +16,6 @@ for user in "${users[@]}"; do
       template=$(sed "s/_user_/$user/g;s/_request_/$request/g;s/_service_/$service/g" smt_latency_template.p)
       # Append the output to the smt_latency.p file
       echo "$template" >> smt_latency.p
-    done
-  done
-done
-
-### Generate Latency BOX_PLOT GNU
-rm smt_latency_boxplot.p
-touch smt_latency_boxplot.p
-# For each combination of users and microservices
-for user in "${users[@]}"; do
-  for request in "${requests[@]}"; do
-    for service in "${microservices[@]}"; do
-      # Read in the template and substitute the users and services
-      template=$(sed "s/_user_/$user/g;s/_request_/$request/g;s/_service_/$service/g" smt_latency_boxplot_template.p)
-      # Append the output to the smt_latency.p file
-      echo "$template" >> smt_latency_boxplot.p
     done
   done
 done
@@ -161,4 +147,27 @@ for user in "${users[@]}"; do
     template=$(sed "s/_user_/$user/g;s/_request_/$request/g" istio/latency_users_template.p)
     echo "$template" >> istio/latency_users.p
   done
+done
+
+
+mic="40"
+doublemic="80"
+
+rm istio/latency_cross_users_services.p
+touch istio/latency_cross_users_services.p
+for request in "${requests[@]}"; do
+  template=$(sed "s/_mic_/$mic/g;s/_doublemic_/$doublemic/g;s/_request_/$request/g" istio/latency_cross_users_services_template.p)
+  echo "$template" >> istio/latency_cross_users_services.p
+done
+rm linkerd/latency_cross_users_services.p
+touch linkerd/latency_cross_users_services.p
+for request in "${requests[@]}"; do
+  template=$(sed "s/_mic_/$mic/g;s/_doublemic_/$doublemic/g;s/_request_/$request/g" linkerd/latency_cross_users_services_template.p)
+  echo "$template" >> linkerd/latency_cross_users_services.p
+done
+rm kubernetes/latency_cross_users_services.p
+touch kubernetes/latency_cross_users_services.p
+for request in "${requests[@]}"; do
+  template=$(sed "s/_mic_/$mic/g;s/_doublemic_/$doublemic/g;s/_request_/$request/g" kubernetes/latency_cross_users_services_template.p)
+  echo "$template" >> kubernetes/latency_cross_users_services.p
 done

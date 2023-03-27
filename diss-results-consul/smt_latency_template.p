@@ -10,6 +10,6 @@ set ylabel "Response Time (ms)"
 set logscale y 10
 
 set xtics rotate by -45
-plot "kubernetes/csv__user___request___service_" every ::1 title "Kubernetes", "istio/csv__user___request___service_" every ::1 title "Istio", "linkerd/csv__user___request___service_" every ::1 title "Linkerd", "consul/csv__user___request___service_" every ::1 title "Consul"
+plot "kubernetes/csv__user___request___service_" every ::1 lc rgb "#1b9e77" title "Kubernetes", "istio/csv__user___request___service_" every ::1 lc rgb "#7570b3" title "Istio", "linkerd/csv__user___request___service_" every ::1 lc rgb "#d95f02" title "Linkerd", "consul/csv__user___request___service_" every ::1 lc rgb "#e69f00" title "Consul"
 
 #Next plot starts here

@@ -8,6 +8,6 @@ set xlabel "Percentage Served (%)"
 set ylabel "Response Time (ms)"
 
 set xtics rotate by -45
-plot "kubernetes/csv__user___request___service_" every ::1 title "Kubernetes" lc rgb "#1b9e77", "istio/csv__user___request___service_" every ::1 title "Istio" lc rgb "#7570b3", "linkerd/csv__user___request___service_" every ::1 title "Linkerd" lc rgb "#d95f02"
+plot "kubernetes/csv__user___request___service_" every ::1 title "Kubernetes" lc rgb "#1b9e77", "linkerd/csv__user___request___service_" every ::1 title "Linkerd" lc rgb "#d95f02", "istio/csv__user___request___service_" every ::1 title "Istio" lc rgb "#7570b3"
 
 #Next plot starts here

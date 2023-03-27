@@ -9,6 +9,6 @@ set output "smts_cpu__user_.png"
 set title "SMTs CPU Usage - _user_ Users"
 set xlabel "Services"
 set ylabel "CPU Usage ()"
-plot "kubernetes/cpu__user_" using 2:xtic(1) lc rgb "#1b9e77" title "Kubernetes", "istio/cpu__user_" using 2:xtic(1) lc rgb "#7570b3" title "Istio", "linkerd/cpu__user_" using 2:xtic(1) lc rgb "#d95f02" title "Linkerd"
+plot "kubernetes/cpu__user_" using 2:xtic(1) lc rgb "#1b9e77" title "Kubernetes", "linkerd/cpu__user_" using 2:xtic(1) lc rgb "#d95f02" title "Linkerd", "istio/cpu__user_" using 2:xtic(1) lc rgb "#7570b3" title "Istio"
 
 #Next plot starts here
