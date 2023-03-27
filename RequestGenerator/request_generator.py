@@ -22,7 +22,6 @@ def run_apache_request(user, request, service, post_file, results_dir):
               'mem_data_plane_by_proxy_file':f"{results_dir}/mem_data_plane_by_proxy_{user}_{request}_{service}", 
               'grouped_mem_file':f"{results_dir}/grouped_mem_file_{user}_{request}_{service}",
               'smts_only_cpu_file':f"{results_dir}/smts_only_cpu_file_{user}_{request}_{service}",
-              'grouped_cpu_percentage_file':f"{results_dir}/grouped_cpu_percentage_file_{user}_{request}_{service}",
             }
     log_files(files)
     start = time.time()
@@ -117,27 +116,7 @@ def gather_resource_metrics(start, files, service):
     #Monitoring Systems
     param_cpu_monitoring_apps = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(cadvisor|monitoring)"}}[{t}s])) / sum (machine_cpu_cores)) * {len_t}'
     resp_cpu_monitoring_apps = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_monitoring_apps})
-
-    #Collect CPU Usage from Cadvisor percentages
-    # Data Plane
-    param_smt_data_cpu_percentage_usage = f'(sum(rate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"((linkerd|istio)-proxy)|consul-dataplane"}}[{t}s]))/ sum (machine_cpu_cores))'
-    resp_smt_data_cpu_percentage_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_data_cpu_percentage_usage})
-    # Control Plane
-    param_smt_control_cpu_percentage_usage = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system|consul)"}}[{t}s])) / sum (machine_cpu_cores))'
-    resp_smt_control_cpu_percentage_usage = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_smt_control_cpu_percentage_usage})
-    #MicroCounter
-    param_cpu_percentage_counter_app = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"micro-counter"}}[{t}s])) / sum (machine_cpu_cores))'
-    resp_cpu_percentage_counter_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_percentage_counter_app})
-    #RequestGenerator
-    param_cpu_percentage_req_gen_app = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"request-generator"}}[{t}s])) / sum (machine_cpu_cores))'
-    resp_cpu_percentage_req_gen_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_percentage_req_gen_app})
-    #BenchmarkController
-    param_cpu_percentage_benchmark_controller_app = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_container_name=~"benchmark-controller"}}[{t}s])) / sum (machine_cpu_cores))'
-    resp_cpu_percentage_benchmark_controller_app = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_percentage_benchmark_controller_app})
-    #Monitoring Systems
-    param_cpu_percentage_monitoring_apps = f'(sum(rate (container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_namespace=~"(cadvisor|monitoring)"}}[{t}s])) / sum (machine_cpu_cores))'
-    resp_cpu_percentage_monitoring_apps = requests_lib.post(prometheus_query_url, headers = {'Content-Type': 'application/x-www-form-urlencoded'}, data = {'query': param_cpu_percentage_monitoring_apps})
-
+    
     #Collect Memory from Cadvisor
     # Control Plane
     param_mem_control_tot = f'sum(avg(avg_over_time(container_memory_usage_bytes{{container_label_io_kubernetes_pod_namespace=~"(linkerd|istio-system|consul)"}}[{max(prom_scrape, int(time.time() - start))}s])) by (container_label_io_kubernetes_pod_name, container_label_io_kubernetes_container_name))'
@@ -196,21 +175,6 @@ def gather_resource_metrics(start, files, service):
         record_single_value_metric(resp_smt_control_cpu_usage, files['grouped_cpu_file'], "Control Plane", "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
         record_single_value_metric(resp_smt_control_cpu_usage, files['smts_only_cpu_file'], "Control Plane", "Recorded Control Plane CPU Usage in exclusively SMT Usage File.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
     
-# CPU Percentage Collection
-    if resp_cpu_percentage_counter_app.status_code == 200:
-        record_single_value_metric(resp_cpu_counter_app, files['grouped_cpu_percentage_file'], "Micro-Counter", "Recorded MicroCounter Application CPU Usage.", f"Scraping for Micro Counter CPU Usage over the last {t} seconds was blank.")
-    if resp_cpu_percentage_req_gen_app.status_code == 200:
-        record_single_value_metric(resp_cpu_req_gen_app, files['grouped_cpu_percentage_file'], "Request Generator", "Recorded Request Generator Application CPU Usage.", f"Scraping for Request Generator CPU Usage over the last {t} seconds was blank.")
-    if resp_cpu_percentage_benchmark_controller_app.status_code == 200:
-        record_single_value_metric(resp_cpu_benchmark_controller_app, files['grouped_cpu_percentage_file'], "Benchmark Controller", "Recorded Benchmark Controller Application CPU Usage.", f"Scraping for Benchmark Controller CPU Usage over the last {t} seconds was blank.")
-    if resp_cpu_percentage_monitoring_apps.status_code == 200:
-        record_single_value_metric(resp_cpu_monitoring_apps, files['grouped_cpu_percentage_file'], "Monitoring", "Recorded Monitoring Apps CPU Usage.", f"Scraping for Monitoring Apps CPU Usage over the last {t} seconds was blank.")
-    if resp_smt_data_cpu_percentage_usage.status_code == 200:
-        record_single_value_metric(resp_smt_data_cpu_usage, files['grouped_cpu_percentage_file'], "Data Plane", "Recorded Data Plane CPU Usage.", f"Scraping for Data Plane CPU Usage over the last {t} seconds was blank.")
-    if resp_smt_control_cpu_percentage_usage.status_code == 200:
-        record_single_value_metric(resp_smt_control_cpu_percentage_usage, files['grouped_cpu_percentage_file'], "Control Plane", "Recorded Control Plane CPU Usage.", f"Scraping for Control Plane CPU Usage over the last {t} seconds was blank.")
-    
-
 
     # Memory Collection
     if resp_mem_counter_app.status_code == 200:
