@@ -531,3 +531,76 @@ It was my birthday
 ## 5 March 2023
 * * 1 hour * Reviewed 10RPU run and generated graphs, some CPU values are very small, perhaps split into separate plots?
 * * 0.5 hours * Store Data and Control Plane CPU in individual file for easier separate plotting
+* * 2 hours * Debugged issues with service meshes not uninstalling if pods are still running
+
+## 6 March 2023
+* * 0.5 hour * Meeting with Yehia, discussed memory problems with free, available, etc
+* * 2 hours * Generated Box Plots
+
+## 7 March 2023
+* * 1 hour * Debugging Consul
+* * 2 hours * Split the counter into two separate sets, Counter A and Counter B
+* * 1 hour * Consul now runs but it is very very slow and crashes the server
+* * 2 hours * Created separate graph processing for Consul as results vary too much from the other meshes
+
+## 8 March 2023
+* * 0.5 hour * Meeting with Yehia, discussed graphs 
+* * 1 hours * Debugged issues with Prometheus not running
+* * 1 hours * Debugged issues with runs being ignored
+* * 1 hours * Minor graph setting editing
+* * 0.5 hours * Did some complete runs and collected results with different RPUs
+
+## 9 March 2023
+* * 1 hours * Updated graphs colour scheme and did a run with 10 RPUs
+
+## 10 March 2023
+* * 3 hours * Diss writting
+* * 1 hour * Yehia and me submitted paper to EuroSys!!
+
+## 11 March 2023
+* * 3 hours * Diss writting
+
+## 12 March 2023
+* * 3 hours * Diss writting
+
+## 13 March 2023
+* * 0.5 hours * Meeting with Yehia, discussed dissertation writing progress 
+* * 3 hours * Diss writting
+
+## 14 March 2023
+* * 3 hours * Diss writting
+
+## 15 March 2023
+* * 3 hours * Diss writting
+
+## 16 March 2023
+* * 3 hours * Diss writting
+
+## 17 March 2023
+* * 3 hours * Diss writting
+
+## 18 March 2023
+* * 2 hours * Finished basic dissertation template, now need to debug Consul to expand on its results 
+* * 2 hours * Executed first succesfull run of everything automated! All SMTs! And generated results
+
+## 21 March 2023
+* * 2 hours * Reduced Consul values so it runs, unfortunately Prometheus still crashes
+* * 2 hours * Tried debugging Consul to learn more about its limitations
+
+## 22 March 2023
+* * 2 hours * Reduced Scraping rates so Prometheus runs better
+* * 2 hours * Updated Consul graphs
+
+## 27 March 2023
+* * 3 hours * Tried exploring other areas of Consul, found nothing worth noting
+
+## 29 March 2023
+* * 1 hour * Final meeting with Yehia, returned lab equipment, got feedback
+* * 3 hours * Recorded the diss presentation
+
+## 30 March 2023
+* * 3 hours * Diss writting based on feedback
+
+## 31 March 2023
+* * 2 hours * Diss writting based on feedback
+* * 4 hours * Updating project layout based on submission requirements (Please next time include these details on the L5 placement moodle as well, I thought I was done this morning)

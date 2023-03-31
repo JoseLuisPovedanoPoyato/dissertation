@@ -1,0 +1,5 @@
+16th meeting with Supervisor
+Updates: Collect memory and CPU, however CPU recordings look weird.
+Downscaled cluster and it seems to work better now, less crashes.
+
+Notes: Investigate issues with CPU recordings

@@ -1,0 +1,6 @@
+13th meeting with Supervisor
+Updates: Istio and Linkerd work, however Consul gives many problems. It required a major architecture change, where the request generator was split into a benchmark controller and request generator as unmeshed pods could not communicate with meshed pods.
+What we can do now is mesh both technologies for Consul and only the request generator for Istio and Linkerd. To make sure this does not affect results need to compare other options
+
+
+Notes: Try running Linkerd and Istio when everything is meshed and compare to see if there are any major differences

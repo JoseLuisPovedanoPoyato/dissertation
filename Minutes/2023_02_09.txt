@@ -1,0 +1,8 @@
+15th meeting with Supervisor
+Updates: Currently the benchmark crashes the server very frequently, looking at methods to solve this.
+Currently trying to downgrade the deployment to a lower scale.
+
+Created multiple graphs, some of the data in them is weird.
+
+
+Notes: Rerun the experiment to check the latency and keep adjusting the experiment scale

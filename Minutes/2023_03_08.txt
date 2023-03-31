@@ -1,0 +1,4 @@
+20th meeting with Supervisor
+Updates: Created new graphs!
+
+Notes: Went over graphs, they seem correct and the data makes sense. There are clear patterns and we can point out the responsible parties for increased overhead and explain why. It is now its time to write.

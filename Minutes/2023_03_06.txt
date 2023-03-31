@@ -1,0 +1,6 @@
+19th meeting with Supervisor
+Updates: Debugged problems with memory management, turns out there's multiple types which where causing issues
+Debugged problems with Mem and CPU, Linux cgroups where leading to duplicated measurements with cadvisor compared to NodeExporter
+
+Notes: Problem seems solved, now focus on graphing results
+Went over graph templates, i.e. BoxPlot, ScatterPlot, Grouped Bar Chart

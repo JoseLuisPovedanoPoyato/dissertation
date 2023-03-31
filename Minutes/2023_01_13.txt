@@ -1,0 +1,4 @@
+12th meeting with Supervisor
+Updates: Latency is now succesfully recorded, struggling to install SMTs and collect resources.
+
+Notes: Focus on the SMTs, handle everything one problem at a time

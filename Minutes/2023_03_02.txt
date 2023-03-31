@@ -1,0 +1,5 @@
+18th meeting with Supervisor
+Updates: Cadvisor queries dynamically leading to issues, and doesn't give me an accurate measurement per proxy instead gives average
+Need to downgrade our scale to increase Cadvisor scraping rate.
+
+Notes: We can use a scatterplot to plot the memory collected from cadvisor

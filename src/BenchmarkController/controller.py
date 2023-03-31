@@ -5,10 +5,11 @@ import requests
 import pathlib
 
 ### Default Values for unspecified benchmark runs ###
-# We simulate 1, 5, 10, (and maybe 100 and 1000) users sending simultaneous requests
-# Each user will try to send 1, 2, 4, 8 and 16 requests each
+# We simulate different users sending simultaneous requests
+# We simulate different average requests per user
+# We simulate different numbers of microservices
 CONCURRENT_USERS=[100, 200]
-REQUESTS_PER_USER = [3] #2, 4, 8, 16
+REQUESTS_PER_USER = [3, 5, 10]
 SERVICES_PER_REQ = [10, 20, 40]
 
 REQUEST_GENERATOR_URL = "http://request-generator-service/generate_load"

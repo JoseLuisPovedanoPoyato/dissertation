@@ -1,11 +1,23 @@
 # Readme
 
-Put a brief description of your code here. This should at least describe the file structure.
+This application is a benchmark that simulates microservice applications of different scales communicating with each other.
+To help visualise this an architecture diagram has been included in this directory.
+
+The benchmark allows us to define applications with different numbers of simultaneous users, requests per user and microservices. The benchmark then deploys the application, submits a load of the established size and records the latency of the system and its resource utilisation.
+
+This is how the application works:
+* `BenchmarkController/` starts the benchmark, determines its parameters (users, requests per user and microservices) and at the end of the run stores its results in a zip file.
+* `RequestGenerator/` on BenchmarkController's signal it starts sending loads of different sizes to the Counter applications, recording the response latency and resource utilisation.
+* `MicroCounterA/` and `MicroCounterB/` send requests to each other according to the counter value defined in the request from the RequestGenerator. This way we can simulate multiple different microservices communicating with each other.
+* `PrometheusService/` this part of the application records resource utilisation using Prometheus, Node Exporter and Cadvisor. The request generator will pull usage metrics from here.
+
+For our experiment we need to test applications of the same scale when meshed with different service meshes. Therefore we created a pipeline that does this. 
+* `Jobs/run_benchmarks.sh` and `Jobs/run_benchmarks_consul.sh` will deploy the different microservices above, mesh them with a specific mesh and instruct the BenchmarkController to run the benchmark, downloading the results from the cluster at the end.
+
+The `Jobs/` directory also includes different useful scripts such as `create_docker_images.sh` to containerise all the microservices automatically.
+
 
 ## Build instructions
-
-**You must** include the instructions necessary to build and deploy this project successfully. If appropriate, also include 
-instructions to run automated tests. 
 
 ### Requirements
 
@@ -21,6 +33,7 @@ Required Equipment:
 * Consul CLI ()
 
 ### Build steps
+This section assumes all the equipment stated above has succesfully been set up and installed.
 
 To build the Software you first need to ensure that docker is running:
 `sudo systemctl start docker`
@@ -35,8 +48,9 @@ Then you need to navigate to the Jobs folder where our setup scripts are
 Here you must create the docker images
 `sudo bash create_docker_images.sh/`
 
-Finally you can run the benchmark using the following
-`bash run_benchmark_dup_services.sh/`
+Now the application is ready and you can run the benchmarks
+* To run the Kubernetes, Linkerd and Istio benchmark: `bash run_benchmark.sh/`
+* To run the Consul, Kubernetes, Linkerd and Istio benchmark: `bash run_benchmarks_consul.sh/`
 
 ### Test steps
 
@@ -44,15 +58,4 @@ To verify that the project is working as intended you need to execute the benchm
 `cd Jobs/`
 `bash run_benchmarks.sh/`
 
-The benchmark script will first 
-* Deploy the prometheus monitoring system to Kubernetes
-* Deploy the Benchmark Controller
-* For Istio, Linkerd and Kubernetes it will:
-    * Install the mesh into your Kubernetes cluster (if applicable) (Using the CLIs listed in Required Equipment)
-    * Deploy the request generator
-    * Deploy the Microcounter-A and MicroCounter-B
-    * Then it will check on the health of the system and ensure all services are running
-    * It will ssh into the benchmark controller and start a run
-    * At this point you will see a curl request, this means that the system is working
-    * After the response is received the cluster will delete the Counter, the request generator and uninstall the mesh(if applicable) and move on to the next mesh
-* At the end of the run the system will download a zip folder for Kubernetes and each mesh, specifying the date and time of the run and containing its results `cd results/; ls`
+The benchmark script should execute and download the results to a folder `/src/Jobs/results`

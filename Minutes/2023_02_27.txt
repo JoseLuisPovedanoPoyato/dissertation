@@ -1,0 +1,4 @@
+17th meeting with Supervisor
+Updates: Node Exporter struggles when measuring CPU, some measurements in system look weird because pods keep crashing and benchmark runs with the system not fully ready.
+
+Notes: Change the way resources are allocated, explore other options to Node Exporter.

@@ -1,0 +1,8 @@
+14th meeting with Supervisor
+Updates: No major differences found when meshing Benchmark Controller and not meshing it.
+Implementing resource collection, currently Prometheus is querying places for metrics but don't know how to expose the correct metrics or which exposing tech I should use
+There is cadvisor, node exporter and metrics server.
+
+Notes: Try the different resource technologies and pick one.
+
+We went over the different ways to display the data once collected. CDFs for latency could be a good idea.

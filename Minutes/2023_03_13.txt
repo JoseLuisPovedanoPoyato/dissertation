@@ -1,0 +1,5 @@
+21st meeting with Supervisor
+Updates: Now I generate full set of graphs and currently writing dissertation.
+
+Notes: Get first draft in by the 20th, second draft in by the 27th. Submission is on the 1st.
+If there is enough time further explore Consul's limitations
