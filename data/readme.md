@@ -1,26 +1,31 @@
-## Data
-Keep your data (e.g. from evaluations here)
+# Data Management
 
+## How to store data after a run
+This Benchmark was originally created to run in 2 different devices:
+ * A server that would execute the benchmarks.
+ * The student's laptop that would process the results.
 
-* If you involved human subjects in any form, you will require ethical permission.
-    * Keep records of all items related to ethics in `data/ethics`. There are templates for scripts, guidance provided.
-    * **You must have scanned PDFs of signed checklists in this folder**, or PDFs of ethics confirmations from other sources
-    * Ensure you remain GDPR compliant. In general:
-        * Never collect personally identifiable information if at all possible. 
-        * Pseudonymise identifiers for subjects. 
-        * Use coarse demographic values unless you need specific information (for example, if you need age ranges, collect ranges, not specific ages)
-        * Ensure you have explicit consent for the storage and use of data from human subjects
-        * DO NOT STORE PERSONALLY IDENTIFIABLE INFORMATION ON REMOTE SERVERS (no Dropbox, Github, etc.)
+To keep the records of the results please store them `data/raw`.
+To process the data please copy it to `data/processed`.
 
-* Keep a written description of the data, what is contained, and how it was captured in `data/readme.md`
-* Record all raw data as an immutable store. **Never modify captured data.** 
-    * Keep this under `data/raw`
-    * This could be logs, questionnaire responses, computation results
+## Raw Data Results
+Results from runs were stored in different folders in `data/raw`.
 
-* Write scripts to produced processed data from these (e.g. tidy dataframes, excel sheets, csv files, HDF5 files, sqlite databases)
-* Write scripts that process these into results, visualisations, tables that you include in your project.
-* If you use Jupyter/RStudio notebooks, place these in `data/notebooks` and name them carefully (not "Untitled1", "Untitled2").
+Depending on the version of the benchmark used please navigate to `data/raw/results` or `data/raw/results_consul` as appropriate.
+After you complete a run please create a new folder and store the data here.
 
-* You may need to remove the `data/` folder from version control if the data size is too large or you are bound by confidentiality.
-* If you do so **make sure you have good backups**
+Please note that some of the data collected is antiquated and may not reflect current results due to refinements to the architecture. The most recent runs are the most accurate.
 
+## Processed Data Results
+To process our results please navigate to `data/processed`.
+`data/processed/create-graphs` is designed to analyse executions without Consul, its results are stored in `data/processed/graphs`.
+`data/processed/create-graphs-consul` is designed to analyse executions that included Consul, its results are stored in `data/processed/graphs-consul`.
+
+To generate the graphs please overwrite the linkerd.zip, istio.zip, consul.zip and kubernetes.zip in each directory `create-graphs-consul`/`create-graphs` as appropriate.
+
+Then run `bash run_everything.sh`
+
+This will create all the graphs in a folder in `data/processed/graphs/run_{number}` or `data/processed/graphs-consul/run_{number}`.
+
+## Changing the graphs
+To change the graphs that are generated please open `generate_gnus.sh`, `smt_boxplots.py` and `cpu_stacked_bar_chart.py` and change the number of requests, simultaneous users and microservices there.
