@@ -119,5 +119,8 @@ def gen_memory_graph(service, request):
 
 for service in SERVICES:
     for req in REQUESTS:
-        gen_latency_graph(service, req)
-        gen_memory_graph(service, req)
+        try:
+            gen_latency_graph(service, req)
+            gen_memory_graph(service, req)
+        except:
+            pass
