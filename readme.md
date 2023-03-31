@@ -6,7 +6,11 @@
 * Supervisor: Yehia Elkhatib
 * Version Control: https://github.com/JoseLuisPovedanoPoyato/dissertation
 
-Here's an overview of the structure as it stands:
+This application is a benchmark that will compare the performance and overhead of a micro-service application when meshed with different Service Mesh Technologies.
+This is a novel approach at comparing Service Mesh Technologies as it assess the performance and overhead of the application at different scales.
+This lets us assess how well SMTs scale.
+
+Here's an overview of the code structure:
 
 * `timelog.md` The time log for the project.
 * `results/` Results collected when executing the project

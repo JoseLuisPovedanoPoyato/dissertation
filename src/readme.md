@@ -62,8 +62,8 @@ To verify that the project is working as intended you need to execute the benchm
 
 In `src/Jobs/` run `bash run_benchmarks.sh/` OR `bash run_benchmarks_consul.sh/`
 
-The benchmark script should execute and download the results to a folder `/src/Jobs/results`.
-To analyse those results please copy them and refer to the `readme.md` in `\data\`.
+The benchmark script should execute and download the results from the benchmark controller to the folder `/src/Jobs/results`.
+To analyse those results please copy them and refer to the `readme.md` in `../results/`.
 
 To check on the health of the benchmark as it runs you can check 
 A) That the pods are running `kubectl get pods`
