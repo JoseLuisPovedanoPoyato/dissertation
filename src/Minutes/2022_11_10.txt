@@ -1,0 +1,7 @@
+6th meeting with Supervisor
+Updates: Created experiment proposal and installed Istio Control Plane.
+ 
+Notes: 
+Experiment is good but consider alternative technologies - Apache AB is a good option to send multiple requests and stress test without threading
+In cases like Istio, when there are multiple versions of the SMT explain why did you pick that one
+Start thinking about status report, due halfway through December

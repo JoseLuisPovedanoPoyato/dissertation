@@ -1,5 +1,0 @@
-7th meeting with Supervisor
-Updates: Apache Ab is better than thread implementation. Do not have any other progress
-
-Notes: 
-Progress is not linear, its understandable that sometimes we don't get done as much as we would like to

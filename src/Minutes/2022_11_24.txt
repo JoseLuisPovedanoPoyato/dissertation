@@ -1,0 +1,7 @@
+8th meeting with Supervisor
+Updates: Status Report Draft, started working on setting up experiment in bare kubernetes
+
+Notes: 
+Setting up experiment in bare kubernetes might delay SMT implementation right now, but it will save time in the long run
+Lets aim to have experiment results ready by the end of January/beginning of February
+Next week's meeting delayed to Friday.

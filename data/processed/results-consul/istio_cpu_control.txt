@@ -1,0 +1,3 @@
+Consul,0
+Istio,0.11596954897275802
+Linkerd,0

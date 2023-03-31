@@ -1,0 +1,23 @@
+Dissertation Objectives:
+
+*Objectives should be separated from methodology, objectives state your goals for the experiment, not how you are planning on achieving them*
+
+- Achieve an understanding of the similarities and differences between SMTs
+- Effectively compare the differences in performance and resource usage between SMTs
+- Provide a benchmark to compare performance between SMTs (Would this be methodology?)
+
+
+
+=================================================================================================================================================
+These were the original objectives, however they include methodology, so re-wrote them above
+My objective for this dissertation is to create a benchmark that can be used effectively to test latency, resource usage of different SMTs.
+To build on existing research the benchmark should 
+	- Send a large number of requests to the server as kinvolk did to simulate the intensive usage websites have
+	- Allow for multiple users (Threads? Async run wrk2?) as Elastisys did to send request so SMTs receive multiple, simultaneous requests (Not just multiple requests)
+	- Our simulate systems with many microservices, benchmark should allow devs to choose how many microservices they want the benchmark to communicate between - I think this is new and no one does it
+
+On the theoretical side I want to achieve a 'substantial' understanding of how each SMT works and their difference
+
+The dissertation should introduce SMTs and what they are. Then provide a quick overview on how each works. (Include a feature comparison? - Most research recommends against this as they are rapidly growing and this becomes outdated very quickly) (Substantial Literature Review)
+Then it should move on to explain how we designed our benchmark and why. We run the benchmark with different number of requests, users and microservices. (EXPERIMENT)
+We explore results to analyse which SMT performs better. 

@@ -1,7 +1,0 @@
-4th meeting with Supervisor
-Updates: Created Microcounter which locally loops back to itself, sender and receiver services communicate to each other on bare kubernetes through kube's default DNS
-Created objectives draft and tried using Istio locally, having compatibility issues with Istio running on my windows computer.
-
-Notes: 
-New focus is to get Sender and Receiver working with the SMT. Try getting it working on a VM of Ubuntu.
-Yehia will try to provide me with server for project.

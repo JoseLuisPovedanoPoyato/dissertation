@@ -1,0 +1,6 @@
+5th meeting with Supervisor
+Updates: VM with Ubuntu on local computer had issues. Instead moved on to Yehia's Server. There were some issues with requirements,
+however receiver and sender are now up to date with local progress. Updated objectives to abstract the methodology from them.
+
+Notes: Start thinking about experiment, what do we want to measure and how?
+How is this novel? How is this different from previous literature?

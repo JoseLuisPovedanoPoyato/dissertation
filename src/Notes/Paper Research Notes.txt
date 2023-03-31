@@ -1,0 +1,43 @@
+https://ieeexplore.ieee.org/abstract/document/8705911
+What it is - “Service Mesh, a promising approach to mitigate this situation by introducing a dedicated infrastructure layer over microservices without imposing modification on the service implementations” 
+How it works - “A service mesh infrastructure logically consists of a data plane and a control plane.” 
+“The data plane is composed of a set of intelligent proxies, which are typically deployed as sidecars [20]. These proxies mediate and control all network communication between microservices. Having visibility to each network packet, the main responsibilities of the data plane include service discovery, health checking, routing, load balancing, authentication/authorization, and observability.”
+“The control plane manages and configures the proxies for traffic routing. Additionally, the control plane configures corresponding components to enforce policies and collect telemetry. The control plane works as the brain of a service mesh. It does not require the visibility into the network traffic”
+Common Features – “Service Discovery, Load Balancing, Fault Tolerance, Traffic Monitoring, Circuit breaking, Authentication and Access Control”
+Open Source Mesh – “Istio and Linkerd”
+
+
+https://books.google.co.uk/books?hl=en&lr=&id=Mg3aDwAAQBAJ&oi=fnd&pg=PP1&dq=istio+vs+linkerd+vs+consul&ots=dMz0eq_cog&sig=zW1vApLDj_LCPQXEmtOHJOL2hac&redir_esc=y#v=onepage&q&f=false
+This is a book that explores the features of Istio, Consul and Linkerd at 2020. It doesn't seem to do an experiment to test the efficiency of each.
+Furthermore doesn't have many references to where the feature list was obtained from. Could be from running experiments or could be from documentation.
+It has multiple chapters on each tech.
+
+Pages 50-51 have table comparing features accross technologies. These features are unreferenced and book does not explain where they got features from. 
+Recommended reading section contains a broad list of articles, blogs, workshops and courses however there does not seem to be a link to any scientific study comparing features.
+Book frequently makes a point of saying that SMTs are undergoing an accelerated growth, so any feature study might be outdated.
+
+Basic Summary:
+Istio – Uses Envoy proxy, is very rich in features has lots of content
+	- Section 4 is composed of 7 chapters on Istio, some are tutorial workshops on how to set it up, others go in depth into how it functions
+		- Chapter 7 seems to cover architecture in detail
+	- Preview only has 111 pages! Check Library - Ask Yehia where I can get book from?
+
+Linkerd – Focuses on performance and simplicity, limited set of features compared to Istio but uses its own homemade proxy instead of Envoy, makes it faster
+
+Consul – It is a tool pre-existing Kubernetes that has adopted envoy proxies to function in kubernetes.
+	 Book likes Consuls Distributed Control Plane, says this is useful because control planes can be created to rule specific domains improving service performance https://www.researchgate.net/figure/Distributed-control-plane-architecture-implemented-Unlike-the-distributed-control-plane_fig3_339889233
+
+Has way more content but was written in 2020 may be outdated, recommend get content from project’s docs
+
+
+
+
+https://link-springer-com.ezproxy.lib.gla.ac.uk/book/10.1007/978-1-4842-5458-5
+Complete guide to deploying and getting Istio running, seems very interesting, since I'm currently struggling accessing kubernetes services probs worth a read.
+They use Minikube while I have been relying on Kubernetes In Docker. Minikube is less powerful than KinD, however most guides rely on it.
+Perhaps adopting a less potent version might be better for realistic experiments as it is the most frequently used?
+
+
+
+https://dl.acm.org/doi/pdf/10.5555/3291291.3291339
+On the popularity of Service Meshes ACM is teaching workshop on how to use Istio
