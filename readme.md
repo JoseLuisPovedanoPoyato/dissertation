@@ -1,10 +1,10 @@
 # Dissertation Project
 
-Student: Jose Luis Povedano Poyato (2403203P)
-Course: COMPSCI 5082P - Level 5 MSci Software Engineering with Work Placement - 40 credits
-Project: A Comparison of Service Mesh Technologies 
-Supervisor: Yehia Elkhatib
-Version Control: https://github.com/JoseLuisPovedanoPoyato/dissertation
+* Student: Jose Luis Povedano Poyato (2403203P)
+* Course: COMPSCI 5082P - Level 5 MSci Software Engineering with Work Placement - 40 credits
+* Project: A Comparison of Service Mesh Technologies 
+* Supervisor: Yehia Elkhatib
+* Version Control: https://github.com/JoseLuisPovedanoPoyato/dissertation
 
 Here's an overview of the structure as it stands:
 
