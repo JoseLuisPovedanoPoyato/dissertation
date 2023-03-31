@@ -1,6 +1,6 @@
 # Timelog
 
-* PROJECT NAME
+* A Comparison of Service Mesh Technologies
 * Jose Luis Povedano Poyato
 * 2403203P
 * Yehia Elkhatib
