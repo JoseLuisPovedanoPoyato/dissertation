@@ -60,7 +60,8 @@ Now the application is ready and you can run the benchmarks
 
 To verify that the project is working as intended you need to execute the benchmark
 
-In `src/Jobs/` run `bash run_benchmarks.sh/` OR `bash run_benchmarks_consul.sh/`
+In `src/Jobs/` run `bash run_benchmarks.sh/` OR `bash run_benchmarks_consul.sh/`. We recommend using `bash run_benchmarks.sh` as it is faster.
+Please refer to the `manual.md` for further guidance on running the application.
 
 The benchmark script should execute and download the results from the benchmark controller to the folder `/src/Jobs/results`.
 To analyse those results please copy them and refer to the `readme.md` in `../results/`.
